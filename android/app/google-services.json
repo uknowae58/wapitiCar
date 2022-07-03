@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "812204791100",
+    "firebase_url": "https://wapiti-car-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "wapiti-car",
+    "storage_bucket": "wapiti-car.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812204791100:android:6f054d760df0b0ea5c3a39",
+        "android_client_info": {
+          "package_name": "com.wapiticar.ios"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812204791100-otnhkbc2iv5jo76p2qiispjbp9tivkiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wapiticar.ios",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "812204791100-0e60bmei7ptckr93og6u8jc6mh0pge2l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_tv-W66W-ignVYSZbJs56Ny2jLgiJeu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812204791100-0e60bmei7ptckr93og6u8jc6mh0pge2l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "812204791100-1fk8tplann16s9crs8fivh3ap28j1ihk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wapiticar.ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812204791100:android:600045dcded7626d5c3a39",
+        "android_client_info": {
+          "package_name": "com.wapiticaradmin.ios"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812204791100-fd0tmoa863vphd1bc2rtqq1mnt5n7bo4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wapiticaradmin.ios",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "812204791100-0e60bmei7ptckr93og6u8jc6mh0pge2l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_tv-W66W-ignVYSZbJs56Ny2jLgiJeu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812204791100-0e60bmei7ptckr93og6u8jc6mh0pge2l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "812204791100-1fk8tplann16s9crs8fivh3ap28j1ihk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wapiticar.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
