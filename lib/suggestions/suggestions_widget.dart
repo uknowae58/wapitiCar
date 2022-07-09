@@ -36,22 +36,22 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).theFourth,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         automaticallyImplyLeading: false,
         title: FFButtonWidget(
           onPressed: () async {
-            logFirebaseEvent('SUGGESTIONS_PAGE_ANNULER_BTN_ON_TAP');
+            logFirebaseEvent('SUGGESTIONS_PAGE_CANCEL_BTN_ON_TAP');
             logFirebaseEvent('Button_Navigate-Back');
             context.pop();
           },
-          text: 'Annuler',
+          text: 'Cancel',
           options: FFButtonOptions(
             width: 89,
             height: 44,
             color: FlutterFlowTheme.of(context).white,
             textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                   fontFamily: 'San fransisco',
-                  color: FlutterFlowTheme.of(context).primaryColor,
+                  color: FlutterFlowTheme.of(context).secondaryText,
                   fontSize: 12,
                   useGoogleFonts: false,
                 ),
@@ -60,7 +60,6 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
               color: Colors.transparent,
               width: 1,
             ),
-            borderRadius: 12,
           ),
         ),
         actions: [
@@ -74,7 +73,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                 final suggestionsCreateData = createSuggestionsRecordData(
                   client: currentUserReference,
                   suggestions: textController.text,
-                  image: uploadedFileUrl,
+                  image: '',
                 );
                 await SuggestionsRecord.collection
                     .doc()
@@ -94,7 +93,6 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                   color: Colors.transparent,
                   width: 1,
                 ),
-                borderRadius: 50,
               ),
             ),
           ),
@@ -102,7 +100,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).theFourth,
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -208,7 +206,6 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                     style: FlutterFlowTheme.of(context).subtitle1.override(
                           fontFamily: 'San fransisco',
                           color: FlutterFlowTheme.of(context).tertiaryColor,
-                          fontSize: 21,
                           useGoogleFonts: false,
                         ),
                     textAlign: TextAlign.start,
@@ -220,12 +217,9 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  valueOrDefault<String>(
-                    uploadedFileUrl,
-                    'https://images.unsplash.com/photo-1654569382810-49bd3bdf611d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMTh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-                  ),
+                  uploadedFileUrl,
                   width: double.infinity,
                   height: 170,
                   fit: BoxFit.cover,
@@ -276,10 +270,9 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                               logFirebaseEvent(
                                   'SUGGESTIONS_add_photo_alternate_outlined');
                               logFirebaseEvent('IconButton_Upload-Photo-Video');
-                              final selectedMedia =
-                                  await selectMediaWithSourceBottomSheet(
-                                context: context,
-                                allowPhoto: true,
+                              final selectedMedia = await selectMedia(
+                                mediaSource: MediaSource.photoGallery,
+                                multiImage: false,
                               );
                               if (selectedMedia != null &&
                                   selectedMedia.every((m) => validateFileFormat(

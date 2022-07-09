@@ -225,7 +225,7 @@ class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 40,
+                                borderRadius: BorderRadius.circular(40),
                               ),
                             ),
                             FFButtonWidget(
@@ -253,7 +253,7 @@ class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 40,
+                                borderRadius: BorderRadius.circular(40),
                               ),
                             ),
                           ],

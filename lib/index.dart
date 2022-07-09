@@ -26,5 +26,5 @@ export 'nodispo/nodispo_widget.dart' show NodispoWidget;
 export 'all_chat_page/all_chat_page_widget.dart' show AllChatPageWidget;
 export 'services/services_widget.dart' show ServicesWidget;
 export 'favoris/favoris_widget.dart' show FavorisWidget;
-export 'suggestions/suggestions_widget.dart' show SuggestionsWidget;
 export 'change_profil/change_profil_widget.dart' show ChangeProfilWidget;
+export 'suggestions/suggestions_widget.dart' show SuggestionsWidget;

@@ -252,14 +252,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => FavorisWidget(),
             ),
             FFRoute(
-              name: 'Suggestions',
-              path: 'suggestions',
-              builder: (context, params) => SuggestionsWidget(),
-            ),
-            FFRoute(
               name: 'changeProfil',
               path: 'changeProfil',
               builder: (context, params) => ChangeProfilWidget(),
+            ),
+            FFRoute(
+              name: 'Suggestions',
+              path: 'suggestions',
+              builder: (context, params) => SuggestionsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

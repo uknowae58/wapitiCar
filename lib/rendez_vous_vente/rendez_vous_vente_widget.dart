@@ -379,7 +379,7 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                   color: Colors.transparent,
                                   width: 1,
                                 ),
-                                borderRadius: 30,
+                                borderRadius: BorderRadius.circular(30),
                               ),
                             ),
                           ],
