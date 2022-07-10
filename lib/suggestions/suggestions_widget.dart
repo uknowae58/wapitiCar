@@ -86,7 +86,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                 color: FlutterFlowTheme.of(context).primaryColor,
                 textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                       fontFamily: 'San fransisco',
-                      color: Colors.white,
+                      color: Color(0xF8FFFFFF),
                       useGoogleFonts: false,
                     ),
                 borderSide: BorderSide(
