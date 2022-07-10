@@ -57,7 +57,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                 ),
             elevation: 0,
             borderSide: BorderSide(
-              color: Colors.transparent,
+              color: Color(0x00FFECEC),
               width: 1,
             ),
           ),
