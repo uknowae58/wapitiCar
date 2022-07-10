@@ -48,7 +48,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
           options: FFButtonOptions(
             width: 89,
             height: 44,
-            color: FlutterFlowTheme.of(context).white,
+            color: Color(0xFFFEFEFE),
             textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                   fontFamily: 'San fransisco',
                   color: Color(0xFF434141),
