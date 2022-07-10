@@ -36,7 +36,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: Color(0xFFFBF8F8),
         automaticallyImplyLeading: false,
         title: FFButtonWidget(
           onPressed: () async {
@@ -51,7 +51,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
             color: FlutterFlowTheme.of(context).white,
             textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                   fontFamily: 'San fransisco',
-                  color: FlutterFlowTheme.of(context).secondaryText,
+                  color: Color(0xFF434141),
                   fontSize: 12,
                   useGoogleFonts: false,
                 ),
@@ -100,7 +100,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+      backgroundColor: Color(0xFFFBF8F8),
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,

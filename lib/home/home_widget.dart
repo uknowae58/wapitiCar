@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -425,364 +426,136 @@ class _HomeWidgetState extends State<HomeWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Column(
+                Stack(
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 189, 0, 0),
+                      child: Image.asset(
+                        'assets/images/pngwing.com_(7)_(4).png',
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 1,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Text(
-                                    'Bienvenue,',
-                                    style: FlutterFlowTheme.of(context)
-                                        .title1
-                                        .override(
-                                          fontFamily: 'San fransisco',
-                                          fontSize: 26,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 21, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      AuthUserStreamWidget(
-                                        child: Container(
-                                          width: 55,
-                                          height: 55,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFEEEEEE),
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: Image.network(
-                                                currentUserPhoto,
-                                              ).image,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(21),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              width: 2,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'a propos',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'San fransisco',
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .backgroundComponents,
-                                                    useGoogleFonts: false,
-                                                  ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(2, 0, 0, 5),
-                                              child: Icon(
-                                                Icons.info_outlined,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                                size: 18,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
+                          Stack(
                             children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 3, 0, 0),
-                                child: AuthUserStreamWidget(
-                                  child: Text(
-                                    currentUserDisplayName,
-                                    style: FlutterFlowTheme.of(context)
-                                        .title2
-                                        .override(
-                                          fontFamily: 'San fransisco',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          useGoogleFonts: false,
-                                        ),
+                              ClipRect(
+                                child: ImageFiltered(
+                                  imageFilter: ImageFilter.blur(
+                                    sigmaX: 5,
+                                    sigmaY: 2,
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/df3hg_',
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 189,
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 55, 0, 0),
-                              child: Row(
+                              Column(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 0, 0),
-                                    child: Text(
-                                      'Selections',
-                                      style: FlutterFlowTheme.of(context)
-                                          .subtitle2
-                                          .override(
-                                            fontFamily: 'San fransisco',
-                                            color: Colors.black,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
-                                            useGoogleFonts: false,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 3, 0, 0),
-                                  child: Text(
-                                    'Retrouvez nos selections ',
-                                    style: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'San fransisco',
-                                          color: Color(0xAE616161),
-                                          fontSize: 12,
-                                          useGoogleFonts: false,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 8, 0, 8),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.55,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.44,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 3,
-                                      ),
-                                    ),
-                                    alignment: AlignmentDirectional(-0.9, 0),
-                                    child: Stack(
+                                        0, 21, 0, 0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: Image.asset(
-                                            'assets/images/New_Project-9.jpg',
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                1,
-                                            fit: BoxFit.cover,
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8, 0, 0, 0),
+                                          child: Text(
+                                            'Bienvenue,',
+                                            style: FlutterFlowTheme.of(context)
+                                                .title1
+                                                .override(
+                                                  fontFamily: 'San fransisco',
+                                                  fontSize: 26,
+                                                  useGoogleFonts: false,
+                                                ),
                                           ),
                                         ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 55, 0, 0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    'Berline',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'San fransisco',
-                                                          color: Colors.white,
-                                                          fontSize: 34,
-                                                          fontWeight:
-                                                              FontWeight.w800,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                8, 0, 0, 0),
-                                                    child: Icon(
-                                                      Icons.arrow_forward,
-                                                      color: Colors.white,
-                                                      size: 24,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 8, 0, 8),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.55,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.44,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 3,
-                                      ),
-                                    ),
-                                    alignment: AlignmentDirectional(-0.9, 0),
-                                    child: Stack(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: Image.asset(
-                                            'assets/images/New_Project-10.jpg',
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                1,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: AlignmentDirectional(0, 0),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 21, 0),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
+                                              AuthUserStreamWidget(
+                                                child: Container(
+                                                  width: 55,
+                                                  height: 55,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xFFEEEEEE),
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: Image.network(
+                                                        currentUserPhoto,
+                                                      ).image,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            21),
+                                                    border: Border.all(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                      width: 2,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
-                                                    .fromSTEB(8, 55, 0, 0),
+                                                    .fromSTEB(0, 8, 0, 0),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      'Suv',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyText1
-                                                          .override(
-                                                            fontFamily:
-                                                                'San fransisco',
-                                                            color: Colors.white,
-                                                            fontSize: 34,
-                                                            fontWeight:
-                                                                FontWeight.w800,
-                                                            useGoogleFonts:
-                                                                false,
-                                                          ),
+                                                      'a propos',
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'San fransisco',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .backgroundComponents,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  8, 0, 0, 0),
+                                                                  2, 0, 0, 5),
                                                       child: Icon(
-                                                        Icons.arrow_forward,
-                                                        color: Colors.white,
-                                                        size: 24,
+                                                        Icons.info_outlined,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        size: 18,
                                                       ),
                                                     ),
                                                   ],
@@ -794,154 +567,92 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       ],
                                     ),
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 8, 0, 8),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 2,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.55,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.44,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                        color: Colors.white,
-                                        width: 3,
-                                      ),
-                                    ),
-                                    alignment: AlignmentDirectional(-0.9, 0),
-                                    child: Stack(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          child: Image.asset(
-                                            'assets/images/New_Project-2.png',
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                1,
-                                            fit: BoxFit.cover,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 3, 0, 0),
+                                        child: AuthUserStreamWidget(
+                                          child: Text(
+                                            currentUserDisplayName,
+                                            style: FlutterFlowTheme.of(context)
+                                                .title2
+                                                .override(
+                                                  fontFamily: 'San fransisco',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  useGoogleFonts: false,
+                                                ),
                                           ),
                                         ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8, 55, 0, 0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    'Van',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily:
-                                                              'San fransisco',
-                                                          color: Colors.white,
-                                                          fontSize: 34,
-                                                          fontWeight:
-                                                              FontWeight.w800,
-                                                          useGoogleFonts: false,
-                                                        ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                8, 0, 0, 0),
-                                                    child: Icon(
-                                                      Icons.arrow_forward,
-                                                      color: Colors.white,
-                                                      size: 24,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ),
+                                ],
                               ),
                             ],
                           ),
-                        ),
-                      ),
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
-                            child: Row(
+                          SingleChildScrollView(
+                            child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 0, 0, 0),
-                                  child: Text(
-                                    'Astuces',
-                                    style: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'San fransisco',
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          useGoogleFonts: false,
+                                      0, 55, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Text(
+                                          'Selections',
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'San fransisco',
+                                                color: Colors.black,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                useGoogleFonts: false,
+                                              ),
                                         ),
+                                      ),
+                                    ],
                                   ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 3, 0, 0),
+                                      child: Text(
+                                        'Retrouvez nos selections ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'San fransisco',
+                                              color: Color(0xAE616161),
+                                              fontSize: 12,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 3, 0, 0),
-                                child: Text(
-                                  'Conslutez nos astuces ',
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'San fransisco',
-                                        color: Color(0xAD616161),
-                                        fontSize: 12,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -950,7 +661,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 0, 0),
+                                        8, 8, 0, 8),
                                     child: Material(
                                       color: Colors.transparent,
                                       elevation: 2,
@@ -960,10 +671,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.38,
+                                                0.55,
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.18,
+                                                0.44,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -981,7 +692,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                               child: Image.asset(
-                                                'assets/images/New_Project.png',
+                                                'assets/images/New_Project-9.jpg',
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
@@ -992,89 +703,53 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () async {
-                                                logFirebaseEvent(
-                                                    'HOME_PAGE_Column_9i79k16j_ON_TAP');
-                                                logFirebaseEvent(
-                                                    'Column_Navigate-To');
-                                                context.pushNamed(
-                                                    'potechappement');
-                                              },
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x3605163B),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(16),
-                                                        bottomRight:
-                                                            Radius.circular(16),
-                                                        topLeft:
-                                                            Radius.circular(0),
-                                                        topRight:
-                                                            Radius.circular(0),
-                                                      ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'pot dechappement',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .title2
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'San fransisco',
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(8, 55, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'Berline',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyText1
+                                                            .override(
+                                                              fontFamily:
+                                                                  'San fransisco',
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 34,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w800,
+                                                              useGoogleFonts:
+                                                                  false,
                                                             ),
-                                                          ],
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8, 0, 0, 0),
+                                                        child: Icon(
+                                                          Icons.arrow_forward,
+                                                          color: Colors.white,
+                                                          size: 24,
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -1083,7 +758,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 0, 0),
+                                        8, 8, 0, 8),
                                     child: Material(
                                       color: Colors.transparent,
                                       elevation: 2,
@@ -1093,10 +768,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       child: Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.38,
+                                                0.55,
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.18,
+                                                0.44,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -1114,7 +789,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                               child: Image.asset(
-                                                'assets/images/changerPneu.jpg',
+                                                'assets/images/New_Project-10.jpg',
                                                 width: MediaQuery.of(context)
                                                     .size
                                                     .width,
@@ -1125,229 +800,156 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () async {
-                                                logFirebaseEvent(
-                                                    'HOME_PAGE_Column_60n93hzs_ON_TAP');
-                                                logFirebaseEvent(
-                                                    'Column_Navigate-To');
-                                                context.pushNamed('pneus');
-                                              },
+                                            Align(
+                                              alignment:
+                                                  AlignmentDirectional(0, 0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.end,
+                                                    MainAxisAlignment.start,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: [
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x3605163B),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(16),
-                                                        bottomRight:
-                                                            Radius.circular(16),
-                                                        topLeft:
-                                                            Radius.circular(0),
-                                                        topRight:
-                                                            Radius.circular(0),
-                                                      ),
-                                                    ),
-                                                    child: Column(
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                8, 55, 0, 0),
+                                                    child: Row(
                                                       mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                          MainAxisSize.max,
                                                       children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'Changer son pneu',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .title2
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'San fransisco',
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        12,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    useGoogleFonts:
-                                                                        false,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 0, 0, 0),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 2,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.38,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.18,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          border: Border.all(
-                                            color: Colors.white,
-                                            width: 3,
-                                          ),
-                                        ),
-                                        alignment:
-                                            AlignmentDirectional(-0.9, 0),
-                                        child: Stack(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              child: Image.asset(
-                                                'assets/images/New_Project-5.jpg',
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    1,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () async {
-                                                logFirebaseEvent(
-                                                    'HOME_PAGE_Column_rxajd2wn_ON_TAP');
-                                                logFirebaseEvent(
-                                                    'Column_Navigate-To');
-                                                context.pushNamed('astuces');
-                                              },
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0x3505163B),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        bottomLeft:
-                                                            Radius.circular(16),
-                                                        bottomRight:
-                                                            Radius.circular(16),
-                                                        topLeft:
-                                                            Radius.circular(0),
-                                                        topRight:
-                                                            Radius.circular(0),
-                                                      ),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                              child: Text(
-                                                                '5 habitudes a éviter',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .title2
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'San fransisco',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          12,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      useGoogleFonts:
-                                                                          false,
-                                                                    ),
+                                                        Text(
+                                                          'Suv',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'San fransisco',
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 34,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w800,
+                                                                useGoogleFonts:
+                                                                    false,
                                                               ),
-                                                            ),
-                                                          ],
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(8,
+                                                                      0, 0, 0),
+                                                          child: Icon(
+                                                            Icons.arrow_forward,
+                                                            color: Colors.white,
+                                                            size: 24,
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
                                                   ),
                                                 ],
                                               ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 8, 0, 8),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      elevation: 2,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.55,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.44,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 3,
+                                          ),
+                                        ),
+                                        alignment:
+                                            AlignmentDirectional(-0.9, 0),
+                                        child: Stack(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: Image.asset(
+                                                'assets/images/New_Project-2.png',
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    1,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(8, 55, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'Van',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyText1
+                                                            .override(
+                                                              fontFamily:
+                                                                  'San fransisco',
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 34,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w800,
+                                                              useGoogleFonts:
+                                                                  false,
+                                                            ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8, 0, 0, 0),
+                                                        child: Icon(
+                                                          Icons.arrow_forward,
+                                                          color: Colors.white,
+                                                          size: 24,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -1358,10 +960,521 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                             ),
                           ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
+                                      child: Text(
+                                        'Astuces',
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'San fransisco',
+                                              color: Colors.black,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 3, 0, 0),
+                                    child: Text(
+                                      'Conslutez nos astuces ',
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'San fransisco',
+                                            color: Color(0xAD616161),
+                                            fontSize: 12,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.38,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.18,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 3,
+                                              ),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(-0.9, 0),
+                                            child: Stack(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.asset(
+                                                    'assets/images/New_Project.png',
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            1,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Column_9i79k16j_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Column_Navigate-To');
+                                                    context.pushNamed(
+                                                        'potechappement');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.05,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0x3605163B),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    16),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    16),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    0),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    0),
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  'pot dechappement',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .title2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'San fransisco',
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.38,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.18,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 3,
+                                              ),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(-0.9, 0),
+                                            child: Stack(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.asset(
+                                                    'assets/images/changerPneu.jpg',
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            1,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Column_60n93hzs_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Column_Navigate-To');
+                                                    context.pushNamed('pneus');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.05,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0x3605163B),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    16),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    16),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    0),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    0),
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  'Changer son pneu',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .title2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'San fransisco',
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.38,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.18,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 3,
+                                              ),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(-0.9, 0),
+                                            child: Stack(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.asset(
+                                                    'assets/images/New_Project-5.jpg',
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            1,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Column_rxajd2wn_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Column_Navigate-To');
+                                                    context
+                                                        .pushNamed('astuces');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.05,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0x3505163B),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    16),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    16),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    0),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    0),
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                                  child: Text(
+                                                                    '5 habitudes a éviter',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .title2
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'San fransisco',
+                                                                          color:
+                                                                              Colors.white,
+                                                                          fontSize:
+                                                                              12,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                          useGoogleFonts:
+                                                                              false,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
