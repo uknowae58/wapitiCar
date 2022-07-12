@@ -6,7 +6,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CommandesWidget extends StatefulWidget {
@@ -302,7 +301,7 @@ class _CommandesWidgetState extends State<CommandesWidget> {
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
                                                     logFirebaseEvent(
-                                                        'COMMANDES_PAGE_CONTACTER_BTN_ON_TAP');
+                                                        'COMMANDES_PAGE_MESSAGE_BTN_ON_TAP');
                                                     logFirebaseEvent(
                                                         'Button_Navigate-To');
                                                     context.pushNamed(
@@ -320,9 +319,9 @@ class _CommandesWidgetState extends State<CommandesWidget> {
                                                       },
                                                     );
                                                   },
-                                                  text: 'Contacter',
-                                                  icon: FaIcon(
-                                                    FontAwesomeIcons.phone,
+                                                  text: 'message',
+                                                  icon: Icon(
+                                                    Icons.chat,
                                                     size: 16,
                                                   ),
                                                   options: FFButtonOptions(

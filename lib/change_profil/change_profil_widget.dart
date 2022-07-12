@@ -286,6 +286,8 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                         phoneNumber: titleRoleController.text,
                       );
                       await currentUserReference.update(usersUpdateData);
+                      logFirebaseEvent('Button_Navigate-Back');
+                      context.pop();
                     },
                     text: 'Sauvegarder',
                     options: FFButtonOptions(

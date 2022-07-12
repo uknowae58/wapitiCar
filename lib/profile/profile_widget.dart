@@ -81,22 +81,24 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       12, 0, 0, 0),
-                                  child: Container(
-                                    width: 100,
-                                    height: 100,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFEEEEEE),
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: Image.network(
-                                          profileUsersRecord.photoUrl,
-                                        ).image,
-                                      ),
-                                      borderRadius: BorderRadius.circular(30),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 2,
+                                  child: AuthUserStreamWidget(
+                                    child: Container(
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFEEEEEE),
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: Image.network(
+                                            currentUserPhoto,
+                                          ).image,
+                                        ),
+                                        borderRadius: BorderRadius.circular(30),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          width: 2,
+                                        ),
                                       ),
                                     ),
                                   ),

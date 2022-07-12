@@ -8,6 +8,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key key}) : super(key: key);
@@ -39,7 +40,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           buttonSize: 60,
           icon: Icon(
             Icons.drag_handle,
-            color: Colors.black,
+            color: Color(0xFF273754),
             size: 30,
           ),
           onPressed: () async {
@@ -56,7 +57,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         ),
         actions: [],
         centerTitle: true,
-        elevation: 1,
+        elevation: 5,
       ),
       backgroundColor: FlutterFlowTheme.of(context).theFourth,
       drawer: Drawer(
@@ -66,6 +67,12 @@ class _HomeWidgetState extends State<HomeWidget> {
           height: 100,
           decoration: BoxDecoration(
             color: Colors.white,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: Image.asset(
+                'assets/images/pngwing.com_(7)_(2).png',
+              ).image,
+            ),
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -78,15 +85,24 @@ class _HomeWidgetState extends State<HomeWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
-                        child: Container(
-                          width: 55,
-                          height: 55,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.network(
-                            'https://picsum.photos/seed/223/600',
+                        child: AuthUserStreamWidget(
+                          child: Container(
+                            width: 55,
+                            height: 55,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFEEEEEE),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: Image.network(
+                                  currentUserPhoto,
+                                ).image,
+                              ),
+                              borderRadius: BorderRadius.circular(21),
+                              border: Border.all(
+                                color: Color(0xFF446193),
+                                width: 2,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -97,8 +113,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                             currentUserDisplayName,
                             style: FlutterFlowTheme.of(context).title1.override(
                                   fontFamily: 'San fransisco',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
+                                  color: Color(0xFF446193),
+                                  fontWeight: FontWeight.bold,
                                   useGoogleFonts: false,
                                 ),
                           ),
@@ -108,7 +124,41 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(70, 0, 0, 0),
+                  child: InkWell(
+                    onTap: () async {
+                      logFirebaseEvent('HOME_PAGE_Row_jjjpb5rz_ON_TAP');
+                      logFirebaseEvent('Row_Navigate-To');
+                      context.pushNamed('changeProfil');
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Modifier son profil',
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'San fransisco',
+                                    color: Color(0xFF7D99CA),
+                                    fontWeight: FontWeight.bold,
+                                    useGoogleFonts: false,
+                                  ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                          child: Icon(
+                            Icons.mode_outlined,
+                            color: Color(0xFF7D99CA),
+                            size: 24,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 34, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -119,7 +169,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'San fransisco',
-                                    color: Colors.black,
+                                    color: Color(0xE2EC615B),
+                                    fontWeight: FontWeight.bold,
                                     useGoogleFonts: false,
                                   ),
                         ),
@@ -138,16 +189,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: ListTile(
                       leading: Icon(
                         Icons.shopping_cart_outlined,
-                        color: Colors.black,
+                        color: Color(0xFF38517A),
                         size: 24,
                       ),
                       title: Text(
                         'Commandes',
                         style: FlutterFlowTheme.of(context).title3.override(
                               fontFamily: 'San fransisco',
-                              color: Colors.black,
+                              color: Color(0xFF38517A),
                               fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w600,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -167,16 +218,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: ListTile(
                       leading: Icon(
                         Icons.calendar_today_rounded,
-                        color: Colors.black,
+                        color: Color(0xFF38517A),
                         size: 21,
                       ),
                       title: Text(
                         'Rendez-vous',
                         style: FlutterFlowTheme.of(context).title3.override(
                               fontFamily: 'San fransisco',
-                              color: Colors.black,
+                              color: Color(0xFF38517A),
                               fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w600,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -216,15 +267,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                       child: ListTile(
                         leading: Icon(
                           Icons.favorite_border,
-                          color: Colors.black,
+                          color: Color(0xFF38517A),
                         ),
                         title: Text(
                           'Favoris',
                           style: FlutterFlowTheme.of(context).title3.override(
                                 fontFamily: 'San fransisco',
-                                color: Colors.black,
+                                color: Color(0xFF38517A),
                                 fontSize: 16,
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.w600,
                                 useGoogleFonts: false,
                               ),
                         ),
@@ -248,16 +299,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: ListTile(
                       leading: Icon(
                         Icons.message_outlined,
-                        color: Colors.black,
+                        color: Color(0xFF38517A),
                         size: 24,
                       ),
                       title: Text(
                         'Message',
                         style: FlutterFlowTheme.of(context).title3.override(
                               fontFamily: 'San fransisco',
-                              color: Color(0xE1000000),
+                              color: Color(0xFF38517A),
                               fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w600,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -283,7 +334,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'San fransisco',
-                                    color: Colors.black,
+                                    color: Color(0xE2EC615B),
+                                    fontWeight: FontWeight.bold,
                                     useGoogleFonts: false,
                                   ),
                         ),
@@ -302,15 +354,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: ListTile(
                       leading: Icon(
                         Icons.car_rental,
-                        color: Colors.black,
+                        color: Color(0xFF38517A),
                       ),
                       title: Text(
                         'Location',
                         style: FlutterFlowTheme.of(context).title3.override(
                               fontFamily: 'San fransisco',
-                              color: Colors.black,
+                              color: Color(0xFF38517A),
                               fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w600,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -330,15 +382,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: ListTile(
                       leading: Icon(
                         Icons.directions_car,
-                        color: Colors.black,
+                        color: Color(0xFF38517A),
                       ),
                       title: Text(
                         'Vente',
                         style: FlutterFlowTheme.of(context).title3.override(
                               fontFamily: 'San fransisco',
-                              color: Colors.black,
+                              color: Color(0xFF38517A),
                               fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w600,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -358,16 +410,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                     child: ListTile(
                       leading: FaIcon(
                         FontAwesomeIcons.solidHandshake,
-                        color: Colors.black,
+                        color: Color(0xFF38517A),
                         size: 24,
                       ),
                       title: Text(
                         'Services',
                         style: FlutterFlowTheme.of(context).title3.override(
                               fontFamily: 'San fransisco',
-                              color: Colors.black,
+                              color: Color(0xFF38517A),
                               fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w600,
                               useGoogleFonts: false,
                             ),
                       ),
@@ -386,16 +438,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                   child: ListTile(
                     leading: FaIcon(
                       FontAwesomeIcons.headset,
-                      color: Colors.black,
+                      color: Color(0xFF38517A),
                       size: 24,
                     ),
                     title: Text(
                       'Contact',
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'San fransisco',
-                            color: Colors.black,
+                            color: Color(0xFF38517A),
                             fontSize: 16,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.w600,
                             useGoogleFonts: false,
                           ),
                     ),
@@ -429,11 +481,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Stack(
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 189, 0, 0),
-                      child: Image.asset(
-                        'assets/images/pngwing.com_(7)_(4).png',
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 143, 0, 0),
+                      child: Image.network(
+                        '',
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 1,
+                        height: MediaQuery.of(context).size.height * 0.89,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -447,13 +499,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 child: ImageFiltered(
                                   imageFilter: ImageFilter.blur(
                                     sigmaX: 5,
-                                    sigmaY: 2,
+                                    sigmaY: 5,
                                   ),
-                                  child: Image.asset(
-                                    'assets/images/df3hg_',
+                                  child: Lottie.network(
+                                    'https://assets2.lottiefiles.com/packages/lf20_pygixgsz.json',
                                     width: MediaQuery.of(context).size.width,
-                                    height: 189,
-                                    fit: BoxFit.fill,
+                                    height: 167,
+                                    fit: BoxFit.cover,
+                                    animate: true,
                                   ),
                                 ),
                               ),
@@ -462,7 +515,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 21, 0, 0),
+                                        0, 55, 0, 0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -480,88 +533,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 .title1
                                                 .override(
                                                   fontFamily: 'San fransisco',
-                                                  fontSize: 26,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .theFourth,
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.w600,
                                                   useGoogleFonts: false,
                                                 ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 0, 21, 0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              AuthUserStreamWidget(
-                                                child: Container(
-                                                  width: 55,
-                                                  height: 55,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFFEEEEEE),
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: Image.network(
-                                                        currentUserPhoto,
-                                                      ).image,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            21),
-                                                    border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryColor,
-                                                      width: 2,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 8, 0, 0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'a propos',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'San fransisco',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .backgroundComponents,
-                                                                useGoogleFonts:
-                                                                    false,
-                                                              ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 5),
-                                                      child: Icon(
-                                                        Icons.info_outlined,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryColor,
-                                                        size: 18,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],
@@ -580,9 +558,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 .title2
                                                 .override(
                                                   fontFamily: 'San fransisco',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryColor,
+                                                  color: Color(0xE2EC615B),
+                                                  fontSize: 28,
+                                                  fontWeight: FontWeight.bold,
                                                   useGoogleFonts: false,
                                                 ),
                                           ),
@@ -601,7 +579,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 55, 0, 0),
+                                      0, 44, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -617,7 +595,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               .subtitle2
                                               .override(
                                                 fontFamily: 'San fransisco',
-                                                color: Colors.black,
+                                                color: Color(0xFF273754),
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
                                                 useGoogleFonts: false,
@@ -639,7 +617,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             .subtitle2
                                             .override(
                                               fontFamily: 'San fransisco',
-                                              color: Color(0xAE616161),
+                                              color: Color(0xE2EC615B),
                                               fontSize: 12,
                                               useGoogleFonts: false,
                                             ),
@@ -742,7 +720,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     8, 0, 0, 0),
                                                         child: Icon(
                                                           Icons.arrow_forward,
-                                                          color: Colors.white,
+                                                          color:
+                                                              Color(0xE2EC615B),
                                                           size: 24,
                                                         ),
                                                       ),
@@ -844,7 +823,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       0, 0, 0),
                                                           child: Icon(
                                                             Icons.arrow_forward,
-                                                            color: Colors.white,
+                                                            color: Color(
+                                                                0xE2EC615B),
                                                             size: 24,
                                                           ),
                                                         ),
@@ -942,7 +922,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                     8, 0, 0, 0),
                                                         child: Icon(
                                                           Icons.arrow_forward,
-                                                          color: Colors.white,
+                                                          color:
+                                                              Color(0xE2EC615B),
                                                           size: 24,
                                                         ),
                                                       ),
@@ -980,7 +961,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             .subtitle2
                                             .override(
                                               fontFamily: 'San fransisco',
-                                              color: Colors.black,
+                                              color: Color(0xFF273754),
                                               fontSize: 14,
                                               fontWeight: FontWeight.w600,
                                               useGoogleFonts: false,
@@ -1002,7 +983,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           .subtitle2
                                           .override(
                                             fontFamily: 'San fransisco',
-                                            color: Color(0xAD616161),
+                                            color: Color(0xE2EC615B),
                                             fontSize: 12,
                                             useGoogleFonts: false,
                                           ),
@@ -1056,7 +1037,152 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   borderRadius:
                                                       BorderRadius.circular(16),
                                                   child: Image.asset(
-                                                    'assets/images/New_Project.png',
+                                                    'assets/images/astuces1.jpg',
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            1,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Column_60n93hzs_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Column_Navigate-To');
+                                                    context.pushNamed('pneus');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.05,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0x3605163B),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    16),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    16),
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    0),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    0),
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  'Changer son pneu',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .title2
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'San fransisco',
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            12,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.38,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.18,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 3,
+                                              ),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(-0.9, 0),
+                                            child: Stack(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.asset(
+                                                    'assets/images/astuces2.png',
                                                     width:
                                                         MediaQuery.of(context)
                                                             .size
@@ -1202,152 +1328,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   borderRadius:
                                                       BorderRadius.circular(16),
                                                   child: Image.asset(
-                                                    'assets/images/changerPneu.jpg',
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            1,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'HOME_PAGE_Column_60n93hzs_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'Column_Navigate-To');
-                                                    context.pushNamed('pneus');
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Container(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0x3605163B),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    16),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    16),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0),
-                                                          ),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Changer son pneu',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .title2
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'San fransisco',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            false,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          elevation: 2,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.38,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.18,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 3,
-                                              ),
-                                            ),
-                                            alignment:
-                                                AlignmentDirectional(-0.9, 0),
-                                            child: Stack(
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  child: Image.asset(
-                                                    'assets/images/New_Project-5.jpg',
+                                                    'assets/images/astuces3.png',
                                                     width:
                                                         MediaQuery.of(context)
                                                             .size

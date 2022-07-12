@@ -3,7 +3,6 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -343,47 +342,6 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                                   },
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 5, 0),
-                                                child: Card(
-                                                  clipBehavior: Clip
-                                                      .antiAliasWithSaveLayer,
-                                                  color: Color(0x3A000000),
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8),
-                                                  ),
-                                                  child: ToggleIcon(
-                                                    onPressed: () async {
-                                                      final locationUpdateData =
-                                                          createLocationRecordData(
-                                                        favoris:
-                                                            !topimageLocationRecord
-                                                                .favoris,
-                                                      );
-                                                      await topimageLocationRecord
-                                                          .reference
-                                                          .update(
-                                                              locationUpdateData);
-                                                    },
-                                                    value:
-                                                        topimageLocationRecord
-                                                            .favoris,
-                                                    onIcon: Icon(
-                                                      Icons.favorite,
-                                                      color: Color(0xFF175EFB),
-                                                      size: 30,
-                                                    ),
-                                                    offIcon: Icon(
-                                                      Icons.favorite_border,
-                                                      color: Colors.white,
-                                                      size: 30,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
                                             ],
                                           ),
                                         ],
@@ -406,10 +364,11 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                           Text(
                             widget.marque,
                             style: FlutterFlowTheme.of(context).title1.override(
-                                  fontFamily: 'Lexend Deca',
+                                  fontFamily: 'San fransisco',
                                   color: Color(0xFF090F13),
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
+                                  useGoogleFonts: false,
                                 ),
                           ),
                           FlutterFlowIconButton(
@@ -434,7 +393,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(24, 4, 24, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -442,10 +401,11 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                             widget.transmission,
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF9D9FA0),
+                                      fontFamily: 'San fransisco',
+                                      color: Color(0xB3EC615B),
                                       fontSize: 12,
                                       fontWeight: FontWeight.normal,
+                                      useGoogleFonts: false,
                                     ),
                           ),
                         ],
@@ -957,7 +917,11 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                widget.prix.toString(),
+                                formatNumber(
+                                  widget.prix,
+                                  formatType: FormatType.decimal,
+                                  decimalType: DecimalType.commaDecimal,
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .subtitle1
                                     .override(

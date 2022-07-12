@@ -27,6 +27,7 @@ class RendezVousVenteWidget extends StatefulWidget {
 }
 
 class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
+  CommandeVenteRecord a1;
   DateTimeRange calendarSelectedDay;
   TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -338,14 +339,22 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                   vehicule: widget.carvente,
                                   gerant: widget.gerant,
                                 );
-                                await CommandeVenteRecord.collection
-                                    .doc()
+                                var commandeVenteRecordReference =
+                                    CommandeVenteRecord.collection.doc();
+                                await commandeVenteRecordReference
                                     .set(commandeVenteCreateData);
+                                a1 = CommandeVenteRecord.getDocumentFromData(
+                                    commandeVenteCreateData,
+                                    commandeVenteRecordReference);
                                 logFirebaseEvent('Button_Backend-Call');
 
-                                final usersUpdateData = createUsersRecordData(
-                                  phoneNumber: textController.text,
-                                );
+                                final usersUpdateData = {
+                                  ...createUsersRecordData(
+                                    phoneNumber: textController.text,
+                                  ),
+                                  'RendezVousList':
+                                      FieldValue.arrayUnion([a1.reference]),
+                                };
                                 await currentUserReference
                                     .update(usersUpdateData);
                                 logFirebaseEvent('Button_Navigate-To');
@@ -359,12 +368,14 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                     ),
                                   },
                                 );
+
+                                setState(() {});
                               },
                               text: 'confirmer',
                               options: FFButtonOptions(
                                 width: 130,
                                 height: 50,
-                                color: Color(0xFF175EFB),
+                                color: Color(0xFF0915E3),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .subtitle2
                                     .override(

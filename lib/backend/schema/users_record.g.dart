@@ -68,6 +68,24 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.commandeList;
+    if (value != null) {
+      result
+        ..add('CommandeList')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(DocumentReference, const [const FullType(Object)])
+            ])));
+    }
+    value = object.rendezVousList;
+    if (value != null) {
+      result
+        ..add('RendezVousList')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(BuiltList, const [
+              const FullType(DocumentReference, const [const FullType(Object)])
+            ])));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -118,6 +136,20 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.superUtilisateur = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
+        case 'CommandeList':
+          result.commandeList.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType(Object)])
+              ])) as BuiltList<Object>);
+          break;
+        case 'RendezVousList':
+          result.rendezVousList.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltList, const [
+                const FullType(
+                    DocumentReference, const [const FullType(Object)])
+              ])) as BuiltList<Object>);
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -147,6 +179,10 @@ class _$UsersRecord extends UsersRecord {
   @override
   final bool superUtilisateur;
   @override
+  final BuiltList<DocumentReference<Object>> commandeList;
+  @override
+  final BuiltList<DocumentReference<Object>> rendezVousList;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder) updates]) =>
@@ -160,6 +196,8 @@ class _$UsersRecord extends UsersRecord {
       this.createdTime,
       this.phoneNumber,
       this.superUtilisateur,
+      this.commandeList,
+      this.rendezVousList,
       this.reference})
       : super._();
 
@@ -181,6 +219,8 @@ class _$UsersRecord extends UsersRecord {
         createdTime == other.createdTime &&
         phoneNumber == other.phoneNumber &&
         superUtilisateur == other.superUtilisateur &&
+        commandeList == other.commandeList &&
+        rendezVousList == other.rendezVousList &&
         reference == other.reference;
   }
 
@@ -191,12 +231,18 @@ class _$UsersRecord extends UsersRecord {
             $jc(
                 $jc(
                     $jc(
-                        $jc($jc($jc(0, email.hashCode), displayName.hashCode),
-                            photoUrl.hashCode),
-                        uid.hashCode),
-                    createdTime.hashCode),
-                phoneNumber.hashCode),
-            superUtilisateur.hashCode),
+                        $jc(
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, email.hashCode),
+                                        displayName.hashCode),
+                                    photoUrl.hashCode),
+                                uid.hashCode),
+                            createdTime.hashCode),
+                        phoneNumber.hashCode),
+                    superUtilisateur.hashCode),
+                commandeList.hashCode),
+            rendezVousList.hashCode),
         reference.hashCode));
   }
 
@@ -210,6 +256,8 @@ class _$UsersRecord extends UsersRecord {
           ..add('createdTime', createdTime)
           ..add('phoneNumber', phoneNumber)
           ..add('superUtilisateur', superUtilisateur)
+          ..add('commandeList', commandeList)
+          ..add('rendezVousList', rendezVousList)
           ..add('reference', reference))
         .toString();
   }
@@ -247,6 +295,18 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   set superUtilisateur(bool superUtilisateur) =>
       _$this._superUtilisateur = superUtilisateur;
 
+  ListBuilder<DocumentReference<Object>> _commandeList;
+  ListBuilder<DocumentReference<Object>> get commandeList =>
+      _$this._commandeList ??= new ListBuilder<DocumentReference<Object>>();
+  set commandeList(ListBuilder<DocumentReference<Object>> commandeList) =>
+      _$this._commandeList = commandeList;
+
+  ListBuilder<DocumentReference<Object>> _rendezVousList;
+  ListBuilder<DocumentReference<Object>> get rendezVousList =>
+      _$this._rendezVousList ??= new ListBuilder<DocumentReference<Object>>();
+  set rendezVousList(ListBuilder<DocumentReference<Object>> rendezVousList) =>
+      _$this._rendezVousList = rendezVousList;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -266,6 +326,8 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _createdTime = $v.createdTime;
       _phoneNumber = $v.phoneNumber;
       _superUtilisateur = $v.superUtilisateur;
+      _commandeList = $v.commandeList?.toBuilder();
+      _rendezVousList = $v.rendezVousList?.toBuilder();
       _reference = $v.reference;
       _$v = null;
     }
@@ -285,16 +347,33 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
 
   @override
   _$UsersRecord build() {
-    final _$result = _$v ??
-        new _$UsersRecord._(
-            email: email,
-            displayName: displayName,
-            photoUrl: photoUrl,
-            uid: uid,
-            createdTime: createdTime,
-            phoneNumber: phoneNumber,
-            superUtilisateur: superUtilisateur,
-            reference: reference);
+    _$UsersRecord _$result;
+    try {
+      _$result = _$v ??
+          new _$UsersRecord._(
+              email: email,
+              displayName: displayName,
+              photoUrl: photoUrl,
+              uid: uid,
+              createdTime: createdTime,
+              phoneNumber: phoneNumber,
+              superUtilisateur: superUtilisateur,
+              commandeList: _commandeList?.build(),
+              rendezVousList: _rendezVousList?.build(),
+              reference: reference);
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'commandeList';
+        _commandeList?.build();
+        _$failedField = 'rendezVousList';
+        _rendezVousList?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'UsersRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

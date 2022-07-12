@@ -74,7 +74,7 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Tous vos rendez vous avec les \nvendeurs pour voir les voitures de votre choix',
+                      'Tous vos rendez vous avec les \nvendeurs',
                       style: FlutterFlowTheme.of(context).bodyText2.override(
                             fontFamily: 'Lexend Deca',
                             color: Color(0xFF8B97A2),
@@ -278,6 +278,7 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
                                                   ),
                                                   child: Image.network(
                                                     rowUsersRecord.photoUrl,
+                                                    fit: BoxFit.fill,
                                                   ),
                                                 ),
                                                 Padding(

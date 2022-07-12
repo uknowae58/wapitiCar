@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_expanded_image_view.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -45,7 +46,24 @@ class _FavorisWidgetState extends State<FavorisWidget> {
                 useGoogleFonts: false,
               ),
         ),
-        actions: [],
+        actions: [
+          FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.home,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 21,
+            ),
+            onPressed: () async {
+              logFirebaseEvent('FAVORIS_PAGE_home_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_Navigate-To');
+              context.pushNamed('Home');
+            },
+          ),
+        ],
         centerTitle: false,
         elevation: 0,
       ),
@@ -84,7 +102,11 @@ class _FavorisWidgetState extends State<FavorisWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: StreamBuilder<List<LocationRecord>>(
-                                stream: queryLocationRecord(),
+                                stream: queryLocationRecord(
+                                  queryBuilder: (locationRecord) =>
+                                      locationRecord.where('liked_by',
+                                          arrayContains: currentUserReference),
+                                ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -465,8 +487,8 @@ class _FavorisWidgetState extends State<FavorisWidget> {
                                                                           imagesLocationFavorisIndex];
                                                                   return ClipRRect(
                                                                     borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12),
+                                                                        BorderRadius
+                                                                            .circular(0),
                                                                     child: Image
                                                                         .network(
                                                                       imagesLocationFavorisItem,
@@ -697,7 +719,11 @@ class _FavorisWidgetState extends State<FavorisWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: StreamBuilder<List<VenteRecord>>(
-                                stream: queryVenteRecord(),
+                                stream: queryVenteRecord(
+                                  queryBuilder: (venteRecord) =>
+                                      venteRecord.where('liked_by',
+                                          arrayContains: currentUserReference),
+                                ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {

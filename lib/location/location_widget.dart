@@ -1,15 +1,18 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LocationWidget extends StatefulWidget {
   const LocationWidget({
@@ -83,27 +86,70 @@ class _LocationWidgetState extends State<LocationWidget> {
               'Location',
               style: FlutterFlowTheme.of(context).title2.override(
                     fontFamily: 'San fransisco',
-                    color: Colors.black,
+                    color: Color(0xFF273754),
                     fontWeight: FontWeight.bold,
                     useGoogleFonts: false,
                   ),
             ),
             actions: [
-              FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 60,
-                icon: Icon(
-                  Icons.favorite,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 24,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                child: AuthUserStreamWidget(
+                  child: InkWell(
+                    onTap: () async {
+                      logFirebaseEvent('LOCATION_PAGE_Badge_ic680c6e_ON_TAP');
+                      logFirebaseEvent('Badge_Navigate-To');
+                      context.pushNamed('Commandes');
+                    },
+                    child: Badge(
+                      badgeContent: Text(
+                        (currentUserDocument?.commandeList?.toList() ?? [])
+                            .length
+                            .toString(),
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'San fransisco',
+                              color: Colors.white,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                      showBadge: true,
+                      shape: BadgeShape.circle,
+                      badgeColor: FlutterFlowTheme.of(context).primaryColor,
+                      elevation: 4,
+                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+                      position: BadgePosition.topEnd(),
+                      animationType: BadgeAnimationType.scale,
+                      toAnimate: true,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 21, 0),
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: Colors.black,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                onPressed: () async {
-                  logFirebaseEvent('LOCATION_PAGE_favorite_ICN_ON_TAP');
-                  logFirebaseEvent('IconButton_Navigate-To');
-                  context.pushNamed('Favoris');
-                },
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                child: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30,
+                  borderWidth: 1,
+                  buttonSize: 60,
+                  icon: Icon(
+                    Icons.favorite,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 24,
+                  ),
+                  onPressed: () async {
+                    logFirebaseEvent('LOCATION_PAGE_favorite_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_Navigate-To');
+                    context.pushNamed('Favoris');
+                  },
+                ),
               ),
             ],
             centerTitle: false,
@@ -115,24 +161,6 @@ class _LocationWidgetState extends State<LocationWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 12, 0, 0),
-                      child: Text(
-                        'Marques favorites',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'San fransisco',
-                              color: Color(0xE4303030),
-                              fontSize: 12,
-                              fontWeight: FontWeight.normal,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
@@ -560,7 +588,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -663,7 +698,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation2 =
+                                                                final imagesLocationAll =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -678,28 +713,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController1 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation2.length -
+                                                                            imagesLocationAll.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation2
+                                                                        imagesLocationAll
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation2Index) {
-                                                                      final imagesLocation2Item =
-                                                                          imagesLocation2[
-                                                                              imagesLocation2Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationAllIndex) {
+                                                                      final imagesLocationAllItem =
+                                                                          imagesLocationAll[
+                                                                              imagesLocationAllIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_x6vuagyb_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationAllItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationAllItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationAllItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationAllItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -775,7 +842,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              Color(0xFF56647D),
                                                                           size:
                                                                               21,
                                                                         ),
@@ -795,6 +862,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: Color(0xFF56647D),
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -835,7 +903,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              Color(0xFF56647D),
                                                                           size:
                                                                               21,
                                                                         ),
@@ -847,6 +915,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: Color(0xFF56647D),
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -886,7 +955,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              Color(0xFF56647D),
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1155,7 +1224,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -1258,7 +1334,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation3 =
+                                                                final imagesLocationPeugeot =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -1273,28 +1349,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController2 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation3.length -
+                                                                            imagesLocationPeugeot.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation3
+                                                                        imagesLocationPeugeot
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation3Index) {
-                                                                      final imagesLocation3Item =
-                                                                          imagesLocation3[
-                                                                              imagesLocation3Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationPeugeotIndex) {
+                                                                      final imagesLocationPeugeotItem =
+                                                                          imagesLocationPeugeot[
+                                                                              imagesLocationPeugeotIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_lej2d4rx_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationPeugeotItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationPeugeotItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationPeugeotItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationPeugeotItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -1370,7 +1478,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              Color(0xFF56647D),
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1390,6 +1498,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: Color(0xFF56647D),
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -1430,7 +1539,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              Color(0xFF56647D),
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1442,6 +1551,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: Color(0xFF56647D),
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -1481,7 +1591,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              Color(0xFF56647D),
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1750,7 +1860,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -1853,7 +1970,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation4 =
+                                                                final imagesLocationMercedes =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -1868,28 +1985,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController3 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation4.length -
+                                                                            imagesLocationMercedes.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation4
+                                                                        imagesLocationMercedes
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation4Index) {
-                                                                      final imagesLocation4Item =
-                                                                          imagesLocation4[
-                                                                              imagesLocation4Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationMercedesIndex) {
+                                                                      final imagesLocationMercedesItem =
+                                                                          imagesLocationMercedes[
+                                                                              imagesLocationMercedesIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_5xearyez_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationMercedesItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationMercedesItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationMercedesItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationMercedesItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -1965,7 +2114,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1985,6 +2134,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -2025,7 +2175,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2037,6 +2187,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -2076,7 +2227,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2345,7 +2496,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -2448,7 +2606,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation5 =
+                                                                final imagesLocationMitsubishi =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -2463,28 +2621,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController4 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation5.length -
+                                                                            imagesLocationMitsubishi.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation5
+                                                                        imagesLocationMitsubishi
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation5Index) {
-                                                                      final imagesLocation5Item =
-                                                                          imagesLocation5[
-                                                                              imagesLocation5Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationMitsubishiIndex) {
+                                                                      final imagesLocationMitsubishiItem =
+                                                                          imagesLocationMitsubishi[
+                                                                              imagesLocationMitsubishiIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_hpony5fu_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationMitsubishiItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationMitsubishiItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationMitsubishiItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationMitsubishiItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -2560,7 +2750,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2580,6 +2770,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -2620,7 +2811,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2632,6 +2823,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -2671,7 +2863,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2940,7 +3132,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -3043,7 +3242,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation6 =
+                                                                final imagesLocationHyundai =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -3058,28 +3257,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController5 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation6.length -
+                                                                            imagesLocationHyundai.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation6
+                                                                        imagesLocationHyundai
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation6Index) {
-                                                                      final imagesLocation6Item =
-                                                                          imagesLocation6[
-                                                                              imagesLocation6Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationHyundaiIndex) {
+                                                                      final imagesLocationHyundaiItem =
+                                                                          imagesLocationHyundai[
+                                                                              imagesLocationHyundaiIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_8zdwyqsi_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationHyundaiItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationHyundaiItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationHyundaiItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationHyundaiItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -3155,7 +3386,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3175,6 +3406,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -3215,7 +3447,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3227,6 +3459,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -3266,7 +3499,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3535,7 +3768,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -3638,7 +3878,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation7 =
+                                                                final imagesLocationRangerover =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -3653,28 +3893,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController6 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation7.length -
+                                                                            imagesLocationRangerover.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation7
+                                                                        imagesLocationRangerover
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation7Index) {
-                                                                      final imagesLocation7Item =
-                                                                          imagesLocation7[
-                                                                              imagesLocation7Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationRangeroverIndex) {
+                                                                      final imagesLocationRangeroverItem =
+                                                                          imagesLocationRangerover[
+                                                                              imagesLocationRangeroverIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_hnbwk80j_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationRangeroverItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationRangeroverItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationRangeroverItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationRangeroverItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -3750,7 +4022,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3770,6 +4042,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -3810,7 +4083,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3822,6 +4095,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -3861,7 +4135,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4130,7 +4404,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -4233,7 +4514,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation8 =
+                                                                final imagesLocationBmw =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -4248,28 +4529,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController7 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation8.length -
+                                                                            imagesLocationBmw.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation8
+                                                                        imagesLocationBmw
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation8Index) {
-                                                                      final imagesLocation8Item =
-                                                                          imagesLocation8[
-                                                                              imagesLocation8Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationBmwIndex) {
+                                                                      final imagesLocationBmwItem =
+                                                                          imagesLocationBmw[
+                                                                              imagesLocationBmwIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_thviu2c0_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationBmwItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationBmwItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationBmwItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationBmwItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -4345,7 +4658,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4365,6 +4678,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -4405,7 +4719,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4417,6 +4731,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -4456,7 +4771,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4725,7 +5040,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -4828,7 +5150,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation9 =
+                                                                final imagesLocationToyota =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -4843,28 +5165,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController8 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation9.length -
+                                                                            imagesLocationToyota.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation9
+                                                                        imagesLocationToyota
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation9Index) {
-                                                                      final imagesLocation9Item =
-                                                                          imagesLocation9[
-                                                                              imagesLocation9Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationToyotaIndex) {
+                                                                      final imagesLocationToyotaItem =
+                                                                          imagesLocationToyota[
+                                                                              imagesLocationToyotaIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_q19bkkhe_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationToyotaItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationToyotaItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationToyotaItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationToyotaItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -4940,7 +5294,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4960,6 +5314,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -5000,7 +5355,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5012,6 +5367,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -5051,7 +5407,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5079,7 +5435,11 @@ class _LocationWidgetState extends State<LocationWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 12, 0, 0),
                                   child: StreamBuilder<List<LocationRecord>>(
-                                    stream: queryLocationRecord(),
+                                    stream: queryLocationRecord(
+                                      queryBuilder: (locationRecord) =>
+                                          locationRecord.where('volkswagen',
+                                              isEqualTo: true),
+                                    ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
                                       if (!snapshot.hasData) {
@@ -5316,7 +5676,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -5419,7 +5786,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation10 =
+                                                                final imagesLocationVolkswagen =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -5434,28 +5801,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController9 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation10.length -
+                                                                            imagesLocationVolkswagen.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation10
+                                                                        imagesLocationVolkswagen
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation10Index) {
-                                                                      final imagesLocation10Item =
-                                                                          imagesLocation10[
-                                                                              imagesLocation10Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationVolkswagenIndex) {
+                                                                      final imagesLocationVolkswagenItem =
+                                                                          imagesLocationVolkswagen[
+                                                                              imagesLocationVolkswagenIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_7g8gq9pv_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationVolkswagenItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationVolkswagenItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationVolkswagenItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationVolkswagenItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -5531,7 +5930,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5551,6 +5950,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -5591,7 +5991,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5603,6 +6003,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -5642,7 +6043,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5911,7 +6312,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -6014,7 +6422,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation11 =
+                                                                final imagesLocationFord =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -6029,28 +6437,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController10 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation11.length -
+                                                                            imagesLocationFord.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation11
+                                                                        imagesLocationFord
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation11Index) {
-                                                                      final imagesLocation11Item =
-                                                                          imagesLocation11[
-                                                                              imagesLocation11Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationFordIndex) {
+                                                                      final imagesLocationFordItem =
+                                                                          imagesLocationFord[
+                                                                              imagesLocationFordIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_e8yshd9k_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationFordItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationFordItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationFordItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationFordItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -6126,7 +6566,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6146,6 +6586,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -6186,7 +6627,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6198,6 +6639,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -6237,7 +6679,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6506,7 +6948,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -6609,7 +7058,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation12 =
+                                                                final imagesLocationIdk =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -6624,28 +7073,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController11 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation12.length -
+                                                                            imagesLocationIdk.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation12
+                                                                        imagesLocationIdk
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation12Index) {
-                                                                      final imagesLocation12Item =
-                                                                          imagesLocation12[
-                                                                              imagesLocation12Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationIdkIndex) {
+                                                                      final imagesLocationIdkItem =
+                                                                          imagesLocationIdk[
+                                                                              imagesLocationIdkIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_b639chet_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationIdkItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationIdkItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationIdkItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationIdkItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -6721,7 +7202,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6741,6 +7222,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -6781,7 +7263,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6793,6 +7275,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -6832,7 +7315,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -7101,7 +7584,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               0),
                                                                       child:
                                                                           Text(
-                                                                        '${listViewLocationRecord.prix.toString()}fr CFA',
+                                                                        '${formatNumber(
+                                                                          listViewLocationRecord
+                                                                              .prix,
+                                                                          formatType:
+                                                                              FormatType.decimal,
+                                                                          decimalType:
+                                                                              DecimalType.commaDecimal,
+                                                                        )}fr CFA',
                                                                         textAlign:
                                                                             TextAlign.end,
                                                                         style: FlutterFlowTheme.of(context)
@@ -7204,7 +7694,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                             child: Builder(
                                                               builder:
                                                                   (context) {
-                                                                final imagesLocation13 =
+                                                                final imagesLocationKiam =
                                                                     listViewLocationRecord
                                                                             .images
                                                                             .toList()
@@ -7219,28 +7709,60 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                     controller: pageViewController12 ??= PageController(
                                                                         initialPage: min(
                                                                             0,
-                                                                            imagesLocation13.length -
+                                                                            imagesLocationKiam.length -
                                                                                 1)),
                                                                     scrollDirection:
                                                                         Axis.horizontal,
                                                                     itemCount:
-                                                                        imagesLocation13
+                                                                        imagesLocationKiam
                                                                             .length,
                                                                     itemBuilder:
                                                                         (context,
-                                                                            imagesLocation13Index) {
-                                                                      final imagesLocation13Item =
-                                                                          imagesLocation13[
-                                                                              imagesLocation13Index];
-                                                                      return Image
-                                                                          .network(
-                                                                        'https://picsum.photos/seed/769/600',
-                                                                        width:
-                                                                            100,
-                                                                        height:
-                                                                            100,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                            imagesLocationKiamIndex) {
+                                                                      final imagesLocationKiamItem =
+                                                                          imagesLocationKiam[
+                                                                              imagesLocationKiamIndex];
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'LOCATION_PAGE_Image_z9ftxn5u_ON_TAP');
+                                                                          logFirebaseEvent(
+                                                                              'Image_Expand-Image');
+                                                                          await Navigator
+                                                                              .push(
+                                                                            context,
+                                                                            PageTransition(
+                                                                              type: PageTransitionType.fade,
+                                                                              child: FlutterFlowExpandedImageView(
+                                                                                image: Image.network(
+                                                                                  imagesLocationKiamItem,
+                                                                                  fit: BoxFit.contain,
+                                                                                ),
+                                                                                allowRotation: false,
+                                                                                tag: imagesLocationKiamItem,
+                                                                                useHeroAnimation: true,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                        child:
+                                                                            Hero(
+                                                                          tag:
+                                                                              imagesLocationKiamItem,
+                                                                          transitionOnUserGestures:
+                                                                              true,
+                                                                          child:
+                                                                              Image.network(
+                                                                            imagesLocationKiamItem,
+                                                                            width:
+                                                                                100,
+                                                                            height:
+                                                                                100,
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
+                                                                        ),
                                                                       );
                                                                     },
                                                                   ),
@@ -7316,7 +7838,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -7336,6 +7858,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
@@ -7376,7 +7899,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -7388,6 +7911,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 useGoogleFonts: false,
                                                                               ),
@@ -7427,7 +7951,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),

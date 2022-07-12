@@ -35,6 +35,7 @@ class LocationOWidget extends StatefulWidget {
 }
 
 class _LocationOWidgetState extends State<LocationOWidget> {
+  CommandeLocationRecord commandeCreationAction;
   DateTime datePicked;
   PageController pageViewController;
   int countControllerValue;
@@ -529,7 +530,12 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                               ),
                         ),
                         Text(
-                          '${functions.prixTotal(widget.prix, countControllerValue).toString()} fr CFA',
+                          '${formatNumber(
+                            functions.prixTotal(
+                                widget.prix, countControllerValue),
+                            formatType: FormatType.decimal,
+                            decimalType: DecimalType.commaDecimal,
+                          )} fr CFA',
                           style: FlutterFlowTheme.of(context).title1.override(
                                 fontFamily: 'San fransisco',
                                 color: Color(0xFF090F13),
@@ -587,11 +593,25 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                   prixtotal:
                       '${functions.prixTotal(widget.prix, countControllerValue).toString()}fr CFA',
                 );
-                await CommandeLocationRecord.collection
-                    .doc()
+                var commandeLocationRecordReference =
+                    CommandeLocationRecord.collection.doc();
+                await commandeLocationRecordReference
                     .set(commandeLocationCreateData);
+                commandeCreationAction =
+                    CommandeLocationRecord.getDocumentFromData(
+                        commandeLocationCreateData,
+                        commandeLocationRecordReference);
+                logFirebaseEvent('Button_Backend-Call');
+
+                final usersUpdateData = {
+                  'CommandeList':
+                      FieldValue.arrayUnion([commandeCreationAction.reference]),
+                };
+                await currentUserReference.update(usersUpdateData);
                 logFirebaseEvent('Button_Navigate-To');
                 context.goNamed('DoneLocation');
+
+                setState(() {});
               },
               text: 'Confirmer',
               options: FFButtonOptions(

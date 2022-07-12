@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -78,21 +79,64 @@ class _VenteWidgetState extends State<VenteWidget> {
                   ),
             ),
             actions: [
-              FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 30,
-                borderWidth: 1,
-                buttonSize: 60,
-                icon: Icon(
-                  Icons.favorite,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 24,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                child: AuthUserStreamWidget(
+                  child: InkWell(
+                    onTap: () async {
+                      logFirebaseEvent('VENTE_PAGE_Badge_igbnerbp_ON_TAP');
+                      logFirebaseEvent('Badge_Navigate-To');
+                      context.pushNamed('RendezVous');
+                    },
+                    child: Badge(
+                      badgeContent: Text(
+                        (currentUserDocument?.rendezVousList?.toList() ?? [])
+                            .length
+                            .toString(),
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'San fransisco',
+                              color: Colors.white,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                      showBadge: true,
+                      shape: BadgeShape.circle,
+                      badgeColor: FlutterFlowTheme.of(context).primaryColor,
+                      elevation: 4,
+                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+                      position: BadgePosition.topEnd(),
+                      animationType: BadgeAnimationType.scale,
+                      toAnimate: true,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 21, 0),
+                        child: FaIcon(
+                          FontAwesomeIcons.clock,
+                          color: Colors.black,
+                          size: 24,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                onPressed: () async {
-                  logFirebaseEvent('VENTE_PAGE_favorite_ICN_ON_TAP');
-                  logFirebaseEvent('IconButton_Navigate-To');
-                  context.pushNamed('Favoris');
-                },
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
+                child: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 30,
+                  borderWidth: 1,
+                  buttonSize: 60,
+                  icon: Icon(
+                    Icons.favorite,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 24,
+                  ),
+                  onPressed: () async {
+                    logFirebaseEvent('VENTE_PAGE_favorite_ICN_ON_TAP');
+                    logFirebaseEvent('IconButton_Navigate-To');
+                    context.pushNamed('Favoris');
+                  },
+                ),
               ),
             ],
             centerTitle: false,
@@ -104,24 +148,6 @@ class _VenteWidgetState extends State<VenteWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(5, 12, 0, 0),
-                      child: Text(
-                        'Marques favorites',
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'San fransisco',
-                              color: Color(0xE4303030),
-                              fontSize: 12,
-                              fontWeight: FontWeight.normal,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
                 Expanded(
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 21, 0, 0),
@@ -526,7 +552,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -829,7 +855,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -849,6 +875,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -889,7 +916,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -904,6 +931,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -944,7 +972,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1179,7 +1207,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -1482,7 +1510,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1502,6 +1530,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -1542,7 +1571,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1557,6 +1586,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -1597,7 +1627,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -1832,7 +1862,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -2135,7 +2165,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2155,6 +2185,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -2195,7 +2226,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2210,6 +2241,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -2250,7 +2282,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2485,7 +2517,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -2788,7 +2820,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2808,6 +2840,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -2848,7 +2881,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -2863,6 +2896,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -2903,7 +2937,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3138,7 +3172,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -3441,7 +3475,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3461,6 +3495,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -3501,7 +3536,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3516,6 +3551,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -3556,7 +3592,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -3791,7 +3827,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -4094,7 +4130,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4114,6 +4150,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -4154,7 +4191,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4169,6 +4206,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -4209,7 +4247,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4444,7 +4482,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -4747,7 +4785,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4767,6 +4805,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -4807,7 +4846,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -4822,6 +4861,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -4862,7 +4902,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5097,7 +5137,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -5400,7 +5440,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5420,6 +5460,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -5460,7 +5501,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5475,6 +5516,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -5515,7 +5557,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -5750,7 +5792,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -6053,7 +6095,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6073,6 +6115,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -6113,7 +6156,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6128,6 +6171,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -6168,7 +6212,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6403,7 +6447,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -6706,7 +6750,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6726,6 +6770,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -6766,7 +6811,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -6781,6 +6826,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -6821,7 +6867,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -7056,7 +7102,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -7359,7 +7405,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -7379,6 +7425,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -7419,7 +7466,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -7434,6 +7481,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -7474,7 +7522,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -7709,7 +7757,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -8012,7 +8060,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -8032,6 +8080,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -8072,7 +8121,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -8087,6 +8136,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -8127,7 +8177,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -8362,7 +8412,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.transmission,
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'Roboto',
-                                                                                  color: Color(0xFF0915E3),
+                                                                                  color: Color(0xFF7D99CA),
                                                                                   fontSize: 12,
                                                                                 ),
                                                                           ),
@@ -8665,7 +8715,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .calendarAlt,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -8685,6 +8735,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                               .bodyText1
                                                                               .override(
                                                                                 fontFamily: 'San fransisco',
+                                                                                color: FlutterFlowTheme.of(context).sixx,
                                                                                 fontSize: 13,
                                                                                 fontWeight: FontWeight.w500,
                                                                                 useGoogleFonts: false,
@@ -8725,7 +8776,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           Icons
                                                                               .people,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),
@@ -8740,6 +8791,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                             listViewVenteRecord.nbSiege.toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyText1.override(
                                                                                   fontFamily: 'San fransisco',
+                                                                                  color: FlutterFlowTheme.of(context).sixx,
                                                                                   fontWeight: FontWeight.w500,
                                                                                   useGoogleFonts: false,
                                                                                 ),
@@ -8780,7 +8832,7 @@ class _VenteWidgetState extends State<VenteWidget> {
                                                                           FontAwesomeIcons
                                                                               .snowflake,
                                                                           color:
-                                                                              Color(0xB39D9FA0),
+                                                                              FlutterFlowTheme.of(context).sixx,
                                                                           size:
                                                                               21,
                                                                         ),

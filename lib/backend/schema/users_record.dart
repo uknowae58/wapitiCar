@@ -35,6 +35,14 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   bool get superUtilisateur;
 
   @nullable
+  @BuiltValueField(wireName: 'CommandeList')
+  BuiltList<DocumentReference> get commandeList;
+
+  @nullable
+  @BuiltValueField(wireName: 'RendezVousList')
+  BuiltList<DocumentReference> get rendezVousList;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -44,7 +52,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..photoUrl = ''
     ..uid = ''
     ..phoneNumber = ''
-    ..superUtilisateur = false;
+    ..superUtilisateur = false
+    ..commandeList = ListBuilder()
+    ..rendezVousList = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('Users');
@@ -85,4 +95,6 @@ Map<String, dynamic> createUsersRecordData({
           ..uid = uid
           ..createdTime = createdTime
           ..phoneNumber = phoneNumber
-          ..superUtilisateur = superUtilisateur));
+          ..superUtilisateur = superUtilisateur
+          ..commandeList = null
+          ..rendezVousList = null));
