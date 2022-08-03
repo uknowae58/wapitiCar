@@ -1,2 +1,2 @@
 # wapitiCar
-this is a repository for wapiti car
+this is a repository for wapiti car app
