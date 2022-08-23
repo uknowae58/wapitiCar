@@ -15,10 +15,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
   final String wireName = 'UsersRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, UsersRecord object,
+  Iterable<Object?> serialize(Serializers serializers, UsersRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.email;
     if (value != null) {
       result
@@ -74,7 +74,8 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add('CommandeList')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, const [
-              const FullType(DocumentReference, const [const FullType(Object)])
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
     value = object.rendezVousList;
@@ -83,78 +84,101 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add('RendezVousList')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, const [
-              const FullType(DocumentReference, const [const FullType(Object)])
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
-    value = object.reference;
+    value = object.adresse;
+    if (value != null) {
+      result
+        ..add('adresse')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.bio;
+    if (value != null) {
+      result
+        ..add('bio')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
-  UsersRecord deserialize(Serializers serializers, Iterable<Object> serialized,
+  UsersRecord deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new UsersRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'email':
           result.email = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'display_name':
           result.displayName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'photo_url':
           result.photoUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'created_time':
           result.createdTime = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+              specifiedType: const FullType(DateTime)) as DateTime?;
           break;
         case 'phone_number':
           result.phoneNumber = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'superUtilisateur':
           result.superUtilisateur = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'CommandeList':
           result.commandeList.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(
-                    DocumentReference, const [const FullType(Object)])
-              ])) as BuiltList<Object>);
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
           break;
         case 'RendezVousList':
           result.rendezVousList.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(
-                    DocumentReference, const [const FullType(Object)])
-              ])) as BuiltList<Object>);
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
+          break;
+        case 'adresse':
+          result.adresse = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
+        case 'bio':
+          result.bio = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -165,28 +189,32 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
 
 class _$UsersRecord extends UsersRecord {
   @override
-  final String email;
+  final String? email;
   @override
-  final String displayName;
+  final String? displayName;
   @override
-  final String photoUrl;
+  final String? photoUrl;
   @override
-  final String uid;
+  final String? uid;
   @override
-  final DateTime createdTime;
+  final DateTime? createdTime;
   @override
-  final String phoneNumber;
+  final String? phoneNumber;
   @override
-  final bool superUtilisateur;
+  final bool? superUtilisateur;
   @override
-  final BuiltList<DocumentReference<Object>> commandeList;
+  final BuiltList<DocumentReference<Object?>>? commandeList;
   @override
-  final BuiltList<DocumentReference<Object>> rendezVousList;
+  final BuiltList<DocumentReference<Object?>>? rendezVousList;
   @override
-  final DocumentReference<Object> reference;
+  final String? adresse;
+  @override
+  final String? bio;
+  @override
+  final DocumentReference<Object?>? ffRef;
 
-  factory _$UsersRecord([void Function(UsersRecordBuilder) updates]) =>
-      (new UsersRecordBuilder()..update(updates)).build();
+  factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
+      (new UsersRecordBuilder()..update(updates))._build();
 
   _$UsersRecord._(
       {this.email,
@@ -198,7 +226,9 @@ class _$UsersRecord extends UsersRecord {
       this.superUtilisateur,
       this.commandeList,
       this.rendezVousList,
-      this.reference})
+      this.adresse,
+      this.bio,
+      this.ffRef})
       : super._();
 
   @override
@@ -221,7 +251,9 @@ class _$UsersRecord extends UsersRecord {
         superUtilisateur == other.superUtilisateur &&
         commandeList == other.commandeList &&
         rendezVousList == other.rendezVousList &&
-        reference == other.reference;
+        adresse == other.adresse &&
+        bio == other.bio &&
+        ffRef == other.ffRef;
   }
 
   @override
@@ -234,21 +266,25 @@ class _$UsersRecord extends UsersRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, email.hashCode),
-                                        displayName.hashCode),
-                                    photoUrl.hashCode),
-                                uid.hashCode),
-                            createdTime.hashCode),
-                        phoneNumber.hashCode),
-                    superUtilisateur.hashCode),
-                commandeList.hashCode),
-            rendezVousList.hashCode),
-        reference.hashCode));
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, email.hashCode),
+                                                displayName.hashCode),
+                                            photoUrl.hashCode),
+                                        uid.hashCode),
+                                    createdTime.hashCode),
+                                phoneNumber.hashCode),
+                            superUtilisateur.hashCode),
+                        commandeList.hashCode),
+                    rendezVousList.hashCode),
+                adresse.hashCode),
+            bio.hashCode),
+        ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('UsersRecord')
+    return (newBuiltValueToStringHelper(r'UsersRecord')
           ..add('email', email)
           ..add('displayName', displayName)
           ..add('photoUrl', photoUrl)
@@ -258,59 +294,68 @@ class _$UsersRecord extends UsersRecord {
           ..add('superUtilisateur', superUtilisateur)
           ..add('commandeList', commandeList)
           ..add('rendezVousList', rendezVousList)
-          ..add('reference', reference))
+          ..add('adresse', adresse)
+          ..add('bio', bio)
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
-  _$UsersRecord _$v;
+  _$UsersRecord? _$v;
 
-  String _email;
-  String get email => _$this._email;
-  set email(String email) => _$this._email = email;
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
 
-  String _displayName;
-  String get displayName => _$this._displayName;
-  set displayName(String displayName) => _$this._displayName = displayName;
+  String? _displayName;
+  String? get displayName => _$this._displayName;
+  set displayName(String? displayName) => _$this._displayName = displayName;
 
-  String _photoUrl;
-  String get photoUrl => _$this._photoUrl;
-  set photoUrl(String photoUrl) => _$this._photoUrl = photoUrl;
+  String? _photoUrl;
+  String? get photoUrl => _$this._photoUrl;
+  set photoUrl(String? photoUrl) => _$this._photoUrl = photoUrl;
 
-  String _uid;
-  String get uid => _$this._uid;
-  set uid(String uid) => _$this._uid = uid;
+  String? _uid;
+  String? get uid => _$this._uid;
+  set uid(String? uid) => _$this._uid = uid;
 
-  DateTime _createdTime;
-  DateTime get createdTime => _$this._createdTime;
-  set createdTime(DateTime createdTime) => _$this._createdTime = createdTime;
+  DateTime? _createdTime;
+  DateTime? get createdTime => _$this._createdTime;
+  set createdTime(DateTime? createdTime) => _$this._createdTime = createdTime;
 
-  String _phoneNumber;
-  String get phoneNumber => _$this._phoneNumber;
-  set phoneNumber(String phoneNumber) => _$this._phoneNumber = phoneNumber;
+  String? _phoneNumber;
+  String? get phoneNumber => _$this._phoneNumber;
+  set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
-  bool _superUtilisateur;
-  bool get superUtilisateur => _$this._superUtilisateur;
-  set superUtilisateur(bool superUtilisateur) =>
+  bool? _superUtilisateur;
+  bool? get superUtilisateur => _$this._superUtilisateur;
+  set superUtilisateur(bool? superUtilisateur) =>
       _$this._superUtilisateur = superUtilisateur;
 
-  ListBuilder<DocumentReference<Object>> _commandeList;
-  ListBuilder<DocumentReference<Object>> get commandeList =>
-      _$this._commandeList ??= new ListBuilder<DocumentReference<Object>>();
-  set commandeList(ListBuilder<DocumentReference<Object>> commandeList) =>
+  ListBuilder<DocumentReference<Object?>>? _commandeList;
+  ListBuilder<DocumentReference<Object?>> get commandeList =>
+      _$this._commandeList ??= new ListBuilder<DocumentReference<Object?>>();
+  set commandeList(ListBuilder<DocumentReference<Object?>>? commandeList) =>
       _$this._commandeList = commandeList;
 
-  ListBuilder<DocumentReference<Object>> _rendezVousList;
-  ListBuilder<DocumentReference<Object>> get rendezVousList =>
-      _$this._rendezVousList ??= new ListBuilder<DocumentReference<Object>>();
-  set rendezVousList(ListBuilder<DocumentReference<Object>> rendezVousList) =>
+  ListBuilder<DocumentReference<Object?>>? _rendezVousList;
+  ListBuilder<DocumentReference<Object?>> get rendezVousList =>
+      _$this._rendezVousList ??= new ListBuilder<DocumentReference<Object?>>();
+  set rendezVousList(ListBuilder<DocumentReference<Object?>>? rendezVousList) =>
       _$this._rendezVousList = rendezVousList;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  String? _adresse;
+  String? get adresse => _$this._adresse;
+  set adresse(String? adresse) => _$this._adresse = adresse;
+
+  String? _bio;
+  String? get bio => _$this._bio;
+  set bio(String? bio) => _$this._bio = bio;
+
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   UsersRecordBuilder() {
     UsersRecord._initializeBuilder(this);
@@ -328,7 +373,9 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _superUtilisateur = $v.superUtilisateur;
       _commandeList = $v.commandeList?.toBuilder();
       _rendezVousList = $v.rendezVousList?.toBuilder();
-      _reference = $v.reference;
+      _adresse = $v.adresse;
+      _bio = $v.bio;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -341,12 +388,14 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   }
 
   @override
-  void update(void Function(UsersRecordBuilder) updates) {
+  void update(void Function(UsersRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$UsersRecord build() {
+  UsersRecord build() => _build();
+
+  _$UsersRecord _build() {
     _$UsersRecord _$result;
     try {
       _$result = _$v ??
@@ -360,9 +409,11 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
               superUtilisateur: superUtilisateur,
               commandeList: _commandeList?.build(),
               rendezVousList: _rendezVousList?.build(),
-              reference: reference);
+              adresse: adresse,
+              bio: bio,
+              ffRef: ffRef);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'commandeList';
         _commandeList?.build();
@@ -370,7 +421,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
         _rendezVousList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'UsersRecord', _$failedField, e.toString());
+            r'UsersRecord', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -379,4 +430,4 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

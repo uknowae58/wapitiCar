@@ -8,21 +8,28 @@ abstract class FlutterFlowTheme {
     return LightModeTheme();
   }
 
-  Color primaryColor;
-  Color secondaryColor;
-  Color tertiaryColor;
-  Color alternate;
-  Color primaryBackground;
-  Color secondaryBackground;
-  Color primaryText;
-  Color secondaryText;
+  late Color primaryColor;
+  late Color secondaryColor;
+  late Color tertiaryColor;
+  late Color alternate;
+  late Color primaryBackground;
+  late Color secondaryBackground;
+  late Color primaryText;
+  late Color secondaryText;
 
-  Color theFourth;
-  Color five;
-  Color sixx;
-  Color primaryBtnText;
-  Color lineColor;
-  Color backgroundComponents;
+  late Color theFourth;
+  late Color five;
+  late Color sixx;
+  late Color primaryBtnText;
+  late Color lineColor;
+  late Color backgroundComponents;
+  late Color cinq;
+  late Color grayIcon;
+  late Color gray200;
+  late Color gray600;
+  late Color black600;
+  late Color tertiary400;
+  late Color textColor;
 
   String get title1Family => typography.title1Family;
   TextStyle get title1 => typography.title1;
@@ -43,21 +50,28 @@ abstract class FlutterFlowTheme {
 }
 
 class LightModeTheme extends FlutterFlowTheme {
-  Color primaryColor = const Color(0xFF0915E3);
-  Color secondaryColor = const Color(0xFFFFD63D);
-  Color tertiaryColor = const Color(0xFFEEEEEE);
-  Color alternate = const Color(0xFFDBE2E7);
-  Color primaryBackground = const Color(0xFFF1F4F8);
-  Color secondaryBackground = const Color(0xFBFFFFFF);
-  Color primaryText = const Color(0xFF14181B);
-  Color secondaryText = const Color(0xFF57636C);
+  late Color primaryColor = const Color(0xFF0915E3);
+  late Color secondaryColor = const Color(0xFFFA2F88);
+  late Color tertiaryColor = const Color(0xFFEEEEEE);
+  late Color alternate = const Color(0xFFDBE2E7);
+  late Color primaryBackground = const Color(0xFFF1F4F8);
+  late Color secondaryBackground = const Color(0xFBFFFFFF);
+  late Color primaryText = const Color(0xFF14181B);
+  late Color secondaryText = const Color(0xFF57636C);
 
-  Color theFourth = Color(0xFFFBF8F8);
-  Color five = Color(0xFF30477A);
-  Color sixx = Color(0xFF56647D);
-  Color primaryBtnText = Color(0xFFFAF7F7);
-  Color lineColor = Color(0xFFE0E3E7);
-  Color backgroundComponents = Color(0xFF1D2428);
+  late Color theFourth = Color(0xFFFBF8F8);
+  late Color five = Color(0xFF30477A);
+  late Color sixx = Color(0xFF56647D);
+  late Color primaryBtnText = Color(0xFFFAF7F7);
+  late Color lineColor = Color(0xFFE0E3E7);
+  late Color backgroundComponents = Color(0xFF1D2428);
+  late Color cinq = Color(0xE2EC615B);
+  late Color grayIcon = Color(0xFF95A1AC);
+  late Color gray200 = Color(0xFFDBE2E7);
+  late Color gray600 = Color(0xFF262D34);
+  late Color black600 = Color(0xFF090F13);
+  late Color tertiary400 = Color(0xFF39D2C0);
+  late Color textColor = Color(0xFF1E2429);
 }
 
 abstract class Typography {
@@ -135,19 +149,19 @@ class ThemeTypography extends Typography {
 
 extension TextStyleHelper on TextStyle {
   TextStyle override({
-    String fontFamily,
-    Color color,
-    double fontSize,
-    FontWeight fontWeight,
-    double letterSpacing,
-    FontStyle fontStyle,
+    String? fontFamily,
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
+    double? letterSpacing,
+    FontStyle? fontStyle,
     bool useGoogleFonts = true,
-    TextDecoration decoration,
-    double lineHeight,
+    TextDecoration? decoration,
+    double? lineHeight,
   }) =>
       useGoogleFonts
           ? GoogleFonts.getFont(
-              fontFamily,
+              fontFamily!,
               color: color ?? this.color,
               fontSize: fontSize ?? this.fontSize,
               letterSpacing: letterSpacing ?? this.letterSpacing,

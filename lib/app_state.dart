@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/lat_lng.dart';
 
 class FFAppState {
@@ -14,34 +16,18 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _favoris =
-        prefs.getStringList('ff_favoris')?.map((x) => x == 'true')?.toList() ??
-            _favoris;
   }
 
-  SharedPreferences prefs;
+  late SharedPreferences prefs;
 
-  List<bool> _favoris = [];
-  List<bool> get favoris => _favoris;
-  set favoris(List<bool> _value) {
-    _favoris = _value;
-    prefs.setStringList('ff_favoris', _value.map((x) => x.toString()).toList());
-  }
+  DocumentReference? wapitiCar =
+      FirebaseFirestore.instance.doc('/Users/bDXdLyS4xvSXIo69laJHS3KPA512');
 
-  void addToFavoris(bool _value) {
-    _favoris.add(_value);
-    prefs.setStringList(
-        'ff_favoris', _favoris.map((x) => x.toString()).toList());
-  }
-
-  void removeFromFavoris(bool _value) {
-    _favoris.remove(_value);
-    prefs.setStringList(
-        'ff_favoris', _favoris.map((x) => x.toString()).toList());
-  }
+  String ppUsera =
+      'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/wapiti-car-1rdvln/assets/pryl9ryccuoi/PP_for_users.png';
 }
 
-LatLng _latLngFromString(String val) {
+LatLng? _latLngFromString(String? val) {
   if (val == null) {
     return null;
   }

@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../components/location_vendeur_component_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_expanded_image_view.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -7,6 +8,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,7 +18,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class LocationDetailsOfcarWidget extends StatefulWidget {
   const LocationDetailsOfcarWidget({
-    Key key,
+    Key? key,
     this.marque,
     this.annee,
     this.nbSiege,
@@ -28,15 +30,15 @@ class LocationDetailsOfcarWidget extends StatefulWidget {
     this.gerant,
   }) : super(key: key);
 
-  final String marque;
-  final int annee;
-  final int nbSiege;
-  final int prix;
-  final String carburant;
-  final String transmission;
-  final DocumentReference leclient;
-  final DocumentReference vehicule;
-  final DocumentReference gerant;
+  final String? marque;
+  final int? annee;
+  final int? nbSiege;
+  final int? prix;
+  final String? carburant;
+  final String? transmission;
+  final DocumentReference? leclient;
+  final DocumentReference? vehicule;
+  final DocumentReference? gerant;
 
   @override
   _LocationDetailsOfcarWidgetState createState() =>
@@ -45,10 +47,74 @@ class LocationDetailsOfcarWidget extends StatefulWidget {
 
 class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
     with TickerProviderStateMixin {
-  PageController pageViewController;
+  PageController? pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
+    'containerOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      hideBeforeAnimating: true,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 0.8,
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 1,
+      ),
+    ),
+    'containerOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      hideBeforeAnimating: true,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 0.8,
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 1,
+      ),
+    ),
+    'containerOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      hideBeforeAnimating: true,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 0.8,
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 1,
+      ),
+    ),
+    'containerOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      hideBeforeAnimating: true,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 0.8,
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 1,
+      ),
+    ),
+    'containerOnPageLoadAnimation5': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 987,
       hideBeforeAnimating: false,
@@ -114,7 +180,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                             );
                           }
                           List<LocationRecord> topimageLocationRecordList =
-                              snapshot.data;
+                              snapshot.data!;
                           final topimageLocationRecord =
                               topimageLocationRecordList.isNotEmpty
                                   ? topimageLocationRecordList.first
@@ -134,7 +200,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                   children: [
                                     StreamBuilder<LocationRecord>(
                                       stream: LocationRecord.getDocument(
-                                          widget.vehicule),
+                                          widget.vehicule!),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -150,14 +216,12 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                           );
                                         }
                                         final pageViewLocationRecord =
-                                            snapshot.data;
+                                            snapshot.data!;
                                         return Builder(
                                           builder: (context) {
                                             final imagesLocationDetailOfCar =
-                                                pageViewLocationRecord.images
-                                                        .toList()
-                                                        ?.toList() ??
-                                                    [];
+                                                pageViewLocationRecord.images!
+                                                    .toList();
                                             return Container(
                                               width: MediaQuery.of(context)
                                                   .size
@@ -270,7 +334,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                                         axisDirection:
                                                             Axis.horizontal,
                                                         onDotClicked: (i) {
-                                                          pageViewController
+                                                          pageViewController!
                                                               .animateToPage(
                                                             i,
                                                             duration: Duration(
@@ -361,33 +425,62 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            widget.marque,
-                            style: FlutterFlowTheme.of(context).title1.override(
-                                  fontFamily: 'San fransisco',
-                                  color: Color(0xFF090F13),
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
-                                  useGoogleFonts: false,
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.marque!,
+                                  style: FlutterFlowTheme.of(context)
+                                      .title1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0xFF012345),
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                 ),
-                          ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            buttonSize: 60,
-                            icon: Icon(
-                              Icons.ios_share,
-                              color: Color(0xFF012354),
-                              size: 30,
+                              ],
                             ),
-                            onPressed: () async {
-                              logFirebaseEvent(
-                                  'LOCATION_DETAILS_OFCAR_ios_share_ICN_ON_');
-                              logFirebaseEvent('IconButton_Share');
-                              await Share.share(
-                                  'wapiticar://wapiticar.com${GoRouter.of(context).location}');
-                            },
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 30,
+                                borderWidth: 1,
+                                buttonSize: 60,
+                                icon: Icon(
+                                  Icons.ios_share,
+                                  color: Color(0xFF012354),
+                                  size: 21,
+                                ),
+                                onPressed: () async {
+                                  logFirebaseEvent(
+                                      'LOCATION_DETAILS_OFCAR_ios_share_ICN_ON_');
+                                  logFirebaseEvent(
+                                      'IconButton_Haptic-Feedback');
+                                  HapticFeedback.lightImpact();
+                                  logFirebaseEvent('IconButton_Share');
+                                  await Share.share(
+                                      'wapiticar://wapiticar.com${GoRouter.of(context).location}');
+                                },
+                              ),
+                              Text(
+                                'partager',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'San fransisco',
+                                      color: Color(0xFF012354),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w300,
+                                      useGoogleFonts: false,
+                                    ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -398,13 +491,13 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            widget.transmission,
+                            widget.transmission!,
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'San fransisco',
-                                      color: Color(0xB3EC615B),
+                                      color: Color(0xFF030644),
                                       fontSize: 12,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       useGoogleFonts: false,
                                     ),
                           ),
@@ -432,7 +525,8 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                     buttonSize: 33,
                                     icon: FaIcon(
                                       FontAwesomeIcons.store,
-                                      color: Color(0xFFFA512F),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       size: 17,
                                     ),
                                     onPressed: () {
@@ -446,7 +540,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                       .bodyText2
                                       .override(
                                         fontFamily: 'Lexend Deca',
-                                        color: Color(0xFF262D34),
+                                        color: Colors.black,
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -458,7 +552,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(12, 12, 0, 0),
                             child: StreamBuilder<UsersRecord>(
-                              stream: UsersRecord.getDocument(widget.gerant),
+                              stream: UsersRecord.getDocument(widget.gerant!),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -473,38 +567,79 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                     ),
                                   );
                                 }
-                                final rowUsersRecord = snapshot.data;
-                                return Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      width: 30,
-                                      height: 30,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        rowUsersRecord.photoUrl,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8, 0, 0, 0),
-                                      child: Text(
-                                        rowUsersRecord.displayName,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1
-                                            .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Color(0xFF95A1AC),
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
+                                final rowUsersRecord = snapshot.data!;
+                                return InkWell(
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'LOCATION_DETAILS_OFCAR_Row_6m7avap2_ON_T');
+                                    logFirebaseEvent('Row_Haptic-Feedback');
+                                    HapticFeedback.selectionClick();
+                                    logFirebaseEvent('Row_Bottom-Sheet');
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: LocationVendeurComponentWidget(
+                                            gerant: widget.gerant,
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0xFF9DA1F4),
+                                        elevation: 1,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  2, 2, 2, 2),
+                                          child: Container(
+                                            width: 28,
+                                            height: 28,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
                                             ),
+                                            child: Image.network(
+                                              rowUsersRecord.photoUrl!,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Text(
+                                          rowUsersRecord.displayName!,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               },
                             ),
@@ -534,7 +669,8 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                       buttonSize: 33,
                                       icon: Icon(
                                         Icons.clear_all,
-                                        color: Color(0xFFFA512F),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
                                         size: 17,
                                       ),
                                       onPressed: () {
@@ -548,7 +684,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                         .bodyText2
                                         .override(
                                           fontFamily: 'Lexend Deca',
-                                          color: Color(0xFF262D34),
+                                          color: Colors.black,
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -561,7 +697,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 12, 0, 24),
+                                      21, 12, 0, 24),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -570,25 +706,383 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            30, 0, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                            12, 0, 12, 24),
+                                        child: Wrap(
+                                          spacing: 8,
+                                          runSpacing: 8,
+                                          alignment: WrapAlignment.start,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.start,
+                                          direction: Axis.horizontal,
+                                          runAlignment:
+                                              WrapAlignment.spaceEvenly,
+                                          verticalDirection:
+                                              VerticalDirection.down,
+                                          clipBehavior: Clip.none,
                                           children: [
-                                            FaIcon(
-                                              FontAwesomeIcons.calendarAlt,
-                                              color: Color(0xA78B97A2),
-                                              size: 24,
+                                            Material(
+                                              color: Colors.transparent,
+                                              elevation: 3,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: Container(
+                                                width: 100,
+                                                height: 120,
+                                                constraints: BoxConstraints(
+                                                  maxWidth: 110,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(4, 4, 4, 4),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 60,
+                                                        height: 60,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                        child: Card(
+                                                          clipBehavior: Clip
+                                                              .antiAliasWithSaveLayer,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        40),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12,
+                                                                        12,
+                                                                        12,
+                                                                        12),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .calendar_today,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBtnText,
+                                                              size: 24,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ).animated([
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation1']!
+                                                      ]),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 8, 0, 0),
+                                                        child: Text(
+                                                          widget.annee!
+                                                              .toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 4, 0, 0),
+                                                        child: Text(
+                                                          'Année',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'San fransisco',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .sixx,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(15, 0, 0, 0),
-                                              child: Text(
-                                                widget.annee.toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
+                                            Material(
+                                              color: Colors.transparent,
+                                              elevation: 3,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: Container(
+                                                width: 100,
+                                                height: 120,
+                                                constraints: BoxConstraints(
+                                                  maxWidth: 110,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(4, 4, 4, 4),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 60,
+                                                        height: 60,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                        child: Card(
+                                                          clipBehavior: Clip
+                                                              .antiAliasWithSaveLayer,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        40),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12,
+                                                                        12,
+                                                                        12,
+                                                                        12),
+                                                            child: Icon(
+                                                              Icons.event_seat,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBtnText,
+                                                              size: 24,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ).animated([
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation2']!
+                                                      ]),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 8, 0, 0),
+                                                        child: Text(
+                                                          widget.nbSiege!
+                                                              .toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 4, 0, 0),
+                                                        child: Text(
+                                                          'Places',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'San fransisco',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .sixx,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Material(
+                                              color: Colors.transparent,
+                                              elevation: 3,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: Container(
+                                                width: 100,
+                                                height: 120,
+                                                constraints: BoxConstraints(
+                                                  maxWidth: 110,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(4, 4, 4, 4),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 60,
+                                                        height: 60,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                        child: Card(
+                                                          clipBehavior: Clip
+                                                              .antiAliasWithSaveLayer,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        40),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12,
+                                                                        12,
+                                                                        12,
+                                                                        12),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .local_gas_station,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBtnText,
+                                                              size: 24,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ).animated([
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation3']!
+                                                      ]),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 8, 0, 0),
+                                                        child: Text(
+                                                          widget.carburant!,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 16,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 4, 0, 0),
+                                                        child: Text(
+                                                          'carburant',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'San fransisco',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .sixx,
+                                                                useGoogleFonts:
+                                                                    false,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -596,81 +1090,119 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            30, 12, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
+                                            12, 0, 12, 24),
+                                        child: Wrap(
+                                          spacing: 8,
+                                          runSpacing: 8,
+                                          alignment: WrapAlignment.start,
+                                          crossAxisAlignment:
+                                              WrapCrossAlignment.start,
+                                          direction: Axis.horizontal,
+                                          runAlignment:
+                                              WrapAlignment.spaceEvenly,
+                                          verticalDirection:
+                                              VerticalDirection.down,
+                                          clipBehavior: Clip.none,
                                           children: [
-                                            Icon(
-                                              Icons.event_seat,
-                                              color: Color(0xA78B97A2),
-                                              size: 24,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 0, 0),
-                                              child: Text(
-                                                widget.nbSiege.toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
+                                            Material(
+                                              color: Colors.transparent,
+                                              elevation: 3,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(2, 0, 0, 0),
-                                              child: Text(
-                                                'passagers',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            30, 12, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            FaIcon(
-                                              FontAwesomeIcons.snowflake,
-                                              color: Color(0xA78B97A2),
-                                              size: 24,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(15, 0, 0, 0),
-                                              child: Text(
-                                                'climatisation',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            30, 12, 0, 0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Icon(
-                                              Icons.local_gas_station,
-                                              color: Color(0xA58B97A2),
-                                              size: 24,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(12, 0, 0, 0),
-                                              child: Text(
-                                                widget.carburant,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyText1,
+                                              child: Container(
+                                                width: 100,
+                                                height: 120,
+                                                constraints: BoxConstraints(
+                                                  maxWidth: 110,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(4, 4, 4, 4),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 60,
+                                                        height: 60,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 0),
+                                                        child: Card(
+                                                          clipBehavior: Clip
+                                                              .antiAliasWithSaveLayer,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        40),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12,
+                                                                        12,
+                                                                        12,
+                                                                        12),
+                                                            child: FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .snowflake,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBtnText,
+                                                              size: 24,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ).animated([
+                                                        animationsMap[
+                                                            'containerOnPageLoadAnimation4']!
+                                                      ]),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 8, 0, 0),
+                                                        child: Text(
+                                                          'Climatisation',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 12,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -705,7 +1237,8 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                               buttonSize: 33,
                               icon: Icon(
                                 Icons.drive_eta,
-                                color: Color(0xFFFA512F),
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 size: 17,
                               ),
                               onPressed: () {
@@ -718,7 +1251,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF262D34),
+                                      color: Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -736,12 +1269,12 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
                               child: Text(
-                                'Un souci de déplacement ? pas de problème, faites-vous livrer le véhicule commandé a domicile, sans frais, et dans les plus brefs délais d’exécution.',
+                                'Un souci de déplacement ? Aucun probleme, faites-vous livrer le véhicule commandé à domicile, sans frais supplémentaire, dans les plus brefs délais d’exécution.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText2
                                     .override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF8B97A2),
+                                      color: FlutterFlowTheme.of(context).sixx,
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                     ),
@@ -771,7 +1304,8 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                               buttonSize: 33,
                               icon: Icon(
                                 Icons.emoji_people,
-                                color: Color(0xFFFA512F),
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 size: 17,
                               ),
                               onPressed: () {
@@ -784,7 +1318,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF262D34),
+                                      color: Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -802,12 +1336,12 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
                               child: Text(
-                                'Faites vous accompagner d’un chauffeur expérimenté pour toute la durée de la location de votre véhicule. Moyennant des frais supplémentaires.',
+                                'Faites-vous accompagner d’un chauffeur expérimenté pour toute la durée de la location de votre véhicule. [Peut être sujet de frais supplémentaires]',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText2
                                     .override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF8B97A2),
+                                      color: FlutterFlowTheme.of(context).sixx,
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                     ),
@@ -837,7 +1371,8 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                               buttonSize: 33,
                               icon: Icon(
                                 Icons.local_gas_station,
-                                color: Color(0xFFFA512F),
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 size: 17,
                               ),
                               onPressed: () {
@@ -850,7 +1385,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                             style:
                                 FlutterFlowTheme.of(context).bodyText2.override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF262D34),
+                                      color: Colors.black,
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -868,12 +1403,12 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
                               child: Text(
-                                'Recevez votre véhicule avec le plein de carburant. Le tarif définitif de la location sera susceptible de changer.',
+                                'Recevez votre véhicule avec le plein de carburant. Le tarif définitif de la location sera\nsusceptible de changer.',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyText2
                                     .override(
                                       fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF8B97A2),
+                                      color: FlutterFlowTheme.of(context).sixx,
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                     ),
@@ -970,6 +1505,8 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                         onPressed: () async {
                           logFirebaseEvent(
                               'LOCATION_DETAILS_OFCAR_LOUER_BTN_ON_TAP');
+                          logFirebaseEvent('Button_Haptic-Feedback');
+                          HapticFeedback.mediumImpact();
                           logFirebaseEvent('Button_Navigate-To');
                           context.pushNamed(
                             'LocationO',
@@ -998,7 +1535,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                         options: FFButtonOptions(
                           width: 130,
                           height: 50,
-                          color: Color(0xFF175EFB),
+                          color: FlutterFlowTheme.of(context).primaryColor,
                           textStyle:
                               FlutterFlowTheme.of(context).subtitle2.override(
                                     fontFamily: 'San fransisco',
@@ -1018,7 +1555,7 @@ class _LocationDetailsOfcarWidgetState extends State<LocationDetailsOfcarWidget>
                     ],
                   ),
                 ),
-              ).animated([animationsMap['containerOnPageLoadAnimation']]),
+              ).animated([animationsMap['containerOnPageLoadAnimation5']!]),
             ),
           ],
         ),

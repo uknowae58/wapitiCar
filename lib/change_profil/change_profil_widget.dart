@@ -6,13 +6,15 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChangeProfilWidget extends StatefulWidget {
-  const ChangeProfilWidget({Key key}) : super(key: key);
+  const ChangeProfilWidget({Key? key}) : super(key: key);
 
   @override
   _ChangeProfilWidgetState createState() => _ChangeProfilWidgetState();
@@ -20,9 +22,9 @@ class ChangeProfilWidget extends StatefulWidget {
 
 class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
   String uploadedFileUrl = '';
-  TextEditingController userNameController;
-  TextEditingController emailAddressController;
-  TextEditingController titleRoleController;
+  TextEditingController? userNameController;
+  TextEditingController? emailAddressController;
+  TextEditingController? titleRoleController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,7 +33,11 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
     super.initState();
     emailAddressController = TextEditingController(text: currentUserEmail);
     userNameController = TextEditingController(text: currentUserDisplayName);
-    titleRoleController = TextEditingController(text: currentPhoneNumber);
+    titleRoleController = TextEditingController(
+        text: valueOrDefault<String>(
+      currentPhoneNumber,
+      '+225',
+    ));
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'changeProfil'});
   }
@@ -89,83 +95,122 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          logFirebaseEvent(
-                              'CHANGE_PROFIL_PAGE_userImage_ON_TAP');
-                          logFirebaseEvent('userImage_Upload-Photo-Video');
-                          final selectedMedia =
-                              await selectMediaWithSourceBottomSheet(
-                            context: context,
-                            allowPhoto: true,
-                          );
-                          if (selectedMedia != null &&
-                              selectedMedia.every((m) =>
-                                  validateFileFormat(m.storagePath, context))) {
-                            showUploadMessage(
-                              context,
-                              'Uploading file...',
-                              showLoading: true,
-                            );
-                            final downloadUrls = (await Future.wait(
-                                    selectedMedia.map((m) async =>
-                                        await uploadData(
-                                            m.storagePath, m.bytes))))
-                                .where((u) => u != null)
-                                .toList();
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            if (downloadUrls != null &&
-                                downloadUrls.length == selectedMedia.length) {
-                              setState(
-                                  () => uploadedFileUrl = downloadUrls.first);
-                              showUploadMessage(
-                                context,
-                                'Success!',
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              logFirebaseEvent(
+                                  'CHANGE_PROFIL_PAGE_userImage_ON_TAP');
+                              logFirebaseEvent('userImage_Upload-Photo-Video');
+                              final selectedMedia =
+                                  await selectMediaWithSourceBottomSheet(
+                                context: context,
+                                allowPhoto: true,
                               );
-                            } else {
-                              showUploadMessage(
-                                context,
-                                'Failed to upload media',
-                              );
-                              return;
-                            }
-                          }
-                        },
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: Image.asset(
-                                'assets/images/emptyState@2x.png',
-                              ).image,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6,
-                                color: Color(0x3A000000),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(120),
-                              child: Image.network(
-                                uploadedFileUrl,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
+                              if (selectedMedia != null &&
+                                  selectedMedia.every((m) => validateFileFormat(
+                                      m.storagePath, context))) {
+                                showUploadMessage(
+                                  context,
+                                  'Uploading file...',
+                                  showLoading: true,
+                                );
+                                final downloadUrls = (await Future.wait(
+                                        selectedMedia.map((m) async =>
+                                            await uploadData(
+                                                m.storagePath, m.bytes))))
+                                    .where((u) => u != null)
+                                    .map((u) => u!)
+                                    .toList();
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                if (downloadUrls.length ==
+                                    selectedMedia.length) {
+                                  setState(() =>
+                                      uploadedFileUrl = downloadUrls.first);
+                                  showUploadMessage(
+                                    context,
+                                    'Success!',
+                                  );
+                                } else {
+                                  showUploadMessage(
+                                    context,
+                                    'Failed to upload media',
+                                  );
+                                  return;
+                                }
+                              }
+                            },
+                            child: Container(
+                              width: 120,
+                              height: 120,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: Image.asset(
+                                    'assets/images/emptyState@2x.png',
+                                  ).image,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 6,
+                                    color: Color(0x3A000000),
+                                    offset: Offset(0, 2),
+                                  )
+                                ],
+                                shape: BoxShape.circle,
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(120),
+                                  child: Image.network(
+                                    uploadedFileUrl,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(21, 0, 0, 34),
+                            child: Card(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                                child: AuthUserStreamWidget(
+                                  child: Container(
+                                    width: 40,
+                                    height: 40,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      currentUserPhoto,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Padding(
@@ -277,17 +322,35 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent('CHANGE_PROFIL_SAUVEGARDER_BTN_ON_TAP');
-                      logFirebaseEvent('Button_Backend-Call');
+                      logFirebaseEvent('Button_Haptic-Feedback');
+                      HapticFeedback.mediumImpact();
+                      if (functions.checkUploadPP(uploadedFileUrl)) {
+                        logFirebaseEvent('Button_Backend-Call');
 
-                      final usersUpdateData = createUsersRecordData(
-                        email: emailAddressController.text,
-                        displayName: userNameController.text,
-                        photoUrl: uploadedFileUrl,
-                        phoneNumber: titleRoleController.text,
-                      );
-                      await currentUserReference.update(usersUpdateData);
-                      logFirebaseEvent('Button_Navigate-Back');
-                      context.pop();
+                        final usersUpdateData = createUsersRecordData(
+                          email: emailAddressController!.text,
+                          displayName: userNameController!.text,
+                          photoUrl: uploadedFileUrl,
+                          phoneNumber: titleRoleController!.text,
+                        );
+                        await currentUserReference!.update(usersUpdateData);
+                        logFirebaseEvent('Button_Navigate-Back');
+                        context.pop();
+                        return;
+                      } else {
+                        logFirebaseEvent('Button_Backend-Call');
+
+                        final usersUpdateData = createUsersRecordData(
+                          email: emailAddressController!.text,
+                          displayName: userNameController!.text,
+                          photoUrl: functions.translation(currentUserPhoto),
+                          phoneNumber: titleRoleController!.text,
+                        );
+                        await currentUserReference!.update(usersUpdateData);
+                        logFirebaseEvent('Button_Navigate-Back');
+                        context.pop();
+                        return;
+                      }
                     },
                     text: 'Sauvegarder',
                     options: FFButtonOptions(

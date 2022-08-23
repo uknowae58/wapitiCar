@@ -18,10 +18,10 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
-  WapitiCarFirebaseUser initialUser;
-  WapitiCarFirebaseUser user;
+  WapitiCarFirebaseUser? initialUser;
+  WapitiCarFirebaseUser? user;
   bool showSplashImage = true;
-  String _redirectLocation;
+  String? _redirectLocation;
 
   /// Determines whether the app will refresh and build again when a sign
   /// in or sign out happens. This is useful when the app is launched or
@@ -35,7 +35,7 @@ class AppStateNotifier extends ChangeNotifier {
   bool get initiallyLoggedIn => initialUser?.loggedIn ?? false;
   bool get shouldRedirect => loggedIn && _redirectLocation != null;
 
-  String getRedirectLocation() => _redirectLocation;
+  String getRedirectLocation() => _redirectLocation!;
   bool hasRedirect() => _redirectLocation != null;
   void setRedirectLocationIfUnset(String loc) => _redirectLocation ??= loc;
   void clearRedirectLocation() => _redirectLocation = null;
@@ -98,13 +98,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : HomeWidget(),
             ),
             FFRoute(
-              name: 'Vente',
-              path: 'vente',
+              name: 'Profile',
+              path: 'profile',
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Vente')
-                  : VenteWidget(
-                      temoin: params.getParam('temoin', ParamType.bool),
-                    ),
+                  ? NavBarPage(initialPage: 'Profile')
+                  : ProfileWidget(),
             ),
             FFRoute(
               name: 'Location',
@@ -118,11 +116,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     ),
             ),
             FFRoute(
-              name: 'Profile',
-              path: 'profile',
+              name: 'Vente',
+              path: 'vente',
               builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Profile')
-                  : ProfileWidget(),
+                  ? NavBarPage(initialPage: 'Vente')
+                  : VenteWidget(
+                      temoin: params.getParam('temoin', ParamType.bool),
+                    ),
             ),
             FFRoute(
               name: 'LocationDetailsOfcar',
@@ -157,6 +157,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     'car', ParamType.DocumentReference, 'Vente'),
                 gerant: params.getParam(
                     'gerant', ParamType.DocumentReference, 'Users'),
+                camera: params.getParam('camera', ParamType.String),
+                bluetooth: params.getParam('bluetooth', ParamType.String),
+                cle: params.getParam('cle', ParamType.String),
+                capteurs: params.getParam('capteurs', ParamType.String),
               ),
             ),
             FFRoute(
@@ -172,6 +176,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
+              name: 'ChatMessage',
+              path: 'chatMessage',
+              asyncParams: {
+                'chatUser': getDoc('Users', UsersRecord.serializer),
+              },
+              builder: (context, params) => ChatMessageWidget(
+                chatUser: params.getParam('chatUser', ParamType.Document),
+                chatRef: params.getParam(
+                    'chatRef', ParamType.DocumentReference, 'chats'),
+              ),
+            ),
+            FFRoute(
               name: 'LocationO',
               path: 'locationO',
               builder: (context, params) => LocationOWidget(
@@ -182,18 +198,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     'gerant', ParamType.DocumentReference, 'Users'),
                 vehicule: params.getParam(
                     'vehicule', ParamType.DocumentReference, 'Location'),
-              ),
-            ),
-            FFRoute(
-              name: 'ChatMessage',
-              path: 'chatMessage',
-              asyncParams: {
-                'chatUser': getDoc('Users', UsersRecord.serializer),
-              },
-              builder: (context, params) => ChatMessageWidget(
-                chatUser: params.getParam('chatUser', ParamType.Document),
-                chatRef: params.getParam(
-                    'chatRef', ParamType.DocumentReference, 'chats'),
               ),
             ),
             FFRoute(
@@ -247,11 +251,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ServicesWidget(),
             ),
             FFRoute(
-              name: 'Favoris',
-              path: 'favoris',
-              builder: (context, params) => FavorisWidget(),
-            ),
-            FFRoute(
               name: 'changeProfil',
               path: 'changeProfil',
               builder: (context, params) => ChangeProfilWidget(),
@@ -260,15 +259,59 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'Suggestions',
               path: 'suggestions',
               builder: (context, params) => SuggestionsWidget(),
+            ),
+            FFRoute(
+              name: 'Favoris',
+              path: 'favoris',
+              builder: (context, params) => FavorisWidget(),
+            ),
+            FFRoute(
+              name: 'Berline',
+              path: 'berline',
+              builder: (context, params) => BerlineWidget(),
+            ),
+            FFRoute(
+              name: 'Van',
+              path: 'van',
+              builder: (context, params) => VanWidget(),
+            ),
+            FFRoute(
+              name: 'Suv',
+              path: 'suv',
+              builder: (context, params) => SuvWidget(),
+            ),
+            FFRoute(
+              name: 'Travaux',
+              path: 'travaux',
+              builder: (context, params) => TravauxWidget(),
+            ),
+            FFRoute(
+              name: 'Midas',
+              path: 'midas',
+              builder: (context, params) => MidasWidget(),
+            ),
+            FFRoute(
+              name: 'aPropos',
+              path: 'aPropos',
+              builder: (context, params) => AProposWidget(),
+            ),
+            FFRoute(
+              name: 'paymentPage',
+              path: 'paymentPage',
+              builder: (context, params) => PaymentPageWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
       ],
+      urlPathStrategy: UrlPathStrategy.path,
     );
 
-extension NavParamExtensions on Map<String, String> {
-  Map<String, String> get withoutNulls =>
-      Map.fromEntries(entries.where((e) => e.value != null));
+extension NavParamExtensions on Map<String, String?> {
+  Map<String, String> get withoutNulls => Map.fromEntries(
+        entries
+            .where((e) => e.value != null)
+            .map((e) => MapEntry(e.key, e.value!)),
+      );
 }
 
 extension NavigationExtensions on BuildContext {
@@ -277,7 +320,7 @@ extension NavigationExtensions on BuildContext {
     bool mounted, {
     Map<String, String> params = const <String, String>{},
     Map<String, String> queryParams = const <String, String>{},
-    Object extra,
+    Object? extra,
     bool ignoreRedirect = false,
   }) =>
       !mounted || GoRouter.of(this).shouldRedirect(ignoreRedirect)
@@ -294,7 +337,7 @@ extension NavigationExtensions on BuildContext {
     bool mounted, {
     Map<String, String> params = const <String, String>{},
     Map<String, String> queryParams = const <String, String>{},
-    Object extra,
+    Object? extra,
     bool ignoreRedirect = false,
   }) =>
       !mounted || GoRouter.of(this).shouldRedirect(ignoreRedirect)
@@ -348,7 +391,7 @@ class FFParameters {
   Future<bool> completeFutures() => Future.wait(
         state.allParams.entries.where(isAsyncParam).map(
           (param) async {
-            final doc = await asyncParams[param.key](param.value)
+            final doc = await asyncParams[param.key]!(param.value)
                 .onError((_, __) => null);
             if (doc != null) {
               futureParamValues[param.key] = doc;
@@ -362,7 +405,7 @@ class FFParameters {
   dynamic getParam(
     String paramName,
     ParamType type, [
-    String collectionName,
+    String? collectionName,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -382,9 +425,9 @@ class FFParameters {
 
 class FFRoute {
   const FFRoute({
-    @required this.name,
-    @required this.path,
-    @required this.builder,
+    required this.name,
+    required this.path,
+    required this.builder,
     this.requireAuth = false,
     this.asyncParams = const {},
     this.routes = const [],
@@ -455,7 +498,7 @@ class FFRoute {
 
 class TransitionInfo {
   const TransitionInfo({
-    this.hasTransition,
+    required this.hasTransition,
     this.transitionType = PageTransitionType.fade,
     this.duration = const Duration(milliseconds: 300),
     this.alignment,
@@ -464,7 +507,7 @@ class TransitionInfo {
   final bool hasTransition;
   final PageTransitionType transitionType;
   final Duration duration;
-  final Alignment alignment;
+  final Alignment? alignment;
 
   static TransitionInfo appDefault() => TransitionInfo(
         hasTransition: true,

@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AllChatPageWidget extends StatefulWidget {
-  const AllChatPageWidget({Key key}) : super(key: key);
+  const AllChatPageWidget({Key? key}) : super(key: key);
 
   @override
   _AllChatPageWidgetState createState() => _AllChatPageWidgetState();
@@ -31,8 +31,24 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
+        leading: FlutterFlowIconButton(
+          borderColor: Colors.transparent,
+          borderRadius: 30,
+          borderWidth: 1,
+          buttonSize: 60,
+          icon: Icon(
+            Icons.chevron_left,
+            color: FlutterFlowTheme.of(context).primaryText,
+            size: 30,
+          ),
+          onPressed: () async {
+            logFirebaseEvent('ALL_CHAT_chevron_left_ICN_ON_TAP');
+            logFirebaseEvent('IconButton_Navigate-Back');
+            context.pop();
+          },
+        ),
         title: Text(
-          'All Chats',
+          'Vos messages',
           style: FlutterFlowTheme.of(context).bodyText1.override(
                 fontFamily: 'San fransisco',
                 color: Colors.black,
@@ -41,24 +57,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                 useGoogleFonts: false,
               ),
         ),
-        actions: [
-          FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30,
-            borderWidth: 1,
-            buttonSize: 60,
-            icon: Icon(
-              Icons.home,
-              color: FlutterFlowTheme.of(context).primaryText,
-              size: 21,
-            ),
-            onPressed: () async {
-              logFirebaseEvent('ALL_CHAT_PAGE_PAGE_home_ICN_ON_TAP');
-              logFirebaseEvent('IconButton_Navigate-To');
-              context.pushNamed('Home');
-            },
-          ),
-        ],
+        actions: [],
         centerTitle: true,
         elevation: 4,
       ),
@@ -85,7 +84,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                   ),
                 );
               }
-              List<ChatsRecord> listViewChatsRecordList = snapshot.data;
+              List<ChatsRecord> listViewChatsRecordList = snapshot.data!;
               return ListView.builder(
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
@@ -120,7 +119,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                         ),
                         lastChatText: chatInfo.chatPreviewMessage(),
                         lastChatTime: listViewChatsRecord.lastMessageTime,
-                        seen: listViewChatsRecord.lastMessageSeenBy
+                        seen: listViewChatsRecord.lastMessageSeenBy!
                             .contains(currentUserReference),
                         title: chatInfo.chatPreviewTitle(),
                         userProfilePic: chatInfo.chatPreviewPic(),

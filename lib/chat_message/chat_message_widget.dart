@@ -11,13 +11,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ChatMessageWidget extends StatefulWidget {
   const ChatMessageWidget({
-    Key key,
+    Key? key,
     this.chatUser,
     this.chatRef,
   }) : super(key: key);
 
-  final UsersRecord chatUser;
-  final DocumentReference chatRef;
+  final UsersRecord? chatUser;
+  final DocumentReference? chatRef;
 
   @override
   _ChatMessageWidgetState createState() => _ChatMessageWidgetState();
@@ -25,7 +25,7 @@ class ChatMessageWidget extends StatefulWidget {
 
 class _ChatMessageWidgetState extends State<ChatMessageWidget>
     with TickerProviderStateMixin {
-  FFChatInfo _chatInfo;
+  FFChatInfo? _chatInfo;
   bool isGroupChat() {
     if (widget.chatUser == null) {
       return true;
@@ -104,9 +104,9 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
         ),
         title: Stack(
           children: [
-            if (!(isGroupChat()) ?? true)
+            if (!isGroupChat())
               Text(
-                widget.chatUser.displayName,
+                widget.chatUser!.displayName!,
                 style: FlutterFlowTheme.of(context).bodyText1.override(
                       fontFamily: 'Lexend Deca',
                       color: Colors.black,
@@ -114,7 +114,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                       fontWeight: FontWeight.bold,
                     ),
               ),
-            if (isGroupChat() ?? true)
+            if (isGroupChat())
               Text(
                 'Group Chat',
                 style: FlutterFlowTheme.of(context).bodyText1.override(
@@ -140,7 +140,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
             ),
             builder: (context, snapshot) => snapshot.hasData
                 ? FFChatPage(
-                    chatInfo: snapshot.data,
+                    chatInfo: snapshot.data!,
                     allowImages: true,
                     backgroundColor: Color(0xFFF2F4F8),
                     timeDisplaySetting: TimeDisplaySetting.visibleOnTap,
@@ -198,7 +198,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                       ),
                     ),
                   ),
-          ).animated([animationsMap['chatPageOnPageLoadAnimation']]),
+          ).animated([animationsMap['chatPageOnPageLoadAnimation']!]),
         ),
       ),
     );

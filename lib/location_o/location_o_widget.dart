@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/alerte_date_de_debut_widget.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -9,6 +10,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,7 +18,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class LocationOWidget extends StatefulWidget {
   const LocationOWidget({
-    Key key,
+    Key? key,
     this.marque,
     this.transmission,
     this.prix,
@@ -24,23 +26,23 @@ class LocationOWidget extends StatefulWidget {
     this.vehicule,
   }) : super(key: key);
 
-  final String marque;
-  final String transmission;
-  final int prix;
-  final DocumentReference gerant;
-  final DocumentReference vehicule;
+  final String? marque;
+  final String? transmission;
+  final int? prix;
+  final DocumentReference? gerant;
+  final DocumentReference? vehicule;
 
   @override
   _LocationOWidgetState createState() => _LocationOWidgetState();
 }
 
 class _LocationOWidgetState extends State<LocationOWidget> {
-  CommandeLocationRecord commandeCreationAction;
-  DateTime datePicked;
-  PageController pageViewController;
-  int countControllerValue;
-  String faireLePleinValue;
-  String chauffeurValue;
+  CommandeLocationRecord? commandeCreationAction;
+  DateTime? datePicked;
+  PageController? pageViewController;
+  int? countControllerValue;
+  String? faireLePleinValue;
+  String? chauffeurValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -108,9 +110,93 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                     ),
                   ),
                   Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(21, 12, 0, 0),
+                    child: Text(
+                      'Renseignez les informations relatives au nombre de jours de la location du véhicule, de la date de début de la location et des options. Le propriétaire du véhicule vous contactera après confirmation.',
+                      style: FlutterFlowTheme.of(context).bodyText2.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0xFF8B97A2),
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                          ),
+                    ),
+                  ),
+                  StreamBuilder<UsersRecord>(
+                    stream: UsersRecord.getDocument(FFAppState().wapitiCar!),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: SpinKitPulse(
+                              color: Color(0xFF175EFB),
+                              size: 50,
+                            ),
+                          ),
+                        );
+                      }
+                      final rowUsersRecord = snapshot.data!;
+                      return Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(21, 0, 0, 0),
+                            child: Text(
+                              'En cas de soucis contactez',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Color(0xFF8B97A2),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
+                            child: InkWell(
+                              onTap: () async {
+                                logFirebaseEvent(
+                                    'LOCATION_O_PAGE_Text_vaz9d880_ON_TAP');
+                                logFirebaseEvent('Text_Navigate-To');
+                                context.pushNamed(
+                                  'ChatMessage',
+                                  queryParams: {
+                                    'chatUser': serializeParam(
+                                        rowUsersRecord, ParamType.Document),
+                                  }.withoutNulls,
+                                  extra: <String, dynamic>{
+                                    'chatUser': rowUsersRecord,
+                                  },
+                                );
+                              },
+                              child: Text(
+                                'wapiti car ',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                     child: StreamBuilder<LocationRecord>(
-                      stream: LocationRecord.getDocument(widget.vehicule),
+                      stream: LocationRecord.getDocument(widget.vehicule!),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
@@ -125,7 +211,7 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                             ),
                           );
                         }
-                        final topimageLocationRecord = snapshot.data;
+                        final topimageLocationRecord = snapshot.data!;
                         return Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -140,10 +226,7 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                               child: Builder(
                                 builder: (context) {
                                   final imagesLocationOrder =
-                                      topimageLocationRecord.images
-                                              .toList()
-                                              ?.toList() ??
-                                          [];
+                                      topimageLocationRecord.images!.toList();
                                   return Container(
                                     width: MediaQuery.of(context).size.width *
                                         0.89,
@@ -189,7 +272,7 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          widget.marque,
+                          widget.marque!,
                           style: FlutterFlowTheme.of(context).title1.override(
                                 fontFamily: 'San fransisco',
                                 color: Color(0xFF090F13),
@@ -207,7 +290,7 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          widget.transmission,
+                          widget.transmission!,
                           style:
                               FlutterFlowTheme.of(context).bodyText2.override(
                                     fontFamily: 'San fransisco',
@@ -274,6 +357,12 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                               },
                               currentTime: getCurrentTimestamp,
                               minTime: getCurrentTimestamp,
+                              locale: LocaleType.values.firstWhere(
+                                (l) =>
+                                    l.name ==
+                                    FFLocalizations.of(context).languageCode,
+                                orElse: () => LocaleType.en,
+                              ),
                             );
                           },
                         ),
@@ -322,7 +411,9 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                         ),
                         incrementIconBuilder: (enabled) => FaIcon(
                           FontAwesomeIcons.plus,
-                          color: enabled ? Colors.blue : Color(0xFFEEEEEE),
+                          color: enabled
+                              ? FlutterFlowTheme.of(context).primaryColor
+                              : Color(0xFFEEEEEE),
                           size: 20,
                         ),
                         countBuilder: (count) => Text(
@@ -371,14 +462,14 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                                 EdgeInsetsDirectional.fromSTEB(24, 12, 24, 0),
                             child: FlutterFlowChoiceChips(
                               initiallySelected: faireLePleinValue != null
-                                  ? [faireLePleinValue]
+                                  ? [faireLePleinValue!]
                                   : ['Pas de plein'],
                               options: [
                                 ChipData('Faire le plein'),
                                 ChipData('Pas de plein')
                               ],
-                              onChanged: (val) =>
-                                  setState(() => faireLePleinValue = val.first),
+                              onChanged: (val) => setState(
+                                  () => faireLePleinValue = val?.first),
                               selectedChipStyle: ChipStyle(
                                 backgroundColor: Color(0xFF1D2429),
                                 textStyle: FlutterFlowTheme.of(context)
@@ -429,14 +520,14 @@ class _LocationOWidgetState extends State<LocationOWidget> {
                         Expanded(
                           child: FlutterFlowChoiceChips(
                             initiallySelected: chauffeurValue != null
-                                ? [chauffeurValue]
+                                ? [chauffeurValue!]
                                 : ['Aucun chauffeur'],
                             options: [
                               ChipData('Chauffeur'),
                               ChipData('Aucun chauffeur')
                             ],
                             onChanged: (val) =>
-                                setState(() => chauffeurValue = val.first),
+                                setState(() => chauffeurValue = val?.first),
                             selectedChipStyle: ChipStyle(
                               backgroundColor: Color(0xFF1E2429),
                               textStyle: FlutterFlowTheme.of(context)
@@ -573,51 +664,74 @@ class _LocationOWidgetState extends State<LocationOWidget> {
             child: FFButtonWidget(
               onPressed: () async {
                 logFirebaseEvent('LOCATION_O_PAGE_CONFIRMER_BTN_ON_TAP');
-                logFirebaseEvent('Button_Backend-Call');
+                var _shouldSetState = false;
+                logFirebaseEvent('Button_Haptic-Feedback');
+                HapticFeedback.heavyImpact();
+                if (functions.checkQueryDate(datePicked)) {
+                  logFirebaseEvent('Button_Backend-Call');
 
-                final commandeLocationCreateData =
-                    createCommandeLocationRecordData(
-                  client: currentUserReference,
-                  dateDebut: datePicked,
-                  vehicule: widget.vehicule,
-                  chauffeur: valueOrDefault<String>(
-                    chauffeurValue,
-                    'Aucun chauffeur',
-                  ),
-                  faireLePlein: valueOrDefault<String>(
-                    faireLePleinValue,
-                    'Pas de plein',
-                  ),
-                  gerant: widget.gerant,
-                  nbJour: countControllerValue,
-                  prixtotal:
-                      '${functions.prixTotal(widget.prix, countControllerValue).toString()}fr CFA',
-                );
-                var commandeLocationRecordReference =
-                    CommandeLocationRecord.collection.doc();
-                await commandeLocationRecordReference
-                    .set(commandeLocationCreateData);
-                commandeCreationAction =
-                    CommandeLocationRecord.getDocumentFromData(
-                        commandeLocationCreateData,
-                        commandeLocationRecordReference);
-                logFirebaseEvent('Button_Backend-Call');
+                  final commandeLocationCreateData =
+                      createCommandeLocationRecordData(
+                    client: currentUserReference,
+                    dateDebut: datePicked,
+                    vehicule: widget.vehicule,
+                    chauffeur: valueOrDefault<String>(
+                      chauffeurValue,
+                      'Aucun chauffeur',
+                    ),
+                    faireLePlein: valueOrDefault<String>(
+                      faireLePleinValue,
+                      'Pas de plein',
+                    ),
+                    gerant: widget.gerant,
+                    nbJour: countControllerValue,
+                    prixtotal:
+                        '${functions.prixTotal(widget.prix, countControllerValue).toString()}fr CFA',
+                  );
+                  var commandeLocationRecordReference =
+                      CommandeLocationRecord.collection.doc();
+                  await commandeLocationRecordReference
+                      .set(commandeLocationCreateData);
+                  commandeCreationAction =
+                      CommandeLocationRecord.getDocumentFromData(
+                          commandeLocationCreateData,
+                          commandeLocationRecordReference);
+                  _shouldSetState = true;
+                  logFirebaseEvent('Button_Backend-Call');
 
-                final usersUpdateData = {
-                  'CommandeList':
-                      FieldValue.arrayUnion([commandeCreationAction.reference]),
-                };
-                await currentUserReference.update(usersUpdateData);
-                logFirebaseEvent('Button_Navigate-To');
-                context.goNamed('DoneLocation');
+                  final usersUpdateData = {
+                    'CommandeList': FieldValue.arrayUnion(
+                        [commandeCreationAction!.reference]),
+                  };
+                  await currentUserReference!.update(usersUpdateData);
+                  logFirebaseEvent('Button_Navigate-To');
+                  context.goNamed('DoneLocation');
+                  if (_shouldSetState) setState(() {});
+                  return;
+                } else {
+                  logFirebaseEvent('Button_Bottom-Sheet');
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    context: context,
+                    builder: (context) {
+                      return Padding(
+                        padding: MediaQuery.of(context).viewInsets,
+                        child: AlerteDateDeDebutWidget(),
+                      );
+                    },
+                  );
+                  if (_shouldSetState) setState(() {});
+                  return;
+                }
 
-                setState(() {});
+                if (_shouldSetState) setState(() {});
               },
               text: 'Confirmer',
               options: FFButtonOptions(
                 width: 130,
                 height: 40,
-                color: Color(0xFF175EFB),
+                color: FlutterFlowTheme.of(context).primaryColor,
                 textStyle: FlutterFlowTheme.of(context).title2.override(
                       fontFamily: 'San fransisco',
                       color: Colors.white,

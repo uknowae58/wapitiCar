@@ -1,7 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
@@ -28,17 +28,17 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 
   static _MyAppState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>();
+      context.findAncestorStateOfType<_MyAppState>()!;
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale _locale;
+  Locale? _locale;
   ThemeMode _themeMode = ThemeMode.system;
 
-  Stream<WapitiCarFirebaseUser> userStream;
+  late Stream<WapitiCarFirebaseUser> userStream;
 
-  AppStateNotifier _appStateNotifier;
-  GoRouter _router;
+  late AppStateNotifier _appStateNotifier;
+  late GoRouter _router;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
 
@@ -62,7 +62,8 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  void setLocale(Locale value) => setState(() => _locale = value);
+  void setLocale(String language) =>
+      setState(() => _locale = createLocale(language));
   void setThemeMode(ThemeMode mode) => setState(() {
         _themeMode = mode;
       });
@@ -78,7 +79,9 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       locale: _locale,
-      supportedLocales: const [Locale('en', '')],
+      supportedLocales: const [
+        Locale('fr'),
+      ],
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
       routeInformationParser: _router.routeInformationParser,
@@ -88,9 +91,9 @@ class _MyAppState extends State<MyApp> {
 }
 
 class NavBarPage extends StatefulWidget {
-  NavBarPage({Key key, this.initialPage}) : super(key: key);
+  NavBarPage({Key? key, this.initialPage}) : super(key: key);
 
-  final String initialPage;
+  final String? initialPage;
 
   @override
   _NavBarPageState createState() => _NavBarPageState();

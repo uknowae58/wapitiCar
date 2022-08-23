@@ -11,21 +11,17 @@ abstract class CommandeVenteRecord
   static Serializer<CommandeVenteRecord> get serializer =>
       _$commandeVenteRecordSerializer;
 
-  @nullable
-  DateTime get date;
+  DateTime? get date;
 
-  @nullable
-  DocumentReference get client;
+  DocumentReference? get client;
 
-  @nullable
-  DocumentReference get vehicule;
+  DocumentReference? get vehicule;
 
-  @nullable
-  DocumentReference get gerant;
+  DocumentReference? get gerant;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(CommandeVenteRecordBuilder builder) => builder;
 
@@ -34,11 +30,11 @@ abstract class CommandeVenteRecord
 
   static Stream<CommandeVenteRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<CommandeVenteRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   CommandeVenteRecord._();
   factory CommandeVenteRecord(
@@ -48,19 +44,25 @@ abstract class CommandeVenteRecord
   static CommandeVenteRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createCommandeVenteRecordData({
-  DateTime date,
-  DocumentReference client,
-  DocumentReference vehicule,
-  DocumentReference gerant,
-}) =>
-    serializers.toFirestore(
-        CommandeVenteRecord.serializer,
-        CommandeVenteRecord((c) => c
-          ..date = date
-          ..client = client
-          ..vehicule = vehicule
-          ..gerant = gerant));
+  DateTime? date,
+  DocumentReference? client,
+  DocumentReference? vehicule,
+  DocumentReference? gerant,
+}) {
+  final firestoreData = serializers.toFirestore(
+    CommandeVenteRecord.serializer,
+    CommandeVenteRecord(
+      (c) => c
+        ..date = date
+        ..client = client
+        ..vehicule = vehicule
+        ..gerant = gerant,
+    ),
+  );
+
+  return firestoreData;
+}

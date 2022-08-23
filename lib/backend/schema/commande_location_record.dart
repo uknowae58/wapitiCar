@@ -11,34 +11,26 @@ abstract class CommandeLocationRecord
   static Serializer<CommandeLocationRecord> get serializer =>
       _$commandeLocationRecordSerializer;
 
-  @nullable
-  DocumentReference get client;
+  DocumentReference? get client;
 
-  @nullable
-  DateTime get dateDebut;
+  DateTime? get dateDebut;
 
-  @nullable
-  DocumentReference get vehicule;
+  DocumentReference? get vehicule;
 
-  @nullable
-  String get chauffeur;
+  String? get chauffeur;
 
-  @nullable
-  String get faireLePlein;
+  String? get faireLePlein;
 
-  @nullable
   @BuiltValueField(wireName: 'nb_jour')
-  int get nbJour;
+  int? get nbJour;
 
-  @nullable
-  String get prixtotal;
+  String? get prixtotal;
 
-  @nullable
-  DocumentReference get gerant;
+  DocumentReference? get gerant;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(CommandeLocationRecordBuilder builder) =>
       builder
@@ -52,12 +44,12 @@ abstract class CommandeLocationRecord
 
   static Stream<CommandeLocationRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<CommandeLocationRecord> getDocumentOnce(
           DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   CommandeLocationRecord._();
   factory CommandeLocationRecord(
@@ -67,27 +59,33 @@ abstract class CommandeLocationRecord
   static CommandeLocationRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createCommandeLocationRecordData({
-  DocumentReference client,
-  DateTime dateDebut,
-  DocumentReference vehicule,
-  String chauffeur,
-  String faireLePlein,
-  int nbJour,
-  String prixtotal,
-  DocumentReference gerant,
-}) =>
-    serializers.toFirestore(
-        CommandeLocationRecord.serializer,
-        CommandeLocationRecord((c) => c
-          ..client = client
-          ..dateDebut = dateDebut
-          ..vehicule = vehicule
-          ..chauffeur = chauffeur
-          ..faireLePlein = faireLePlein
-          ..nbJour = nbJour
-          ..prixtotal = prixtotal
-          ..gerant = gerant));
+  DocumentReference? client,
+  DateTime? dateDebut,
+  DocumentReference? vehicule,
+  String? chauffeur,
+  String? faireLePlein,
+  int? nbJour,
+  String? prixtotal,
+  DocumentReference? gerant,
+}) {
+  final firestoreData = serializers.toFirestore(
+    CommandeLocationRecord.serializer,
+    CommandeLocationRecord(
+      (c) => c
+        ..client = client
+        ..dateDebut = dateDebut
+        ..vehicule = vehicule
+        ..chauffeur = chauffeur
+        ..faireLePlein = faireLePlein
+        ..nbJour = nbJour
+        ..prixtotal = prixtotal
+        ..gerant = gerant,
+    ),
+  );
+
+  return firestoreData;
+}

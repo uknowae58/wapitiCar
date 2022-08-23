@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class DoneVenteWidget extends StatefulWidget {
-  const DoneVenteWidget({Key key}) : super(key: key);
+  const DoneVenteWidget({Key? key}) : super(key: key);
 
   @override
   _DoneVenteWidgetState createState() => _DoneVenteWidgetState();
@@ -64,7 +64,7 @@ class _DoneVenteWidgetState extends State<DoneVenteWidget>
               height: 350,
               fit: BoxFit.cover,
               animate: true,
-            ).animated([animationsMap['lottieAnimationOnPageLoadAnimation']]),
+            ).animated([animationsMap['lottieAnimationOnPageLoadAnimation']!]),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
               child: Text(
@@ -81,7 +81,7 @@ class _DoneVenteWidgetState extends State<DoneVenteWidget>
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 0),
               child: Text(
-                'Votre rendez-vous a bien ete enregistree. Le proprietaire vous concactera pour planifier votre rencontre',
+                'Votre rendez-vous a bien été enregistré. Le concessionnaire vous contactera pour planifier votre rencontre.',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyText2.override(
                       fontFamily: 'San fransisco',

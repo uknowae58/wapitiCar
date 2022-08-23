@@ -9,11 +9,12 @@ import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SuggestionsWidget extends StatefulWidget {
-  const SuggestionsWidget({Key key}) : super(key: key);
+  const SuggestionsWidget({Key? key}) : super(key: key);
 
   @override
   _SuggestionsWidgetState createState() => _SuggestionsWidgetState();
@@ -21,7 +22,7 @@ class SuggestionsWidget extends StatefulWidget {
 
 class _SuggestionsWidgetState extends State<SuggestionsWidget> {
   String uploadedFileUrl = '';
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -68,16 +69,35 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
             child: FFButtonWidget(
               onPressed: () async {
                 logFirebaseEvent('SUGGESTIONS_PAGE_ENVOYER_BTN_ON_TAP');
+                logFirebaseEvent('Button_Haptic-Feedback');
+                HapticFeedback.mediumImpact();
                 logFirebaseEvent('Button_Backend-Call');
 
                 final suggestionsCreateData = createSuggestionsRecordData(
                   client: currentUserReference,
-                  suggestions: textController.text,
+                  suggestions: textController!.text,
                   image: '',
                 );
                 await SuggestionsRecord.collection
                     .doc()
                     .set(suggestionsCreateData);
+                logFirebaseEvent('Button_Navigate-Back');
+                context.pop();
+                logFirebaseEvent('Button_Alert-Dialog');
+                await showDialog(
+                  context: context,
+                  builder: (alertDialogContext) {
+                    return AlertDialog(
+                      content: Text('Votre suggestion a bien été envoyé'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(alertDialogContext),
+                          child: Text('Ok'),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
               text: 'Envoyer',
               options: FFButtonOptions(
@@ -132,7 +152,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                             ),
                             child: Image.network(
                               currentUserPhoto,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
@@ -296,12 +316,12 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                                               await uploadData(
                                                   m.storagePath, m.bytes))))
                                       .where((u) => u != null)
+                                      .map((u) => u!)
                                       .toList();
                                   ScaffoldMessenger.of(context)
                                       .hideCurrentSnackBar();
-                                  if (downloadUrls != null &&
-                                      downloadUrls.length ==
-                                          selectedMedia.length) {
+                                  if (downloadUrls.length ==
+                                      selectedMedia.length) {
                                     setState(() =>
                                         uploadedFileUrl = downloadUrls.first);
                                     showUploadMessage(

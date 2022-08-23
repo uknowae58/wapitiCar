@@ -7,14 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PotechappementWidget extends StatefulWidget {
-  const PotechappementWidget({Key key}) : super(key: key);
+  const PotechappementWidget({Key? key}) : super(key: key);
 
   @override
   _PotechappementWidgetState createState() => _PotechappementWidgetState();
 }
 
 class _PotechappementWidgetState extends State<PotechappementWidget> {
-  PageController pageViewController;
+  PageController? pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -266,7 +266,7 @@ class _PotechappementWidgetState extends State<PotechappementWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           12, 5, 12, 0),
                                       child: Text(
-                                        'La fumée sortant du moteur, extrêmement chaude, refroidis progressivement au fur et à mesure qu’elle se dirige vers le tuyau d’échappement. Si celui-ci est endommagé, la fumée chaude peut endommager les autres pièces aux alentours du moteur. Dans les cas extrêmes, cela peut provoquer un incendie.',
+                                        'La fumée sortant du moteur, extrêmement chaude, refroidis progressivement au fur et à mesure qu’elle se dirige vers le tuyau d’échappement. Si celui-ci est abimé, la fumée chaude peut endommager les autres pièces aux alentours du moteur. Dans les cas extrêmes, cela peut provoquer un incendie.',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
@@ -280,7 +280,7 @@ class _PotechappementWidgetState extends State<PotechappementWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Image.asset(
-                                  'assets/images/pngwing.com-12.png',
+                                  'assets/images/pngwing.com_(1).png',
                                   width: MediaQuery.of(context).size.width,
                                   height:
                                       MediaQuery.of(context).size.height * 0.55,
@@ -337,7 +337,7 @@ class _PotechappementWidgetState extends State<PotechappementWidget> {
                             count: 5,
                             axisDirection: Axis.horizontal,
                             onDotClicked: (i) {
-                              pageViewController.animateToPage(
+                              pageViewController!.animateToPage(
                                 i,
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease,

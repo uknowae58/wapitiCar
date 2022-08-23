@@ -17,10 +17,10 @@ class _$LocationRecordSerializer
   final String wireName = 'LocationRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, LocationRecord object,
+  Iterable<Object?> serialize(Serializers serializers, LocationRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.marque;
     if (value != null) {
       result
@@ -60,90 +60,6 @@ class _$LocationRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.audi;
-    if (value != null) {
-      result
-        ..add('audi')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.bmw;
-    if (value != null) {
-      result
-        ..add('bmw')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.ford;
-    if (value != null) {
-      result
-        ..add('ford')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.hyundai;
-    if (value != null) {
-      result
-        ..add('hyundai')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.kia;
-    if (value != null) {
-      result
-        ..add('kia')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.mazda;
-    if (value != null) {
-      result
-        ..add('mazda')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.mercedes;
-    if (value != null) {
-      result
-        ..add('mercedes')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.mitsubishi;
-    if (value != null) {
-      result
-        ..add('mitsubishi')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.rangerover;
-    if (value != null) {
-      result
-        ..add('rangerover')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.peugeot;
-    if (value != null) {
-      result
-        ..add('peugeot')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.toyota;
-    if (value != null) {
-      result
-        ..add('toyota')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
-    value = object.volkswagen;
-    if (value != null) {
-      result
-        ..add('volkswagen')
-        ..add(
-            serializers.serialize(value, specifiedType: const FullType(bool)));
-    }
     value = object.favoris;
     if (value != null) {
       result
@@ -157,7 +73,8 @@ class _$LocationRecordSerializer
         ..add('liked_by')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(BuiltList, const [
-              const FullType(DocumentReference, const [const FullType(Object)])
+              const FullType(
+                  DocumentReference, const [const FullType.nullable(Object)])
             ])));
     }
     value = object.gerant;
@@ -166,7 +83,7 @@ class _$LocationRecordSerializer
         ..add('gerant')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     value = object.images;
     if (value != null) {
@@ -176,129 +93,92 @@ class _$LocationRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.reference;
+    value = object.typeDeVoiture;
+    if (value != null) {
+      result
+        ..add('type_de_voiture')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   LocationRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new LocationRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'marque':
           result.marque = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'transmission':
           result.transmission = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'prix':
           result.prix = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'annee':
           result.annee = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'nb_siege':
           result.nbSiege = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'carburant':
           result.carburant = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'audi':
-          result.audi = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'bmw':
-          result.bmw = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'ford':
-          result.ford = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'hyundai':
-          result.hyundai = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'kia':
-          result.kia = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'mazda':
-          result.mazda = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'mercedes':
-          result.mercedes = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'mitsubishi':
-          result.mitsubishi = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'rangerover':
-          result.rangerover = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'peugeot':
-          result.peugeot = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'toyota':
-          result.toyota = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
-          break;
-        case 'volkswagen':
-          result.volkswagen = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'favoris':
           result.favoris = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'liked_by':
           result.likedBy.replace(serializers.deserialize(value,
               specifiedType: const FullType(BuiltList, const [
                 const FullType(
-                    DocumentReference, const [const FullType(Object)])
-              ])) as BuiltList<Object>);
+                    DocumentReference, const [const FullType.nullable(Object)])
+              ]))! as BuiltList<Object?>);
           break;
         case 'gerant':
           result.gerant = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
         case 'images':
           result.images.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
+          break;
+        case 'type_de_voiture':
+          result.typeDeVoiture = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -309,54 +189,32 @@ class _$LocationRecordSerializer
 
 class _$LocationRecord extends LocationRecord {
   @override
-  final String marque;
+  final String? marque;
   @override
-  final String transmission;
+  final String? transmission;
   @override
-  final int prix;
+  final int? prix;
   @override
-  final int annee;
+  final int? annee;
   @override
-  final int nbSiege;
+  final int? nbSiege;
   @override
-  final String carburant;
+  final String? carburant;
   @override
-  final bool audi;
+  final bool? favoris;
   @override
-  final bool bmw;
+  final BuiltList<DocumentReference<Object?>>? likedBy;
   @override
-  final bool ford;
+  final DocumentReference<Object?>? gerant;
   @override
-  final bool hyundai;
+  final BuiltList<String>? images;
   @override
-  final bool kia;
+  final String? typeDeVoiture;
   @override
-  final bool mazda;
-  @override
-  final bool mercedes;
-  @override
-  final bool mitsubishi;
-  @override
-  final bool rangerover;
-  @override
-  final bool peugeot;
-  @override
-  final bool toyota;
-  @override
-  final bool volkswagen;
-  @override
-  final bool favoris;
-  @override
-  final BuiltList<DocumentReference<Object>> likedBy;
-  @override
-  final DocumentReference<Object> gerant;
-  @override
-  final BuiltList<String> images;
-  @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
-  factory _$LocationRecord([void Function(LocationRecordBuilder) updates]) =>
-      (new LocationRecordBuilder()..update(updates)).build();
+  factory _$LocationRecord([void Function(LocationRecordBuilder)? updates]) =>
+      (new LocationRecordBuilder()..update(updates))._build();
 
   _$LocationRecord._(
       {this.marque,
@@ -365,23 +223,12 @@ class _$LocationRecord extends LocationRecord {
       this.annee,
       this.nbSiege,
       this.carburant,
-      this.audi,
-      this.bmw,
-      this.ford,
-      this.hyundai,
-      this.kia,
-      this.mazda,
-      this.mercedes,
-      this.mitsubishi,
-      this.rangerover,
-      this.peugeot,
-      this.toyota,
-      this.volkswagen,
       this.favoris,
       this.likedBy,
       this.gerant,
       this.images,
-      this.reference})
+      this.typeDeVoiture,
+      this.ffRef})
       : super._();
 
   @override
@@ -402,23 +249,12 @@ class _$LocationRecord extends LocationRecord {
         annee == other.annee &&
         nbSiege == other.nbSiege &&
         carburant == other.carburant &&
-        audi == other.audi &&
-        bmw == other.bmw &&
-        ford == other.ford &&
-        hyundai == other.hyundai &&
-        kia == other.kia &&
-        mazda == other.mazda &&
-        mercedes == other.mercedes &&
-        mitsubishi == other.mitsubishi &&
-        rangerover == other.rangerover &&
-        peugeot == other.peugeot &&
-        toyota == other.toyota &&
-        volkswagen == other.volkswagen &&
         favoris == other.favoris &&
         likedBy == other.likedBy &&
         gerant == other.gerant &&
         images == other.images &&
-        reference == other.reference;
+        typeDeVoiture == other.typeDeVoiture &&
+        ffRef == other.ffRef;
   }
 
   @override
@@ -433,165 +269,94 @@ class _$LocationRecord extends LocationRecord {
                                 $jc(
                                     $jc(
                                         $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc($jc($jc($jc($jc(0, marque.hashCode), transmission.hashCode), prix.hashCode), annee.hashCode),
-                                                                                nbSiege.hashCode),
-                                                                            carburant.hashCode),
-                                                                        audi.hashCode),
-                                                                    bmw.hashCode),
-                                                                ford.hashCode),
-                                                            hyundai.hashCode),
-                                                        kia.hashCode),
-                                                    mazda.hashCode),
-                                                mercedes.hashCode),
-                                            mitsubishi.hashCode),
-                                        rangerover.hashCode),
-                                    peugeot.hashCode),
-                                toyota.hashCode),
-                            volkswagen.hashCode),
-                        favoris.hashCode),
-                    likedBy.hashCode),
-                gerant.hashCode),
-            images.hashCode),
-        reference.hashCode));
+                                            $jc($jc(0, marque.hashCode),
+                                                transmission.hashCode),
+                                            prix.hashCode),
+                                        annee.hashCode),
+                                    nbSiege.hashCode),
+                                carburant.hashCode),
+                            favoris.hashCode),
+                        likedBy.hashCode),
+                    gerant.hashCode),
+                images.hashCode),
+            typeDeVoiture.hashCode),
+        ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('LocationRecord')
+    return (newBuiltValueToStringHelper(r'LocationRecord')
           ..add('marque', marque)
           ..add('transmission', transmission)
           ..add('prix', prix)
           ..add('annee', annee)
           ..add('nbSiege', nbSiege)
           ..add('carburant', carburant)
-          ..add('audi', audi)
-          ..add('bmw', bmw)
-          ..add('ford', ford)
-          ..add('hyundai', hyundai)
-          ..add('kia', kia)
-          ..add('mazda', mazda)
-          ..add('mercedes', mercedes)
-          ..add('mitsubishi', mitsubishi)
-          ..add('rangerover', rangerover)
-          ..add('peugeot', peugeot)
-          ..add('toyota', toyota)
-          ..add('volkswagen', volkswagen)
           ..add('favoris', favoris)
           ..add('likedBy', likedBy)
           ..add('gerant', gerant)
           ..add('images', images)
-          ..add('reference', reference))
+          ..add('typeDeVoiture', typeDeVoiture)
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class LocationRecordBuilder
     implements Builder<LocationRecord, LocationRecordBuilder> {
-  _$LocationRecord _$v;
+  _$LocationRecord? _$v;
 
-  String _marque;
-  String get marque => _$this._marque;
-  set marque(String marque) => _$this._marque = marque;
+  String? _marque;
+  String? get marque => _$this._marque;
+  set marque(String? marque) => _$this._marque = marque;
 
-  String _transmission;
-  String get transmission => _$this._transmission;
-  set transmission(String transmission) => _$this._transmission = transmission;
+  String? _transmission;
+  String? get transmission => _$this._transmission;
+  set transmission(String? transmission) => _$this._transmission = transmission;
 
-  int _prix;
-  int get prix => _$this._prix;
-  set prix(int prix) => _$this._prix = prix;
+  int? _prix;
+  int? get prix => _$this._prix;
+  set prix(int? prix) => _$this._prix = prix;
 
-  int _annee;
-  int get annee => _$this._annee;
-  set annee(int annee) => _$this._annee = annee;
+  int? _annee;
+  int? get annee => _$this._annee;
+  set annee(int? annee) => _$this._annee = annee;
 
-  int _nbSiege;
-  int get nbSiege => _$this._nbSiege;
-  set nbSiege(int nbSiege) => _$this._nbSiege = nbSiege;
+  int? _nbSiege;
+  int? get nbSiege => _$this._nbSiege;
+  set nbSiege(int? nbSiege) => _$this._nbSiege = nbSiege;
 
-  String _carburant;
-  String get carburant => _$this._carburant;
-  set carburant(String carburant) => _$this._carburant = carburant;
+  String? _carburant;
+  String? get carburant => _$this._carburant;
+  set carburant(String? carburant) => _$this._carburant = carburant;
 
-  bool _audi;
-  bool get audi => _$this._audi;
-  set audi(bool audi) => _$this._audi = audi;
+  bool? _favoris;
+  bool? get favoris => _$this._favoris;
+  set favoris(bool? favoris) => _$this._favoris = favoris;
 
-  bool _bmw;
-  bool get bmw => _$this._bmw;
-  set bmw(bool bmw) => _$this._bmw = bmw;
-
-  bool _ford;
-  bool get ford => _$this._ford;
-  set ford(bool ford) => _$this._ford = ford;
-
-  bool _hyundai;
-  bool get hyundai => _$this._hyundai;
-  set hyundai(bool hyundai) => _$this._hyundai = hyundai;
-
-  bool _kia;
-  bool get kia => _$this._kia;
-  set kia(bool kia) => _$this._kia = kia;
-
-  bool _mazda;
-  bool get mazda => _$this._mazda;
-  set mazda(bool mazda) => _$this._mazda = mazda;
-
-  bool _mercedes;
-  bool get mercedes => _$this._mercedes;
-  set mercedes(bool mercedes) => _$this._mercedes = mercedes;
-
-  bool _mitsubishi;
-  bool get mitsubishi => _$this._mitsubishi;
-  set mitsubishi(bool mitsubishi) => _$this._mitsubishi = mitsubishi;
-
-  bool _rangerover;
-  bool get rangerover => _$this._rangerover;
-  set rangerover(bool rangerover) => _$this._rangerover = rangerover;
-
-  bool _peugeot;
-  bool get peugeot => _$this._peugeot;
-  set peugeot(bool peugeot) => _$this._peugeot = peugeot;
-
-  bool _toyota;
-  bool get toyota => _$this._toyota;
-  set toyota(bool toyota) => _$this._toyota = toyota;
-
-  bool _volkswagen;
-  bool get volkswagen => _$this._volkswagen;
-  set volkswagen(bool volkswagen) => _$this._volkswagen = volkswagen;
-
-  bool _favoris;
-  bool get favoris => _$this._favoris;
-  set favoris(bool favoris) => _$this._favoris = favoris;
-
-  ListBuilder<DocumentReference<Object>> _likedBy;
-  ListBuilder<DocumentReference<Object>> get likedBy =>
-      _$this._likedBy ??= new ListBuilder<DocumentReference<Object>>();
-  set likedBy(ListBuilder<DocumentReference<Object>> likedBy) =>
+  ListBuilder<DocumentReference<Object?>>? _likedBy;
+  ListBuilder<DocumentReference<Object?>> get likedBy =>
+      _$this._likedBy ??= new ListBuilder<DocumentReference<Object?>>();
+  set likedBy(ListBuilder<DocumentReference<Object?>>? likedBy) =>
       _$this._likedBy = likedBy;
 
-  DocumentReference<Object> _gerant;
-  DocumentReference<Object> get gerant => _$this._gerant;
-  set gerant(DocumentReference<Object> gerant) => _$this._gerant = gerant;
+  DocumentReference<Object?>? _gerant;
+  DocumentReference<Object?>? get gerant => _$this._gerant;
+  set gerant(DocumentReference<Object?>? gerant) => _$this._gerant = gerant;
 
-  ListBuilder<String> _images;
+  ListBuilder<String>? _images;
   ListBuilder<String> get images =>
       _$this._images ??= new ListBuilder<String>();
-  set images(ListBuilder<String> images) => _$this._images = images;
+  set images(ListBuilder<String>? images) => _$this._images = images;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  String? _typeDeVoiture;
+  String? get typeDeVoiture => _$this._typeDeVoiture;
+  set typeDeVoiture(String? typeDeVoiture) =>
+      _$this._typeDeVoiture = typeDeVoiture;
+
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   LocationRecordBuilder() {
     LocationRecord._initializeBuilder(this);
@@ -606,23 +371,12 @@ class LocationRecordBuilder
       _annee = $v.annee;
       _nbSiege = $v.nbSiege;
       _carburant = $v.carburant;
-      _audi = $v.audi;
-      _bmw = $v.bmw;
-      _ford = $v.ford;
-      _hyundai = $v.hyundai;
-      _kia = $v.kia;
-      _mazda = $v.mazda;
-      _mercedes = $v.mercedes;
-      _mitsubishi = $v.mitsubishi;
-      _rangerover = $v.rangerover;
-      _peugeot = $v.peugeot;
-      _toyota = $v.toyota;
-      _volkswagen = $v.volkswagen;
       _favoris = $v.favoris;
       _likedBy = $v.likedBy?.toBuilder();
       _gerant = $v.gerant;
       _images = $v.images?.toBuilder();
-      _reference = $v.reference;
+      _typeDeVoiture = $v.typeDeVoiture;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -635,12 +389,14 @@ class LocationRecordBuilder
   }
 
   @override
-  void update(void Function(LocationRecordBuilder) updates) {
+  void update(void Function(LocationRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$LocationRecord build() {
+  LocationRecord build() => _build();
+
+  _$LocationRecord _build() {
     _$LocationRecord _$result;
     try {
       _$result = _$v ??
@@ -651,25 +407,14 @@ class LocationRecordBuilder
               annee: annee,
               nbSiege: nbSiege,
               carburant: carburant,
-              audi: audi,
-              bmw: bmw,
-              ford: ford,
-              hyundai: hyundai,
-              kia: kia,
-              mazda: mazda,
-              mercedes: mercedes,
-              mitsubishi: mitsubishi,
-              rangerover: rangerover,
-              peugeot: peugeot,
-              toyota: toyota,
-              volkswagen: volkswagen,
               favoris: favoris,
               likedBy: _likedBy?.build(),
               gerant: gerant,
               images: _images?.build(),
-              reference: reference);
+              typeDeVoiture: typeDeVoiture,
+              ffRef: ffRef);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'likedBy';
         _likedBy?.build();
@@ -678,7 +423,7 @@ class LocationRecordBuilder
         _images?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'LocationRecord', _$failedField, e.toString());
+            r'LocationRecord', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -687,4 +432,4 @@ class LocationRecordBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

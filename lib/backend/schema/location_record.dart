@@ -11,77 +11,34 @@ abstract class LocationRecord
   static Serializer<LocationRecord> get serializer =>
       _$locationRecordSerializer;
 
-  @nullable
-  String get marque;
+  String? get marque;
 
-  @nullable
-  String get transmission;
+  String? get transmission;
 
-  @nullable
-  int get prix;
+  int? get prix;
 
-  @nullable
-  int get annee;
+  int? get annee;
 
-  @nullable
   @BuiltValueField(wireName: 'nb_siege')
-  int get nbSiege;
+  int? get nbSiege;
 
-  @nullable
-  String get carburant;
+  String? get carburant;
 
-  @nullable
-  bool get audi;
+  bool? get favoris;
 
-  @nullable
-  bool get bmw;
-
-  @nullable
-  bool get ford;
-
-  @nullable
-  bool get hyundai;
-
-  @nullable
-  bool get kia;
-
-  @nullable
-  bool get mazda;
-
-  @nullable
-  bool get mercedes;
-
-  @nullable
-  bool get mitsubishi;
-
-  @nullable
-  bool get rangerover;
-
-  @nullable
-  bool get peugeot;
-
-  @nullable
-  bool get toyota;
-
-  @nullable
-  bool get volkswagen;
-
-  @nullable
-  bool get favoris;
-
-  @nullable
   @BuiltValueField(wireName: 'liked_by')
-  BuiltList<DocumentReference> get likedBy;
+  BuiltList<DocumentReference>? get likedBy;
 
-  @nullable
-  DocumentReference get gerant;
+  DocumentReference? get gerant;
 
-  @nullable
-  BuiltList<String> get images;
+  BuiltList<String>? get images;
 
-  @nullable
+  @BuiltValueField(wireName: 'type_de_voiture')
+  String? get typeDeVoiture;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(LocationRecordBuilder builder) => builder
     ..marque = ''
@@ -90,32 +47,21 @@ abstract class LocationRecord
     ..annee = 0
     ..nbSiege = 0
     ..carburant = ''
-    ..audi = false
-    ..bmw = false
-    ..ford = false
-    ..hyundai = false
-    ..kia = false
-    ..mazda = false
-    ..mercedes = false
-    ..mitsubishi = false
-    ..rangerover = false
-    ..peugeot = false
-    ..toyota = false
-    ..volkswagen = false
     ..favoris = false
     ..likedBy = ListBuilder()
-    ..images = ListBuilder();
+    ..images = ListBuilder()
+    ..typeDeVoiture = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('Location');
 
   static Stream<LocationRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<LocationRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   LocationRecord._();
   factory LocationRecord([void Function(LocationRecordBuilder) updates]) =
@@ -124,53 +70,37 @@ abstract class LocationRecord
   static LocationRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createLocationRecordData({
-  String marque,
-  String transmission,
-  int prix,
-  int annee,
-  int nbSiege,
-  String carburant,
-  bool audi,
-  bool bmw,
-  bool ford,
-  bool hyundai,
-  bool kia,
-  bool mazda,
-  bool mercedes,
-  bool mitsubishi,
-  bool rangerover,
-  bool peugeot,
-  bool toyota,
-  bool volkswagen,
-  bool favoris,
-  DocumentReference gerant,
-}) =>
-    serializers.toFirestore(
-        LocationRecord.serializer,
-        LocationRecord((l) => l
-          ..marque = marque
-          ..transmission = transmission
-          ..prix = prix
-          ..annee = annee
-          ..nbSiege = nbSiege
-          ..carburant = carburant
-          ..audi = audi
-          ..bmw = bmw
-          ..ford = ford
-          ..hyundai = hyundai
-          ..kia = kia
-          ..mazda = mazda
-          ..mercedes = mercedes
-          ..mitsubishi = mitsubishi
-          ..rangerover = rangerover
-          ..peugeot = peugeot
-          ..toyota = toyota
-          ..volkswagen = volkswagen
-          ..favoris = favoris
-          ..likedBy = null
-          ..gerant = gerant
-          ..images = null));
+  String? marque,
+  String? transmission,
+  int? prix,
+  int? annee,
+  int? nbSiege,
+  String? carburant,
+  bool? favoris,
+  DocumentReference? gerant,
+  String? typeDeVoiture,
+}) {
+  final firestoreData = serializers.toFirestore(
+    LocationRecord.serializer,
+    LocationRecord(
+      (l) => l
+        ..marque = marque
+        ..transmission = transmission
+        ..prix = prix
+        ..annee = annee
+        ..nbSiege = nbSiege
+        ..carburant = carburant
+        ..favoris = favoris
+        ..likedBy = null
+        ..gerant = gerant
+        ..images = null
+        ..typeDeVoiture = typeDeVoiture,
+    ),
+  );
+
+  return firestoreData;
+}

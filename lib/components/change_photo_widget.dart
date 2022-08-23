@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChangePhotoWidget extends StatefulWidget {
-  const ChangePhotoWidget({Key key}) : super(key: key);
+  const ChangePhotoWidget({Key? key}) : super(key: key);
 
   @override
   _ChangePhotoWidgetState createState() => _ChangePhotoWidgetState();
@@ -186,12 +186,12 @@ class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
                                               await uploadData(
                                                   m.storagePath, m.bytes))))
                                       .where((u) => u != null)
+                                      .map((u) => u!)
                                       .toList();
                                   ScaffoldMessenger.of(context)
                                       .hideCurrentSnackBar();
-                                  if (downloadUrls != null &&
-                                      downloadUrls.length ==
-                                          selectedMedia.length) {
+                                  if (downloadUrls.length ==
+                                      selectedMedia.length) {
                                     setState(() =>
                                         uploadedFileUrl = downloadUrls.first);
                                     showUploadMessage(

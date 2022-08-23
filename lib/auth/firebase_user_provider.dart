@@ -3,11 +3,11 @@ import 'package:rxdart/rxdart.dart';
 
 class WapitiCarFirebaseUser {
   WapitiCarFirebaseUser(this.user);
-  User user;
+  User? user;
   bool get loggedIn => user != null;
 }
 
-WapitiCarFirebaseUser currentUser;
+WapitiCarFirebaseUser? currentUser;
 bool get loggedIn => currentUser?.loggedIn ?? false;
 Stream<WapitiCarFirebaseUser> wapitiCarFirebaseUserStream() => FirebaseAuth
     .instance

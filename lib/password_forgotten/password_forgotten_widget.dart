@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PasswordForgottenWidget extends StatefulWidget {
-  const PasswordForgottenWidget({Key key}) : super(key: key);
+  const PasswordForgottenWidget({Key? key}) : super(key: key);
 
   @override
   _PasswordForgottenWidgetState createState() =>
@@ -15,14 +15,14 @@ class PasswordForgottenWidget extends StatefulWidget {
 }
 
 class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
-  TextEditingController emailFieldController;
+  TextEditingController? emailFieldAController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    emailFieldController = TextEditingController();
+    emailFieldAController = TextEditingController();
     logFirebaseEvent('screen_view',
         parameters: {'screen_name': 'PasswordForgotten'});
   }
@@ -81,7 +81,7 @@ class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: TextFormField(
-                  controller: emailFieldController,
+                  controller: emailFieldAController,
                   obscureText: false,
                   decoration: InputDecoration(
                     labelText: 'Adresse email',
@@ -139,7 +139,7 @@ class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
                   onPressed: () async {
                     logFirebaseEvent('PASSWORD_FORGOTTEN_Button-Login_ON_TAP');
                     logFirebaseEvent('Button-Login_Auth');
-                    if (emailFieldController.text.isEmpty) {
+                    if (emailFieldAController!.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -150,7 +150,7 @@ class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
                       return;
                     }
                     await resetPassword(
-                      email: emailFieldController.text,
+                      email: emailFieldAController!.text,
                       context: context,
                     );
                   },

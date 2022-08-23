@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class NodispoWidget extends StatefulWidget {
-  const NodispoWidget({Key key}) : super(key: key);
+  const NodispoWidget({Key? key}) : super(key: key);
 
   @override
   _NodispoWidgetState createState() => _NodispoWidgetState();

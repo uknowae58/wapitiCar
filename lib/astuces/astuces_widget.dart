@@ -7,14 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AstucesWidget extends StatefulWidget {
-  const AstucesWidget({Key key}) : super(key: key);
+  const AstucesWidget({Key? key}) : super(key: key);
 
   @override
   _AstucesWidgetState createState() => _AstucesWidgetState();
 }
 
 class _AstucesWidgetState extends State<AstucesWidget> {
-  PageController pageViewController;
+  PageController? pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -89,7 +89,7 @@ class _AstucesWidgetState extends State<AstucesWidget> {
                                   'assets/images/pngwing.com-8.png',
                                   width: MediaQuery.of(context).size.width,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.6,
+                                      MediaQuery.of(context).size.height * 0.4,
                                   fit: BoxFit.contain,
                                 ),
                                 Column(
@@ -278,10 +278,10 @@ class _AstucesWidgetState extends State<AstucesWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Image.asset(
-                                  'assets/images/pngwing.com-12.png',
+                                  'assets/images/df3hg_',
                                   width: MediaQuery.of(context).size.width,
                                   height:
-                                      MediaQuery.of(context).size.height * 0.6,
+                                      MediaQuery.of(context).size.height * 0.4,
                                   fit: BoxFit.contain,
                                 ),
                                 Column(
@@ -312,7 +312,7 @@ class _AstucesWidgetState extends State<AstucesWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           12, 8, 12, 0),
                                       child: Text(
-                                        'Même si vous ne pensez pas appuyer sur la pédale, la seule présence de votre pied dessus créé une légère pression sur cette dernière. Celle-ci engendre alors un patinage qui risque d’user prématurément le disque, et conduite à terme à la panne. Le mieux reste encore de garder votre pied loin de la pédale.',
+                                        'Ne gardez pas votre embrayage enfoncé, même en partie. En effet la simple présence de votre pied sur la pédale lui crée une légère pression qui à la longue va pousser le plateau de pression contre le disque d’embrayage, ce qui augmente l’effet de friction et par conséquent l’usure plus rapide de l’embrayage. ',
                                         textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
@@ -335,7 +335,7 @@ class _AstucesWidgetState extends State<AstucesWidget> {
                             count: 5,
                             axisDirection: Axis.horizontal,
                             onDotClicked: (i) {
-                              pageViewController.animateToPage(
+                              pageViewController!.animateToPage(
                                 i,
                                 duration: Duration(milliseconds: 500),
                                 curve: Curves.ease,

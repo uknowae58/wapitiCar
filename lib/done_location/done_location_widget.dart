@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class DoneLocationWidget extends StatefulWidget {
-  const DoneLocationWidget({Key key}) : super(key: key);
+  const DoneLocationWidget({Key? key}) : super(key: key);
 
   @override
   _DoneLocationWidgetState createState() => _DoneLocationWidgetState();
@@ -65,7 +65,7 @@ class _DoneLocationWidgetState extends State<DoneLocationWidget>
               height: 350,
               fit: BoxFit.cover,
               animate: true,
-            ).animated([animationsMap['lottieAnimationOnPageLoadAnimation']]),
+            ).animated([animationsMap['lottieAnimationOnPageLoadAnimation']!]),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(24, 24, 0, 0),
               child: Text(
@@ -82,7 +82,7 @@ class _DoneLocationWidgetState extends State<DoneLocationWidget>
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(24, 8, 24, 0),
               child: Text(
-                'Votre commande sera envoye au proprietaire du vehicule. Le proprietaire vous contacteras pour finaliser votre location. Veuillez noter que le prix final peux differer au cas ou les services de chauffeur ou du plein ont ete choisis.',
+                'Votre commande a bien été enregistrée. Le propriétaire vous\ncontactera pour finaliser votre location. Veillez noter que le prix final peut changer en fonction des options choisies.',
                 textAlign: TextAlign.start,
                 style: FlutterFlowTheme.of(context).bodyText2.override(
                       fontFamily: 'San fransisco',

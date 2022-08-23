@@ -11,18 +11,15 @@ abstract class SuggestionsRecord
   static Serializer<SuggestionsRecord> get serializer =>
       _$suggestionsRecordSerializer;
 
-  @nullable
-  DocumentReference get client;
+  DocumentReference? get client;
 
-  @nullable
-  String get suggestions;
+  String? get suggestions;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(SuggestionsRecordBuilder builder) => builder
     ..suggestions = ''
@@ -33,11 +30,11 @@ abstract class SuggestionsRecord
 
   static Stream<SuggestionsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<SuggestionsRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   SuggestionsRecord._();
   factory SuggestionsRecord([void Function(SuggestionsRecordBuilder) updates]) =
@@ -46,17 +43,23 @@ abstract class SuggestionsRecord
   static SuggestionsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createSuggestionsRecordData({
-  DocumentReference client,
-  String suggestions,
-  String image,
-}) =>
-    serializers.toFirestore(
-        SuggestionsRecord.serializer,
-        SuggestionsRecord((s) => s
-          ..client = client
-          ..suggestions = suggestions
-          ..image = image));
+  DocumentReference? client,
+  String? suggestions,
+  String? image,
+}) {
+  final firestoreData = serializers.toFirestore(
+    SuggestionsRecord.serializer,
+    SuggestionsRecord(
+      (s) => s
+        ..client = client
+        ..suggestions = suggestions
+        ..image = image,
+    ),
+  );
+
+  return firestoreData;
+}

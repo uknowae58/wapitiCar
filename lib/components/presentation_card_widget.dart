@@ -6,7 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PresentationCardWidget extends StatefulWidget {
-  const PresentationCardWidget({Key key}) : super(key: key);
+  const PresentationCardWidget({Key? key}) : super(key: key);
 
   @override
   _PresentationCardWidgetState createState() => _PresentationCardWidgetState();

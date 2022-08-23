@@ -11,10 +11,47 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
 int prixTotal(
-  int prix,
-  int jour,
+  int? prix,
+  int? jour,
 ) {
   int result = 0;
-  result = prix * jour;
+  result = prix! * jour!;
   return result;
+}
+
+bool searchFunction(
+  String? searchFor,
+  String? searchIn,
+) {
+  return searchIn!.toLowerCase().contains(searchFor!.toLowerCase());
+}
+
+bool checkQueryDate(DateTime? dateTime) {
+  bool done;
+
+  if (dateTime != null) {
+    done = true;
+  } else {
+    done = false;
+  }
+  return done;
+}
+
+bool checkUploadPP(String? uploadPhoto) {
+  bool tmp;
+  String empty;
+  empty = "";
+
+  if (uploadPhoto != empty) {
+    tmp = true;
+  } else {
+    tmp = false;
+  }
+  return tmp;
+}
+
+String translation(String actualPhoto) {
+  String a;
+  a = actualPhoto;
+  return a;
 }
