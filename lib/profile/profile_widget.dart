@@ -6,7 +6,9 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,69 +25,69 @@ class _ProfileWidgetState extends State<ProfileWidget>
   final animationsMap = {
     'textOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 618,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 100),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 618.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 618.ms,
+          begin: Offset(0, 100),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'textOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 987,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 100),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 987.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 987.ms,
+          begin: Offset(0, 100),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'textOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 987,
-      delay: 987,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 987.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 987.ms,
+          duration: 987.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
     ),
     'rowOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 670,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 670.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 670.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
     ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -93,9 +95,10 @@ class _ProfileWidgetState extends State<ProfileWidget>
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
 
@@ -220,10 +223,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                       fontWeight:
                                                           FontWeight.normal,
                                                     ),
-                                              ).animated([
-                                                animationsMap[
-                                                    'textOnPageLoadAnimation1']!
-                                              ]),
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'textOnPageLoadAnimation1']!),
                                             ),
                                             StreamBuilder<UsersRecord>(
                                               stream: UsersRecord.getDocument(
@@ -272,10 +273,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                                       FontWeight
                                                                           .normal,
                                                                 ),
-                                                      ).animated([
-                                                        animationsMap[
-                                                            'textOnPageLoadAnimation2']!
-                                                      ]),
+                                                      ).animateOnPageLoad(
+                                                          animationsMap[
+                                                              'textOnPageLoadAnimation2']!),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -287,14 +287,17 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                           logFirebaseEvent(
                                                               'PROFILE_PAGE_Text_deu97e41_ON_TAP');
                                                           logFirebaseEvent(
-                                                              'Text_Navigate-To');
+                                                              'Text_navigate_to');
+
                                                           context.pushNamed(
                                                             'ChatMessage',
                                                             queryParams: {
-                                                              'chatUser': serializeParam(
-                                                                  rowUsersRecord,
-                                                                  ParamType
-                                                                      .Document),
+                                                              'chatUser':
+                                                                  serializeParam(
+                                                                rowUsersRecord,
+                                                                ParamType
+                                                                    .Document,
+                                                              ),
                                                             }.withoutNulls,
                                                             extra: <String,
                                                                 dynamic>{
@@ -320,10 +323,9 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                                                         .normal,
                                                               ),
                                                         ),
-                                                      ).animated([
-                                                        animationsMap[
-                                                            'textOnPageLoadAnimation3']!
-                                                      ]),
+                                                      ).animateOnPageLoad(
+                                                          animationsMap[
+                                                              'textOnPageLoadAnimation3']!),
                                                     ),
                                                   ],
                                                 );
@@ -411,10 +413,11 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                             logFirebaseEvent(
                                                 'PROFILE_PAGE_edit_ICN_ON_TAP');
                                             logFirebaseEvent(
-                                                'IconButton_Haptic-Feedback');
+                                                'IconButton_haptic_feedback');
                                             HapticFeedback.lightImpact();
                                             logFirebaseEvent(
-                                                'IconButton_Navigate-To');
+                                                'IconButton_navigate_to');
+
                                             context.pushNamed(
                                               'changeProfil',
                                               extra: <String, dynamic>{
@@ -447,7 +450,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'PROFILE_PAGE_Column_es5icbap_ON_TAP');
-                                  logFirebaseEvent('Column_Launch-U-R-L');
+                                  logFirebaseEvent('Column_launch_u_r_l');
                                   await launchURL(
                                       'https://www.facebook.com/Wapiticar');
                                 },
@@ -493,7 +496,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'PROFILE_PAGE_Column_i1r85dm6_ON_TAP');
-                                  logFirebaseEvent('Column_Launch-U-R-L');
+                                  logFirebaseEvent('Column_launch_u_r_l');
                                   await launchURL(
                                       'https://www.instagram.com/wapiticar/');
                                 },
@@ -576,7 +579,7 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'PROFILE_PAGE_Column_ivlk1jun_ON_TAP');
-                                  logFirebaseEvent('Column_Launch-U-R-L');
+                                  logFirebaseEvent('Column_launch_u_r_l');
                                   await launchURL(
                                       'mailto:contact@wapiticar.com');
                                 },
@@ -619,8 +622,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 ),
                               ),
                             ],
-                          ).animated(
-                              [animationsMap['rowOnPageLoadAnimation']!]),
+                          ).animateOnPageLoad(
+                              animationsMap['rowOnPageLoadAnimation']!),
                         ),
                         Padding(
                           padding:
@@ -647,13 +650,15 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'PROFILE_PAGE_Row_hggi879i_ON_TAP');
-                                  logFirebaseEvent('Row_Navigate-To');
+                                  logFirebaseEvent('Row_navigate_to');
+
                                   context.pushNamed(
                                     'ChatMessage',
                                     queryParams: {
                                       'chatUser': serializeParam(
-                                          columnUsersRecord,
-                                          ParamType.Document),
+                                        columnUsersRecord,
+                                        ParamType.Document,
+                                      ),
                                     }.withoutNulls,
                                     extra: <String, dynamic>{
                                       'chatUser': columnUsersRecord,
@@ -743,7 +748,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'PROFILE_PAGE_Row_mta51cpk_ON_TAP');
-                                  logFirebaseEvent('Row_Navigate-To');
+                                  logFirebaseEvent('Row_navigate_to');
+
                                   context.pushNamed(
                                     'Suggestions',
                                     extra: <String, dynamic>{
@@ -816,7 +822,8 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'PROFILE_PAGE_Row_ibyw4fd6_ON_TAP');
-                                  logFirebaseEvent('Row_Navigate-To');
+                                  logFirebaseEvent('Row_navigate_to');
+
                                   context.pushNamed('aPropos');
                                 },
                                 child: Row(
@@ -866,11 +873,12 @@ class _ProfileWidgetState extends State<ProfileWidget>
                                 onPressed: () async {
                                   logFirebaseEvent(
                                       'PROFILE_PAGE_LOG_OUT_BTN_ON_TAP');
-                                  logFirebaseEvent('Button_Haptic-Feedback');
+                                  logFirebaseEvent('Button_haptic_feedback');
                                   HapticFeedback.mediumImpact();
-                                  logFirebaseEvent('Button_Auth');
+                                  logFirebaseEvent('Button_auth');
                                   GoRouter.of(context).prepareAuthEvent();
                                   await signOut();
+
                                   context.goNamedAuth('Signup', mounted);
                                 },
                                 text: 'Log Out',

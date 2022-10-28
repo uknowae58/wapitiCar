@@ -69,7 +69,7 @@ class _AlerteDateDeRendezVousWidgetState
                           onPressed: () async {
                             logFirebaseEvent(
                                 'ALERTE_DATE_DE_RENDEZ_VOUS_OKAY_BTN_ON_T');
-                            logFirebaseEvent('Button_Bottom-Sheet');
+                            logFirebaseEvent('Button_bottom_sheet');
                             Navigator.pop(context);
                           },
                           text: 'Okay',

@@ -3,6 +3,8 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,252 +21,296 @@ class _MidasWidgetState extends State<MidasWidget>
   final animationsMap = {
     'textOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 20),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0, 20),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(100, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(100, 0),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 0.8,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.8,
+          end: 1,
+        ),
+      ],
     ),
     'textOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 180,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(20, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 180.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 180.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 180.ms,
+          duration: 600.ms,
+          begin: Offset(20, 0),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(120, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(120, 0),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation4': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 0.8,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        ScaleEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0.8,
+          end: 1,
+        ),
+      ],
     ),
     'textOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 180,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(20, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 180.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 180.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 180.ms,
+          duration: 600.ms,
+          begin: Offset(20, 0),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'textOnPageLoadAnimation4': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 30),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 600.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: Offset(0, 30),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation5': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 800,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 50),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 800.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 800.ms,
+          duration: 600.ms,
+          begin: Offset(0, 50),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'dividerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 1400,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 30),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1400.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 1400.ms,
+          duration: 600.ms,
+          begin: Offset(0, 30),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'textOnPageLoadAnimation5': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 1600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 30),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1600.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1600.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 1600.ms,
+          duration: 600.ms,
+          begin: Offset(0, 30),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'textOnPageLoadAnimation6': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 1600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 50),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1600.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1600.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 1600.ms,
+          duration: 600.ms,
+          begin: Offset(0, 50),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'textOnPageLoadAnimation7': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 30),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 600.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 600.ms,
+          duration: 600.ms,
+          begin: Offset(0, 30),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'listViewOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 1800,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1800.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1800.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
     ),
     'textOnPageLoadAnimation8': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 10),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0, 10),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -272,9 +318,10 @@ class _MidasWidgetState extends State<MidasWidget>
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
 
@@ -285,13 +332,14 @@ class _MidasWidgetState extends State<MidasWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
             logFirebaseEvent('MIDAS_PAGE_Icon_3wurb9jd_ON_TAP');
-            logFirebaseEvent('Icon_Navigate-Back');
+            logFirebaseEvent('Icon_navigate_back');
             context.pop();
           },
           child: Icon(
@@ -308,12 +356,11 @@ class _MidasWidgetState extends State<MidasWidget>
                 fontSize: 21,
                 useGoogleFonts: false,
               ),
-        ).animated([animationsMap['textOnPageLoadAnimation8']!]),
+        ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation8']!),
         actions: [],
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -346,8 +393,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                       color: Color(0xB3FFFFFF),
                                       useGoogleFonts: false,
                                     ),
-                          ).animated(
-                              [animationsMap['textOnPageLoadAnimation1']!]),
+                          ).animateOnPageLoad(
+                              animationsMap['textOnPageLoadAnimation1']!),
                         ),
                       ),
                       Padding(
@@ -417,10 +464,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                             ),
                                           ),
                                         ),
-                                      ).animated([
-                                        animationsMap[
-                                            'containerOnPageLoadAnimation2']!
-                                      ]),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'containerOnPageLoadAnimation2']!),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             12, 0, 12, 12),
@@ -452,10 +497,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                                                   context)
                                                               .sixx,
                                                     ),
-                                              ).animated([
-                                                animationsMap[
-                                                    'textOnPageLoadAnimation2']!
-                                              ]),
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'textOnPageLoadAnimation2']!),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -494,9 +537,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                     ],
                                   ),
                                 ),
-                              ).animated([
-                                animationsMap['containerOnPageLoadAnimation1']!
-                              ]),
+                              ).animateOnPageLoad(animationsMap[
+                                  'containerOnPageLoadAnimation1']!),
                             ),
                             Padding(
                               padding:
@@ -557,10 +599,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                             ),
                                           ),
                                         ),
-                                      ).animated([
-                                        animationsMap[
-                                            'containerOnPageLoadAnimation4']!
-                                      ]),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'containerOnPageLoadAnimation4']!),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             12, 0, 12, 12),
@@ -592,10 +632,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                                                   context)
                                                               .sixx,
                                                     ),
-                                              ).animated([
-                                                animationsMap[
-                                                    'textOnPageLoadAnimation3']!
-                                              ]),
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'textOnPageLoadAnimation3']!),
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -634,9 +672,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                     ],
                                   ),
                                 ),
-                              ).animated([
-                                animationsMap['containerOnPageLoadAnimation3']!
-                              ]),
+                              ).animateOnPageLoad(animationsMap[
+                                  'containerOnPageLoadAnimation3']!),
                             ),
                           ],
                         ),
@@ -650,7 +687,8 @@ class _MidasWidgetState extends State<MidasWidget>
                     'Centre Midas',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).subtitle1,
-                  ).animated([animationsMap['textOnPageLoadAnimation4']!]),
+                  ).animateOnPageLoad(
+                      animationsMap['textOnPageLoadAnimation4']!),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
@@ -710,8 +748,8 @@ class _MidasWidgetState extends State<MidasWidget>
                             height: 24,
                             thickness: 1,
                             color: Color(0xFF6AA3B8),
-                          ).animated(
-                              [animationsMap['dividerOnPageLoadAnimation']!]),
+                          ).animateOnPageLoad(
+                              animationsMap['dividerOnPageLoadAnimation']!),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                             child: Text(
@@ -724,8 +762,8 @@ class _MidasWidgetState extends State<MidasWidget>
                                         fontSize: 20,
                                         useGoogleFonts: false,
                                       ),
-                            ).animated(
-                                [animationsMap['textOnPageLoadAnimation5']!]),
+                            ).animateOnPageLoad(
+                                animationsMap['textOnPageLoadAnimation5']!),
                           ),
                           Text(
                             '7 centres',
@@ -735,12 +773,13 @@ class _MidasWidgetState extends State<MidasWidget>
                                       color: Color(0x9AFFFFFF),
                                       useGoogleFonts: false,
                                     ),
-                          ).animated(
-                              [animationsMap['textOnPageLoadAnimation6']!]),
+                          ).animateOnPageLoad(
+                              animationsMap['textOnPageLoadAnimation6']!),
                         ],
                       ),
                     ),
-                  ).animated([animationsMap['containerOnPageLoadAnimation5']!]),
+                  ).animateOnPageLoad(
+                      animationsMap['containerOnPageLoadAnimation5']!),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 21, 0, 0),
@@ -748,7 +787,8 @@ class _MidasWidgetState extends State<MidasWidget>
                     'Nos prestations',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).subtitle1,
-                  ).animated([animationsMap['textOnPageLoadAnimation7']!]),
+                  ).animateOnPageLoad(
+                      animationsMap['textOnPageLoadAnimation7']!),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 44),
@@ -1944,7 +1984,8 @@ class _MidasWidgetState extends State<MidasWidget>
                         ),
                       ),
                     ],
-                  ).animated([animationsMap['listViewOnPageLoadAnimation']!]),
+                  ).animateOnPageLoad(
+                      animationsMap['listViewOnPageLoadAnimation']!),
                 ),
               ],
             ),

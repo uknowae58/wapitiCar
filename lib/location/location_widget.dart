@@ -6,12 +6,12 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
 import '../flutter_flow/custom_functions.dart' as functions;
-import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -32,39 +32,49 @@ class LocationWidget extends StatefulWidget {
 
 class _LocationWidgetState extends State<LocationWidget>
     with TickerProviderStateMixin {
-  PageController? pageViewController;
-  TextEditingController? textController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: false,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 70),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0, 70),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
   };
+  PageController? pageViewController;
+  TextEditingController? textController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
 
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Location'});
     textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -97,342 +107,150 @@ class _LocationWidgetState extends State<LocationWidget>
             : null;
         return Scaffold(
           key: scaffoldKey,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).theFourth,
-            automaticallyImplyLeading: false,
-            title: Text(
-              'Location',
-              style: FlutterFlowTheme.of(context).title2.override(
-                    fontFamily: 'San fransisco',
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    useGoogleFonts: false,
-                  ),
-            ),
-            actions: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
-                child: AuthUserStreamWidget(
-                  child: InkWell(
-                    onTap: () async {
-                      logFirebaseEvent('LOCATION_PAGE_Badge_7q9lsoxt_ON_TAP');
-                      logFirebaseEvent('Badge_Navigate-To');
-                      context.pushNamed('Commandes');
-                    },
-                    child: Badge(
-                      badgeContent: Text(
-                        (currentUserDocument?.commandeList?.toList() ?? [])
-                            .length
-                            .toString(),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'San fransisco',
-                              color: Colors.white,
-                              useGoogleFonts: false,
-                            ),
-                      ),
-                      showBadge: true,
-                      shape: BadgeShape.circle,
-                      badgeColor: FlutterFlowTheme.of(context).primaryColor,
-                      elevation: 4,
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
-                      position: BadgePosition.topEnd(),
-                      animationType: BadgeAnimationType.scale,
-                      toAnimate: true,
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 21, 0),
-                        child: Icon(
-                          Icons.shopping_cart,
-                          color: Colors.black,
-                          size: 24,
-                        ),
-                      ),
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(89),
+            child: AppBar(
+              backgroundColor: Colors.white,
+              automaticallyImplyLeading: false,
+              title: Text(
+                'Location',
+                style: FlutterFlowTheme.of(context).title2.override(
+                      fontFamily: 'San fransisco',
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      useGoogleFonts: false,
                     ),
-                  ),
+              ),
+              actions: [],
+              flexibleSpace: FlexibleSpaceBar(
+                background: Image.asset(
+                  'assets/images/pngwing.com_(1).png',
+                  fit: BoxFit.cover,
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 7, 0, 0),
-                child: FlutterFlowIconButton(
-                  borderColor: Colors.transparent,
-                  borderRadius: 30,
-                  borderWidth: 1,
-                  buttonSize: 60,
-                  icon: Icon(
-                    Icons.favorite,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: 24,
-                  ),
-                  onPressed: () async {
-                    logFirebaseEvent('LOCATION_PAGE_favorite_ICN_ON_TAP');
-                    logFirebaseEvent('IconButton_Navigate-To');
-                    context.pushNamed('Favoris');
-                  },
-                ),
-              ),
-            ],
-            centerTitle: false,
-            elevation: 5,
+              centerTitle: false,
+              elevation: 2,
+            ),
           ),
-          backgroundColor: FlutterFlowTheme.of(context).theFourth,
           body: GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Stack(
-                  children: [
-                    ClipRect(
-                      child: ImageFiltered(
-                        imageFilter: ImageFilter.blur(
-                          sigmaX: 2,
-                          sigmaY: 2,
-                        ),
-                        child: Container(
-                          width: double.infinity,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            color: Color(0x00262D34),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: Image.asset(
-                                'assets/images/fond_decran_homePage.png',
-                              ).image,
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 34, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(12, 0, 34, 0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 69,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2,
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: BoxDecoration(),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
-                            child: Column(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 24, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 12, 0, 0),
-                                          child: Text(
-                                            'Retrouvez les différents véhicules mis en location par nos partenaires. ',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText2
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: Color(0xFF8B97A2),
-                                                  fontSize: 24,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 0, 4, 0),
+                                    child: TextFormField(
+                                      controller: textController,
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        'textController',
+                                        Duration(milliseconds: 500),
+                                        () => setState(() {}),
+                                      ),
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        hintText: 'marques..',
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                            width: 2,
                                           ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 2,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                        prefixIcon: Icon(
+                                          Icons.search_sharp,
+                                          color: Color(0xFF57636C),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      24, 0, 0, 0),
-                                  child: StreamBuilder<UsersRecord>(
-                                    stream: UsersRecord.getDocument(
-                                        FFAppState().wapitiCar!),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: SpinKitPulse(
-                                              color: Color(0xFF175EFB),
-                                              size: 50,
-                                            ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0xFF57636C),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal,
                                           ),
-                                        );
-                                      }
-                                      final rowUsersRecord = snapshot.data!;
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'En cas de soucis contactez',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText2
-                                                .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: Color(0xFF8B97A2),
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    3, 0, 0, 0),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                logFirebaseEvent(
-                                                    'LOCATION_PAGE_Text_o0qjffxm_ON_TAP');
-                                                logFirebaseEvent(
-                                                    'Text_Navigate-To');
-                                                context.pushNamed(
-                                                  'ChatMessage',
-                                                  queryParams: {
-                                                    'chatUser': serializeParam(
-                                                        rowUsersRecord,
-                                                        ParamType.Document),
-                                                  }.withoutNulls,
-                                                  extra: <String, dynamic>{
-                                                    'chatUser': rowUsersRecord,
-                                                  },
-                                                );
-                                              },
-                                              child: Text(
-                                                'wapiti car ',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyText2
-                                                    .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .cinq,
-                                                      fontSize: 11,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 21, 0, 0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            21, 0, 0, 0),
-                                        child: Text(
-                                          'Recherche',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText2
-                                              .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Color(0xFF8B97A2),
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16, 8, 16, 0),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(16),
-                                      border: Border.all(
-                                        color: Color(0xFF8B97A2),
-                                      ),
-                                    ),
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    4, 0, 4, 0),
-                                            child: TextFormField(
-                                              controller: textController,
-                                              onChanged: (_) =>
-                                                  EasyDebounce.debounce(
-                                                'textController',
-                                                Duration(milliseconds: 500),
-                                                () => setState(() {}),
-                                              ),
-                                              obscureText: false,
-                                              decoration: InputDecoration(
-                                                hintText: 'marques..',
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    color: Colors.white,
-                                                    width: 2,
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(8),
-                                                ),
-                                                filled: true,
-                                                fillColor: Colors.white,
-                                                prefixIcon: Icon(
-                                                  Icons.search_sharp,
-                                                  color: Color(0xFF57636C),
-                                                ),
-                                              ),
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyText1
-                                                  .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: Color(0xFF57636C),
-                                                    fontSize: 14,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
                                     ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 13,
+                          borderWidth: 1,
+                          buttonSize: 33,
+                          fillColor: Colors.black,
+                          icon: Icon(
+                            Icons.tune,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                          onPressed: () {
+                            print('IconButton pressed ...');
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: Padding(
@@ -470,39 +288,55 @@ class _LocationWidgetState extends State<LocationWidget>
                                 onTap: () async {
                                   logFirebaseEvent(
                                       'LOCATION_PAGE_car_Details_ON_TAP');
-                                  logFirebaseEvent('car_Details_Navigate-To');
+                                  logFirebaseEvent('car_Details_navigate_to');
+
                                   context.pushNamed(
                                     'LocationDetailsOfcar',
                                     queryParams: {
                                       'marque': serializeParam(
-                                          listViewLocationRecord.marque,
-                                          ParamType.String),
+                                        listViewLocationRecord.marque,
+                                        ParamType.String,
+                                      ),
                                       'annee': serializeParam(
-                                          listViewLocationRecord.annee,
-                                          ParamType.int),
+                                        listViewLocationRecord.annee,
+                                        ParamType.int,
+                                      ),
                                       'nbSiege': serializeParam(
-                                          listViewLocationRecord.nbSiege,
-                                          ParamType.int),
+                                        listViewLocationRecord.nbSiege,
+                                        ParamType.int,
+                                      ),
                                       'prix': serializeParam(
-                                          listViewLocationRecord.prix,
-                                          ParamType.int),
+                                        listViewLocationRecord.prix,
+                                        ParamType.int,
+                                      ),
                                       'carburant': serializeParam(
-                                          listViewLocationRecord.carburant,
-                                          ParamType.String),
+                                        listViewLocationRecord.carburant,
+                                        ParamType.String,
+                                      ),
                                       'transmission': serializeParam(
-                                          listViewLocationRecord.transmission,
-                                          ParamType.String),
+                                        listViewLocationRecord.transmission,
+                                        ParamType.String,
+                                      ),
                                       'leclient': serializeParam(
-                                          currentUserReference,
-                                          ParamType.DocumentReference),
+                                        currentUserReference,
+                                        ParamType.DocumentReference,
+                                      ),
                                       'vehicule': serializeParam(
-                                          listViewLocationRecord.reference,
-                                          ParamType.DocumentReference),
+                                        listViewLocationRecord.reference,
+                                        ParamType.DocumentReference,
+                                      ),
                                       'gerant': serializeParam(
-                                          listViewLocationRecord.gerant,
-                                          ParamType.DocumentReference),
+                                        listViewLocationRecord.gerant,
+                                        ParamType.DocumentReference,
+                                      ),
                                     }.withoutNulls,
                                   );
+
+                                  logFirebaseEvent('car_Details_wait__delay');
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 10000));
+                                  logFirebaseEvent('car_Details_launch_u_r_l');
+                                  await launchURL('www.facebook.com');
                                 },
                                 child: Container(
                                   width: double.infinity,
@@ -510,12 +344,15 @@ class _LocationWidgetState extends State<LocationWidget>
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                        blurRadius: 4,
-                                        color: Color(0x2B202529),
+                                        blurRadius: 2,
+                                        color: Color(0x33000000),
                                         offset: Offset(0, 2),
                                       )
                                     ],
                                     borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      width: 1,
+                                    ),
                                   ),
                                   child: Visibility(
                                     visible: functions.searchFunction(
@@ -610,7 +447,7 @@ class _LocationWidgetState extends State<LocationWidget>
                                                                     'Outfit',
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .primaryColor,
+                                                                    .sixx,
                                                                 fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
@@ -634,10 +471,7 @@ class _LocationWidgetState extends State<LocationWidget>
                                                         BorderRadius.circular(
                                                             12),
                                                     border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primaryColor,
+                                                      color: Color(0xFFB5B9F7),
                                                     ),
                                                   ),
                                                   child: Builder(
@@ -670,9 +504,9 @@ class _LocationWidgetState extends State<LocationWidget>
                                                             return InkWell(
                                                               onTap: () async {
                                                                 logFirebaseEvent(
-                                                                    'LOCATION_PAGE_Image_38zxlzo6_ON_TAP');
+                                                                    'LOCATION_PAGE_Image_xhm5j2p4_ON_TAP');
                                                                 logFirebaseEvent(
-                                                                    'Image_Expand-Image');
+                                                                    'Image_expand_image');
                                                                 await Navigator
                                                                     .push(
                                                                   context,
@@ -822,9 +656,8 @@ class _LocationWidgetState extends State<LocationWidget>
                                     ),
                                   ),
                                 ),
-                              ).animated([
-                                animationsMap['containerOnPageLoadAnimation']!
-                              ]),
+                              ).animateOnPageLoad(animationsMap[
+                                  'containerOnPageLoadAnimation']!),
                             );
                           },
                         );

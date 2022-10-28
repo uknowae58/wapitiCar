@@ -9,6 +9,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
@@ -49,6 +50,7 @@ class _MyAppState extends State<MyApp> {
     _router = createRouter(_appStateNotifier);
     userStream = wapitiCarFirebaseUserStream()
       ..listen((user) => _appStateNotifier.update(user));
+    jwtTokenStream.listen((_) {});
     Future.delayed(
       Duration(seconds: 1),
       () => _appStateNotifier.stopShowingSplashImage(),
@@ -91,9 +93,10 @@ class _MyAppState extends State<MyApp> {
 }
 
 class NavBarPage extends StatefulWidget {
-  NavBarPage({Key? key, this.initialPage}) : super(key: key);
+  NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
 
   final String? initialPage;
+  final Widget? page;
 
   @override
   _NavBarPageState createState() => _NavBarPageState();
@@ -101,28 +104,34 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'Home';
+  String _currentPageName = 'Home';
+  late Widget? _currentPage;
 
   @override
   void initState() {
     super.initState();
-    _currentPage = widget.initialPage ?? _currentPage;
+    _currentPageName = widget.initialPage ?? _currentPageName;
+    _currentPage = widget.page;
   }
 
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'Home': HomeWidget(),
-      'Vente': VenteWidget(),
       'Location': LocationWidget(),
+      'Vente': VenteWidget(),
+      'Home': HomeWidget(),
+      'Services': ServicesWidget(),
       'Profile': ProfileWidget(),
     };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPage);
+    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
-      body: tabs[_currentPage],
+      body: _currentPage ?? tabs[_currentPageName],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
+        onTap: (i) => setState(() {
+          _currentPage = null;
+          _currentPageName = tabs.keys.toList()[i];
+        }),
         backgroundColor: FlutterFlowTheme.of(context).theFourth,
         selectedItemColor: FlutterFlowTheme.of(context).primaryColor,
         unselectedItemColor: Color(0xAD000000),
@@ -132,14 +141,14 @@ class _NavBarPageState extends State<NavBarPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home_outlined,
+              Icons.car_rental,
               size: 24,
             ),
             activeIcon: Icon(
-              Icons.home,
-              size: 24,
+              Icons.car_rental,
+              size: 28,
             ),
-            label: 'Accueil',
+            label: 'Location',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -156,14 +165,22 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.car_rental,
+              Icons.home_outlined,
               size: 24,
             ),
             activeIcon: Icon(
-              Icons.car_rental,
-              size: 28,
+              Icons.home,
+              size: 24,
             ),
-            label: 'Location',
+            label: 'Accueil',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.stripeS,
+              size: 24,
+            ),
+            label: 'Services',
             tooltip: '',
           ),
           BottomNavigationBarItem(

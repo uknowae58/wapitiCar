@@ -43,7 +43,7 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
           ),
           onPressed: () async {
             logFirebaseEvent('ALL_CHAT_chevron_left_ICN_ON_TAP');
-            logFirebaseEvent('IconButton_Navigate-Back');
+            logFirebaseEvent('IconButton_navigate_back');
             context.pop();
           },
         ),
@@ -103,13 +103,15 @@ class _AllChatPageWidgetState extends State<AllChatPageWidget> {
                           'ChatMessage',
                           queryParams: {
                             'chatUser': serializeParam(
-                                chatInfo.otherUsers.length == 1
-                                    ? chatInfo.otherUsersList.first
-                                    : null,
-                                ParamType.Document),
+                              chatInfo.otherUsers.length == 1
+                                  ? chatInfo.otherUsersList.first
+                                  : null,
+                              ParamType.Document,
+                            ),
                             'chatRef': serializeParam(
-                                chatInfo.chatRecord.reference,
-                                ParamType.DocumentReference),
+                              chatInfo.chatRecord.reference,
+                              ParamType.DocumentReference,
+                            ),
                           }.withoutNulls,
                           extra: <String, dynamic>{
                             'chatUser': chatInfo.otherUsers.length == 1

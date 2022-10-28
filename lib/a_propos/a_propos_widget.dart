@@ -25,6 +25,7 @@ class _AProposWidgetState extends State<AProposWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -40,7 +41,7 @@ class _AProposWidgetState extends State<AProposWidget> {
           ),
           onPressed: () async {
             logFirebaseEvent('A_PROPOS_PAGE_chevron_left_ICN_ON_TAP');
-            logFirebaseEvent('IconButton_Navigate-Back');
+            logFirebaseEvent('IconButton_navigate_back');
             context.pop();
           },
         ),
@@ -58,7 +59,6 @@ class _AProposWidgetState extends State<AProposWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),

@@ -68,7 +68,7 @@ class _AlerteDateDeDebutWidgetState extends State<AlerteDateDeDebutWidget> {
                           onPressed: () async {
                             logFirebaseEvent(
                                 'ALERTE_DATE_DE_DEBUT_OKAY_BTN_ON_TAP');
-                            logFirebaseEvent('Button_Bottom-Sheet');
+                            logFirebaseEvent('Button_bottom_sheet');
                             Navigator.pop(context);
                           },
                           text: 'Okay',

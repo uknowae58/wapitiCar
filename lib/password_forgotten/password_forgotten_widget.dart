@@ -28,6 +28,12 @@ class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
   }
 
   @override
+  void dispose() {
+    emailFieldAController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -37,7 +43,8 @@ class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
         leading: InkWell(
           onTap: () async {
             logFirebaseEvent('PASSWORD_FORGOTTEN_Icon_72jpqiy3_ON_TAP');
-            logFirebaseEvent('Icon_Navigate-To');
+            logFirebaseEvent('Icon_navigate_to');
+
             context.pushNamed('Signup');
           },
           child: Icon(
@@ -111,6 +118,20 @@ class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0x00000000),
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                     filled: true,
                     fillColor: Color(0xFF0915E3),
                     contentPadding:
@@ -138,7 +159,7 @@ class _PasswordForgottenWidgetState extends State<PasswordForgottenWidget> {
                 child: FFButtonWidget(
                   onPressed: () async {
                     logFirebaseEvent('PASSWORD_FORGOTTEN_Button-Login_ON_TAP');
-                    logFirebaseEvent('Button-Login_Auth');
+                    logFirebaseEvent('Button-Login_auth');
                     if (emailFieldAController!.text.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

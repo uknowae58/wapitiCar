@@ -1,7 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_expanded_image_view.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -32,39 +31,6 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.chevron_left,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: () async {
-            logFirebaseEvent('RENDEZ_VOUS_PAGE_chevron_left_ICN_ON_TAP');
-            logFirebaseEvent('IconButton_Navigate-Back');
-            context.pop();
-          },
-        ),
-        title: Text(
-          'Rendez-vous',
-          style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'San fransisco',
-                color: Colors.black,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                useGoogleFonts: false,
-              ),
-        ),
-        actions: [],
-        centerTitle: false,
-        elevation: 0,
-      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: GestureDetector(
@@ -74,101 +40,54 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 21, 20, 21),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Expanded(
+                      InkWell(
+                        onTap: () async {
+                          logFirebaseEvent(
+                              'RENDEZ_VOUS_PAGE_Card_ux7uucei_ON_TAP');
+                          logFirebaseEvent('Card_navigate_back');
+                          context.pop();
+                        },
+                        child: Card(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          color: Color(0xFF3A44E9),
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Icon(
+                            Icons.chevron_left,
+                            color: FlutterFlowTheme.of(context).theFourth,
+                            size: 28,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                         child: Text(
-                          'Tous les détails de vos rendez-vous avec les concessionnaires. Vous pouvez contacter le vendeur pour plus d’informations.',
-                          style:
-                              FlutterFlowTheme.of(context).bodyText2.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Color(0xFF8B97A2),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                          'Mes rendez-vous',
+                          style: FlutterFlowTheme.of(context).title2.override(
+                                fontFamily: 'San fransisco',
+                                color: Color(0xFF090F13),
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                useGoogleFonts: false,
+                              ),
                         ),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 2, 0, 0),
-                  child: StreamBuilder<UsersRecord>(
-                    stream: UsersRecord.getDocument(FFAppState().wapitiCar!),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitPulse(
-                              color: Color(0xFF175EFB),
-                              size: 50,
-                            ),
-                          ),
-                        );
-                      }
-                      final rowUsersRecord = snapshot.data!;
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                            child: Text(
-                              'En cas de soucis contactez',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText2
-                                  .override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Color(0xFF8B97A2),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                logFirebaseEvent(
-                                    'RENDEZ_VOUS_PAGE_Text_bgwv3yez_ON_TAP');
-                                logFirebaseEvent('Text_Navigate-To');
-                                context.pushNamed(
-                                  'ChatMessage',
-                                  queryParams: {
-                                    'chatUser': serializeParam(
-                                        rowUsersRecord, ParamType.Document),
-                                  }.withoutNulls,
-                                  extra: <String, dynamic>{
-                                    'chatUser': rowUsersRecord,
-                                  },
-                                );
-                              },
-                              child: Text(
-                                'wapiti car ',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText2
-                                    .override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.of(context).cinq,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                Divider(
+                  indent: 5,
+                  endIndent: 5,
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 34, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                   child: StreamBuilder<List<CommandeVenteRecord>>(
                     stream: queryCommandeVenteRecord(
                       queryBuilder: (commandeVenteRecord) => commandeVenteRecord
@@ -201,7 +120,7 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
                                 columnCommandeVenteRecordList[columnIndex];
                             return Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 21),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -256,9 +175,13 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
                                             children: [
                                               Text(
                                                 dateTimeFormat(
-                                                    'yMMMd',
-                                                    columnCommandeVenteRecord
-                                                        .date!),
+                                                  'yMMMd',
+                                                  columnCommandeVenteRecord
+                                                      .date!,
+                                                  locale: FFLocalizations.of(
+                                                          context)
+                                                      .languageCode,
+                                                ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyText1
@@ -269,11 +192,6 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
                                                       fontWeight:
                                                           FontWeight.normal,
                                                     ),
-                                              ),
-                                              Icon(
-                                                Icons.chevron_right_rounded,
-                                                color: Color(0xFF95A1AC),
-                                                size: 24,
                                               ),
                                             ],
                                           ),
@@ -417,7 +335,7 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
                                                                     logFirebaseEvent(
                                                                         'RENDEZ_VOUS_PAGE_Image_s03z9oyt_ON_TAP');
                                                                     logFirebaseEvent(
-                                                                        'Image_Expand-Image');
+                                                                        'Image_expand_image');
                                                                     await Navigator
                                                                         .push(
                                                                       context,
@@ -567,18 +485,21 @@ class _RendezVousWidgetState extends State<RendezVousWidget> {
                                                           logFirebaseEvent(
                                                               'RENDEZ_VOUS_PAGE_MESAAGE_BTN_ON_TAP');
                                                           logFirebaseEvent(
-                                                              'Button_Haptic-Feedback');
+                                                              'Button_haptic_feedback');
                                                           HapticFeedback
                                                               .lightImpact();
                                                           logFirebaseEvent(
-                                                              'Button_Navigate-To');
+                                                              'Button_navigate_to');
+
                                                           context.pushNamed(
                                                             'ChatMessage',
                                                             queryParams: {
-                                                              'chatUser': serializeParam(
-                                                                  rowUsersRecord,
-                                                                  ParamType
-                                                                      .Document),
+                                                              'chatUser':
+                                                                  serializeParam(
+                                                                rowUsersRecord,
+                                                                ParamType
+                                                                    .Document,
+                                                              ),
                                                             }.withoutNulls,
                                                             extra: <String,
                                                                 dynamic>{

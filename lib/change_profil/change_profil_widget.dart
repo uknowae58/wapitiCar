@@ -1,7 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -21,7 +20,9 @@ class ChangeProfilWidget extends StatefulWidget {
 }
 
 class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
+  bool isMediaUploading = false;
   String uploadedFileUrl = '';
+
   TextEditingController? userNameController;
   TextEditingController? emailAddressController;
   TextEditingController? titleRoleController;
@@ -43,43 +44,17 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
   }
 
   @override
+  void dispose() {
+    emailAddressController?.dispose();
+    userNameController?.dispose();
+    titleRoleController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Profil',
-          style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'San fransisco',
-                fontWeight: FontWeight.bold,
-                useGoogleFonts: false,
-              ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
-            child: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30,
-              buttonSize: 48,
-              icon: Icon(
-                Icons.close_rounded,
-                color: FlutterFlowTheme.of(context).secondaryText,
-                size: 30,
-              ),
-              onPressed: () async {
-                logFirebaseEvent('CHANGE_PROFIL_close_rounded_ICN_ON_TAP');
-                logFirebaseEvent('IconButton_Navigate-Back');
-                context.pop();
-              },
-            ),
-          ),
-        ],
-        centerTitle: false,
-        elevation: 0,
-      ),
       backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       body: SafeArea(
         child: GestureDetector(
@@ -89,14 +64,57 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
             autovalidateMode: AutovalidateMode.disabled,
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                      child: Row(
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 21, 20, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          logFirebaseEvent(
+                              'CHANGE_PROFIL_PAGE_Card_zyqlztn0_ON_TAP');
+                          logFirebaseEvent('Card_navigate_back');
+                          context.pop();
+                        },
+                        child: Card(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          color: Color(0xFF3A44E9),
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: Icon(
+                            Icons.chevron_left,
+                            color: FlutterFlowTheme.of(context).theFourth,
+                            size: 28,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                        child: Text(
+                          'Modifier son profil',
+                          style: FlutterFlowTheme.of(context).title2.override(
+                                fontFamily: 'San fransisco',
+                                color: Color(0xFF090F13),
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                useGoogleFonts: false,
+                              ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 34, 0, 0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -104,7 +122,7 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                             onTap: () async {
                               logFirebaseEvent(
                                   'CHANGE_PROFIL_PAGE_userImage_ON_TAP');
-                              logFirebaseEvent('userImage_Upload-Photo-Video');
+                              logFirebaseEvent('userImage_upload_photo_video');
                               final selectedMedia =
                                   await selectMediaWithSourceBottomSheet(
                                 context: context,
@@ -113,33 +131,37 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                               if (selectedMedia != null &&
                                   selectedMedia.every((m) => validateFileFormat(
                                       m.storagePath, context))) {
-                                showUploadMessage(
-                                  context,
-                                  'Uploading file...',
-                                  showLoading: true,
-                                );
-                                final downloadUrls = (await Future.wait(
-                                        selectedMedia.map((m) async =>
-                                            await uploadData(
-                                                m.storagePath, m.bytes))))
-                                    .where((u) => u != null)
-                                    .map((u) => u!)
-                                    .toList();
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
+                                setState(() => isMediaUploading = true);
+                                var downloadUrls = <String>[];
+                                try {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  downloadUrls = (await Future.wait(
+                                    selectedMedia.map(
+                                      (m) async => await uploadData(
+                                          m.storagePath, m.bytes),
+                                    ),
+                                  ))
+                                      .where((u) => u != null)
+                                      .map((u) => u!)
+                                      .toList();
+                                } finally {
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  isMediaUploading = false;
+                                }
                                 if (downloadUrls.length ==
                                     selectedMedia.length) {
                                   setState(() =>
                                       uploadedFileUrl = downloadUrls.first);
-                                  showUploadMessage(
-                                    context,
-                                    'Success!',
-                                  );
+                                  showUploadMessage(context, 'Success!');
                                 } else {
+                                  setState(() {});
                                   showUploadMessage(
-                                    context,
-                                    'Failed to upload media',
-                                  );
+                                      context, 'Failed to upload media');
                                   return;
                                 }
                               }
@@ -212,15 +234,61 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                           ),
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: AuthUserStreamWidget(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: AuthUserStreamWidget(
+                          child: TextFormField(
+                            controller: userNameController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Full Name',
+                              hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                  20, 32, 20, 12),
+                            ),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
                         child: TextFormField(
-                          controller: userNameController,
+                          controller: emailAddressController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Full Name',
+                            labelText: 'Email',
                             hintStyle: FlutterFlowTheme.of(context).bodyText2,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -238,69 +306,16 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
-                          ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: TextFormField(
-                        controller: emailAddressController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context)
-                                  .primaryBackground,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: AuthUserStreamWidget(
-                        child: TextFormField(
-                          controller: titleRoleController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Numero de telephone',
-                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                            enabledBorder: OutlineInputBorder(
+                            errorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
+                                color: Color(0x00000000),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            focusedBorder: OutlineInputBorder(
+                            focusedErrorBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context)
-                                    .primaryBackground,
+                                color: Color(0x00000000),
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -311,21 +326,70 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                           style: FlutterFlowTheme.of(context).bodyText1,
                           textAlign: TextAlign.start,
                           maxLines: 1,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.emailAddress,
                         ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: AuthUserStreamWidget(
+                          child: TextFormField(
+                            controller: titleRoleController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Numero de telephone',
+                              hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context)
+                                      .primaryBackground,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                  20, 32, 20, 12),
+                            ),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 16),
                   child: FFButtonWidget(
                     onPressed: () async {
                       logFirebaseEvent('CHANGE_PROFIL_SAUVEGARDER_BTN_ON_TAP');
-                      logFirebaseEvent('Button_Haptic-Feedback');
+                      logFirebaseEvent('Button_haptic_feedback');
                       HapticFeedback.mediumImpact();
                       if (functions.checkUploadPP(uploadedFileUrl)) {
-                        logFirebaseEvent('Button_Backend-Call');
+                        logFirebaseEvent('Button_backend_call');
 
                         final usersUpdateData = createUsersRecordData(
                           email: emailAddressController!.text,
@@ -334,11 +398,11 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                           phoneNumber: titleRoleController!.text,
                         );
                         await currentUserReference!.update(usersUpdateData);
-                        logFirebaseEvent('Button_Navigate-Back');
+                        logFirebaseEvent('Button_navigate_back');
                         context.pop();
                         return;
                       } else {
-                        logFirebaseEvent('Button_Backend-Call');
+                        logFirebaseEvent('Button_backend_call');
 
                         final usersUpdateData = createUsersRecordData(
                           email: emailAddressController!.text,
@@ -347,7 +411,7 @@ class _ChangeProfilWidgetState extends State<ChangeProfilWidget> {
                           phoneNumber: titleRoleController!.text,
                         );
                         await currentUserReference!.update(usersUpdateData);
-                        logFirebaseEvent('Button_Navigate-Back');
+                        logFirebaseEvent('Button_navigate_back');
                         context.pop();
                         return;
                       }

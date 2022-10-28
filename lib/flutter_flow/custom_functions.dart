@@ -55,3 +55,17 @@ String translation(String actualPhoto) {
   a = actualPhoto;
   return a;
 }
+
+int idGenerator() {
+  return 4;
+}
+
+int stringtoint(String toParse) {
+  int x;
+  x = int.parse(toParse);
+  return x;
+}
+
+int getLength(List<LocationRecord> myList) {
+  return myList.length;
+}

@@ -1,7 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/alerte_date_de_rendez_vous_widget.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
+import '../flutter_flow/flutter_flow_calendar.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -9,7 +9,6 @@ import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,20 +30,30 @@ class RendezVousVenteWidget extends StatefulWidget {
 
 class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
   CommandeVenteRecord? a1;
-  DateTime? datePicked;
+  DateTimeRange? calendarSelectedDay;
   TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'RendezVousVente'});
+    calendarSelectedDay = DateTimeRange(
+      start: DateTime.now().startOfDay,
+      end: DateTime.now().endOfDay,
+    );
     textController = TextEditingController(
         text: valueOrDefault<String>(
       currentPhoneNumber,
       '+225',
     ));
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'RendezVousVente'});
+  }
+
+  @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -75,37 +84,6 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                 : null;
         return Scaffold(
           key: scaffoldKey,
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            automaticallyImplyLeading: true,
-            leading: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30,
-              borderWidth: 1,
-              buttonSize: 60,
-              icon: Icon(
-                Icons.chevron_left,
-                color: Colors.black,
-                size: 30,
-              ),
-              onPressed: () async {
-                logFirebaseEvent('RENDEZ_VOUS_VENTE_chevron_left_ICN_ON_TA');
-                logFirebaseEvent('IconButton_Navigate-Back');
-                context.pop();
-              },
-            ),
-            title: Text(
-              'Rendez-vous',
-              style: FlutterFlowTheme.of(context).title1.override(
-                    fontFamily: 'San fransisco',
-                    color: Colors.black,
-                    useGoogleFonts: false,
-                  ),
-            ),
-            actions: [],
-            centerTitle: true,
-            elevation: 0,
-          ),
           backgroundColor: Colors.white,
           body: SafeArea(
             child: GestureDetector(
@@ -120,9 +98,57 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                         children: [
                           Padding(
                             padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 21, 20, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    logFirebaseEvent(
+                                        'RENDEZ_VOUS_VENTE_Card_voqcypmu_ON_TAP');
+                                    logFirebaseEvent('Card_navigate_back');
+                                    context.pop();
+                                  },
+                                  child: Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    color: Color(0xFF3A44E9),
+                                    elevation: 3,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: Icon(
+                                      Icons.chevron_left,
+                                      color: FlutterFlowTheme.of(context)
+                                          .theFourth,
+                                      size: 28,
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12, 0, 0, 0),
+                                  child: Text(
+                                    'Mes favoris',
+                                    style: FlutterFlowTheme.of(context)
+                                        .title2
+                                        .override(
+                                          fontFamily: 'San fransisco',
+                                          color: Color(0xFF090F13),
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          useGoogleFonts: false,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding:
                                 EdgeInsetsDirectional.fromSTEB(12, 21, 0, 0),
                             child: Text(
-                              'Prenez un rendez-vous avec le concessionnaire afin de finaliser l’achat de votre véhicule. Choisissez la date du rendez-vous, le concessionnaire vous contactera après\nconfirmation.',
+                              'Prenez un rendez-vous avec le concessionnaire afin de finaliser l’achat de votre véhicule.',
                               style: FlutterFlowTheme.of(context)
                                   .bodyText2
                                   .override(
@@ -132,82 +158,6 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                     fontWeight: FontWeight.normal,
                                   ),
                             ),
-                          ),
-                          StreamBuilder<UsersRecord>(
-                            stream: UsersRecord.getDocument(
-                                FFAppState().wapitiCar!),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: SpinKitPulse(
-                                      color: Color(0xFF175EFB),
-                                      size: 50,
-                                    ),
-                                  ),
-                                );
-                              }
-                              final rowUsersRecord = snapshot.data!;
-                              return Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        12, 0, 0, 0),
-                                    child: Text(
-                                      'En cas de soucis contactez',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText2
-                                          .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: Color(0xFF8B97A2),
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        3, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        logFirebaseEvent(
-                                            'RENDEZ_VOUS_VENTE_Text_qyelsgzq_ON_TAP');
-                                        logFirebaseEvent('Text_Navigate-To');
-                                        context.pushNamed(
-                                          'ChatMessage',
-                                          queryParams: {
-                                            'chatUser': serializeParam(
-                                                rowUsersRecord,
-                                                ParamType.Document),
-                                          }.withoutNulls,
-                                          extra: <String, dynamic>{
-                                            'chatUser': rowUsersRecord,
-                                          },
-                                        );
-                                      },
-                                      child: Text(
-                                        'wapiti car ',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText2
-                                            .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
                           ),
                           Padding(
                             padding:
@@ -234,74 +184,38 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(31, 21, 24, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  'Date de rendez-vous',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'San fransisco',
-                                        color:
-                                            FlutterFlowTheme.of(context).five,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500,
-                                        useGoogleFonts: false,
-                                      ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      29, 0, 0, 0),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      dateTimeFormat('d/M H:mm', datePicked),
-                                      '01/01 00:00',
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Lexend Deca',
-                                          color:
-                                              FlutterFlowTheme.of(context).five,
-                                        ),
+                                EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                            child: FlutterFlowCalendar(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              iconColor:
+                                  FlutterFlowTheme.of(context).secondaryText,
+                              weekFormat: true,
+                              weekStartsMonday: true,
+                              initialDate: getCurrentTimestamp,
+                              onChange: (DateTimeRange? newSelectedDate) {
+                                setState(() =>
+                                    calendarSelectedDay = newSelectedDate);
+                              },
+                              titleStyle:
+                                  FlutterFlowTheme.of(context).subtitle1,
+                              dayOfWeekStyle:
+                                  FlutterFlowTheme.of(context).bodyText2,
+                              dateStyle: FlutterFlowTheme.of(context).bodyText1,
+                              selectedDateStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'San fransisco',
+                                    color: Colors.white,
+                                    useGoogleFonts: false,
                                   ),
-                                ),
-                                FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30,
-                                  borderWidth: 1,
-                                  buttonSize: 60,
-                                  icon: Icon(
-                                    Icons.add_circle_outline,
-                                    color: Color(0x3A000000),
-                                    size: 30,
+                              inactiveDateStyle: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'San fransisco',
+                                    color: Color(0x6B57636C),
+                                    useGoogleFonts: false,
                                   ),
-                                  onPressed: () async {
-                                    logFirebaseEvent(
-                                        'RENDEZ_VOUS_VENTE_add_circle_outline_ICN');
-                                    logFirebaseEvent(
-                                        'IconButton_Date-Time-Picker');
-                                    await DatePicker.showDateTimePicker(
-                                      context,
-                                      showTitleActions: true,
-                                      onConfirm: (date) {
-                                        setState(() => datePicked = date);
-                                      },
-                                      currentTime: getCurrentTimestamp,
-                                      minTime: getCurrentTimestamp,
-                                      locale: LocaleType.values.firstWhere(
-                                        (l) =>
-                                            l.name ==
-                                            FFLocalizations.of(context)
-                                                .languageCode,
-                                        orElse: () => LocaleType.en,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
+                              locale: FFLocalizations.of(context).languageCode,
                             ),
                           ),
                           Padding(
@@ -376,6 +290,26 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                       color: Color(0xC48B97A2),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
                                                       width: 1,
                                                     ),
                                                     borderRadius:
@@ -463,14 +397,15 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                 logFirebaseEvent(
                                     'RENDEZ_VOUS_VENTE_CONFIRMER_BTN_ON_TAP');
                                 var _shouldSetState = false;
-                                logFirebaseEvent('Button_Haptic-Feedback');
+                                logFirebaseEvent('Button_haptic_feedback');
                                 HapticFeedback.heavyImpact();
-                                if (functions.checkQueryDate(datePicked)) {
-                                  logFirebaseEvent('Button_Backend-Call');
+                                if (functions.checkQueryDate(
+                                    calendarSelectedDay?.start)) {
+                                  logFirebaseEvent('Button_backend_call');
 
                                   final commandeVenteCreateData =
                                       createCommandeVenteRecordData(
-                                    date: datePicked,
+                                    date: calendarSelectedDay?.start,
                                     client: widget.leclient,
                                     vehicule: widget.carvente,
                                     gerant: widget.gerant,
@@ -483,7 +418,7 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                       commandeVenteCreateData,
                                       commandeVenteRecordReference);
                                   _shouldSetState = true;
-                                  logFirebaseEvent('Button_Backend-Call');
+                                  logFirebaseEvent('Button_backend_call');
 
                                   final usersUpdateData = {
                                     ...createUsersRecordData(
@@ -494,7 +429,8 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                   };
                                   await currentUserReference!
                                       .update(usersUpdateData);
-                                  logFirebaseEvent('Button_Navigate-To');
+                                  logFirebaseEvent('Button_navigate_to');
+
                                   context.goNamed(
                                     'DoneVente',
                                     extra: <String, dynamic>{
@@ -505,10 +441,11 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                       ),
                                     },
                                   );
+
                                   if (_shouldSetState) setState(() {});
                                   return;
                                 } else {
-                                  logFirebaseEvent('Button_Bottom-Sheet');
+                                  logFirebaseEvent('Button_bottom_sheet');
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
@@ -520,7 +457,8 @@ class _RendezVousVenteWidgetState extends State<RendezVousVenteWidget> {
                                         child: AlerteDateDeRendezVousWidget(),
                                       );
                                     },
-                                  );
+                                  ).then((value) => setState(() {}));
+
                                   if (_shouldSetState) setState(() {});
                                   return;
                                 }

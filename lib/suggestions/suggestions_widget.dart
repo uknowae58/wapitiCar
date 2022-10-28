@@ -21,7 +21,9 @@ class SuggestionsWidget extends StatefulWidget {
 }
 
 class _SuggestionsWidgetState extends State<SuggestionsWidget> {
+  bool isMediaUploading = false;
   String uploadedFileUrl = '';
+
   TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,16 +35,23 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: Color(0xFFFBF8F8),
       appBar: AppBar(
         backgroundColor: Color(0xFFFBF8F8),
         automaticallyImplyLeading: false,
         title: FFButtonWidget(
           onPressed: () async {
             logFirebaseEvent('SUGGESTIONS_PAGE_CANCEL_BTN_ON_TAP');
-            logFirebaseEvent('Button_Navigate-Back');
+            logFirebaseEvent('Button_navigate_back');
             context.pop();
           },
           text: 'Cancel',
@@ -69,9 +78,9 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
             child: FFButtonWidget(
               onPressed: () async {
                 logFirebaseEvent('SUGGESTIONS_PAGE_ENVOYER_BTN_ON_TAP');
-                logFirebaseEvent('Button_Haptic-Feedback');
+                logFirebaseEvent('Button_haptic_feedback');
                 HapticFeedback.mediumImpact();
-                logFirebaseEvent('Button_Backend-Call');
+                logFirebaseEvent('Button_backend_call');
 
                 final suggestionsCreateData = createSuggestionsRecordData(
                   client: currentUserReference,
@@ -81,9 +90,9 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                 await SuggestionsRecord.collection
                     .doc()
                     .set(suggestionsCreateData);
-                logFirebaseEvent('Button_Navigate-Back');
+                logFirebaseEvent('Button_navigate_back');
                 context.pop();
-                logFirebaseEvent('Button_Alert-Dialog');
+                logFirebaseEvent('Button_alert_dialog');
                 await showDialog(
                   context: context,
                   builder: (alertDialogContext) {
@@ -120,7 +129,6 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: Color(0xFFFBF8F8),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -222,6 +230,26 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                             topRight: Radius.circular(4.0),
                           ),
                         ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
                         contentPadding:
                             EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
                       ),
@@ -297,7 +325,7 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                                 logFirebaseEvent(
                                     'SUGGESTIONS_add_photo_alternate_outlined');
                                 logFirebaseEvent(
-                                    'IconButton_Upload-Photo-Video');
+                                    'IconButton_upload_photo_video');
                                 final selectedMedia = await selectMedia(
                                   mediaSource: MediaSource.photoGallery,
                                   multiImage: false,
@@ -306,33 +334,37 @@ class _SuggestionsWidgetState extends State<SuggestionsWidget> {
                                     selectedMedia.every((m) =>
                                         validateFileFormat(
                                             m.storagePath, context))) {
-                                  showUploadMessage(
-                                    context,
-                                    'Uploading file...',
-                                    showLoading: true,
-                                  );
-                                  final downloadUrls = (await Future.wait(
-                                          selectedMedia.map((m) async =>
-                                              await uploadData(
-                                                  m.storagePath, m.bytes))))
-                                      .where((u) => u != null)
-                                      .map((u) => u!)
-                                      .toList();
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
+                                  setState(() => isMediaUploading = true);
+                                  var downloadUrls = <String>[];
+                                  try {
+                                    showUploadMessage(
+                                      context,
+                                      'Uploading file...',
+                                      showLoading: true,
+                                    );
+                                    downloadUrls = (await Future.wait(
+                                      selectedMedia.map(
+                                        (m) async => await uploadData(
+                                            m.storagePath, m.bytes),
+                                      ),
+                                    ))
+                                        .where((u) => u != null)
+                                        .map((u) => u!)
+                                        .toList();
+                                  } finally {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    isMediaUploading = false;
+                                  }
                                   if (downloadUrls.length ==
                                       selectedMedia.length) {
                                     setState(() =>
                                         uploadedFileUrl = downloadUrls.first);
-                                    showUploadMessage(
-                                      context,
-                                      'Success!',
-                                    );
+                                    showUploadMessage(context, 'Success!');
                                   } else {
+                                    setState(() {});
                                     showUploadMessage(
-                                      context,
-                                      'Failed to upload media',
-                                    );
+                                        context, 'Failed to upload media');
                                     return;
                                   }
                                 }

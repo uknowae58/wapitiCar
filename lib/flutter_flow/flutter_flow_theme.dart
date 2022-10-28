@@ -61,7 +61,7 @@ class LightModeTheme extends FlutterFlowTheme {
 
   late Color theFourth = Color(0xFFFBF8F8);
   late Color five = Color(0xFF30477A);
-  late Color sixx = Color(0xFF56647D);
+  late Color sixx = Color(0xFF8B97A2);
   late Color primaryBtnText = Color(0xFFFAF7F7);
   late Color lineColor = Color(0xFFE0E3E7);
   late Color backgroundComponents = Color(0xFF1D2428);

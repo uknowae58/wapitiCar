@@ -4,13 +4,13 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -23,117 +23,154 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   final animationsMap = {
     'textOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 760,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, -100),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
     ),
     'textOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 1210,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
     ),
     'textOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
     ),
     'textOnPageLoadAnimation4': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation6': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+    'textOnPageLoadAnimation7': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation1': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 810,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(100, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 810.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 810.ms,
+          begin: Offset(100, 0),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 810,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(100, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 810.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 810.ms,
+          begin: Offset(100, 0),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
     'containerOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
-      duration: 810,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(100, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 810.ms,
+          begin: 0,
+          end: 1,
+        ),
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 810.ms,
+          begin: Offset(100, 0),
+          end: Offset(0, 0),
+        ),
+      ],
     ),
   };
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -141,9 +178,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
 
@@ -154,36 +192,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).theFourth,
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.drag_handle,
-            color: Color(0xFF273754),
-            size: 30,
-          ),
-          onPressed: () async {
-            logFirebaseEvent('HOME_PAGE_drag_handle_ICN_ON_TAP');
-            logFirebaseEvent('IconButton_Drawer');
-            scaffoldKey.currentState!.openDrawer();
-          },
-        ),
-        title: Image.asset(
-          'assets/images/wapiti_logo_png.png',
-          width: 100,
-          height: 55,
-          fit: BoxFit.cover,
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 5,
-      ),
-      backgroundColor: FlutterFlowTheme.of(context).theFourth,
+      backgroundColor: Colors.white,
       drawer: Drawer(
         elevation: 16,
         child: Container(
@@ -278,8 +287,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(70, 0, 0, 0),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_Row_jjjpb5rz_ON_TAP');
-                        logFirebaseEvent('Row_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_Row_0ea81go3_ON_TAP');
+                        logFirebaseEvent('Row_navigate_to');
+
                         context.pushNamed('changeProfil');
                       },
                       child: Row(
@@ -333,8 +343,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 21, 0, 0),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_ListTile_lbdcbnnd_ON_TAP');
-                        logFirebaseEvent('ListTile_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_ListTile_f0bgbtd7_ON_TAP');
+                        logFirebaseEvent('ListTile_navigate_to');
+
                         context.pushNamed('Commandes');
                       },
                       child: ListTile(
@@ -362,8 +373,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_ListTile_3qufympd_ON_TAP');
-                        logFirebaseEvent('ListTile_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_ListTile_lgdwuc1k_ON_TAP');
+                        logFirebaseEvent('ListTile_navigate_to');
+
                         context.pushNamed('RendezVous');
                       },
                       child: ListTile(
@@ -391,8 +403,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_ListTile_0y4hi0mp_ON_TAP');
-                        logFirebaseEvent('ListTile_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_ListTile_84tlrqup_ON_TAP');
+                        logFirebaseEvent('ListTile_navigate_to');
+
                         context.pushNamed('Favoris');
                       },
                       child: Slidable(
@@ -443,8 +456,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 21),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_ListTile_ou1qszvr_ON_TAP');
-                        logFirebaseEvent('ListTile_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_ListTile_uiuwb9l8_ON_TAP');
+                        logFirebaseEvent('ListTile_navigate_to');
+
                         context.pushNamed('AllChatPage');
                       },
                       child: ListTile(
@@ -493,8 +507,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 21, 0, 0),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_ListTile_7c9jx1yf_ON_TAP');
-                        logFirebaseEvent('ListTile_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_ListTile_i1oqarml_ON_TAP');
+                        logFirebaseEvent('ListTile_navigate_to');
+
                         context.pushNamed('Location');
                       },
                       child: ListTile(
@@ -521,8 +536,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_ListTile_m1kfq9or_ON_TAP');
-                        logFirebaseEvent('ListTile_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_ListTile_6nsgidkm_ON_TAP');
+                        logFirebaseEvent('ListTile_navigate_to');
+
                         context.pushNamed('Vente');
                       },
                       child: ListTile(
@@ -549,8 +565,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 21),
                     child: InkWell(
                       onTap: () async {
-                        logFirebaseEvent('HOME_PAGE_ListTile_htdr63my_ON_TAP');
-                        logFirebaseEvent('ListTile_Navigate-To');
+                        logFirebaseEvent('HOME_PAGE_ListTile_l3k4qpkx_ON_TAP');
+                        logFirebaseEvent('ListTile_navigate_to');
+
                         context.pushNamed('Services');
                       },
                       child: ListTile(
@@ -585,6 +602,127 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
           ),
         ),
       ),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(189),
+        child: AppBar(
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30,
+            borderWidth: 1,
+            buttonSize: 60,
+            icon: Icon(
+              Icons.drag_handle,
+              color: Colors.black,
+              size: 30,
+            ),
+            onPressed: () async {
+              logFirebaseEvent('HOME_PAGE_drag_handle_ICN_ON_TAP');
+              logFirebaseEvent('IconButton_drawer');
+              scaffoldKey.currentState!.openDrawer();
+            },
+          ),
+          actions: [],
+          flexibleSpace: FlexibleSpaceBar(
+            title: Stack(
+              children: [
+                Align(
+                  alignment: AlignmentDirectional(0, 0),
+                  child: Image.asset(
+                    'assets/images/wapiti_logo_png.png',
+                    width: 121,
+                    height: 121,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Align(
+                  alignment: AlignmentDirectional(0, 0.81),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(16, 21, 16, 0),
+                          child: Container(
+                            width: double.infinity,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              color: Color(0x00FFFFFF),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 2,
+                              ),
+                            ),
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Stack(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 8, 0, 0),
+                                      child: Image.asset(
+                                        'assets/images/pngwing.com_(13)_(1).png',
+                                        width: 55,
+                                        height: 44,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-0.19, -0.39),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            12, 8, 0, 0),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.search,
+                                          color: FlutterFlowTheme.of(context)
+                                              .theFourth,
+                                          size: 18,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12, 0, 0, 0),
+                                  child: Text(
+                                    'Rechercher',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'San fransisco',
+                                          fontWeight: FontWeight.w500,
+                                          useGoogleFonts: false,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            background: Image.asset(
+              'assets/images/pngwing.com_(1)_(2).png',
+              fit: BoxFit.cover,
+            ),
+            centerTitle: true,
+            expandedTitleScale: 1.0,
+          ),
+          elevation: 0,
+        ),
+      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -595,7 +733,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 Stack(
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 143, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 112, 0, 0),
                       child: Image.network(
                         '',
                         width: MediaQuery.of(context).size.width,
@@ -607,92 +745,125 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Stack(
-                            children: [
-                              ClipRect(
-                                child: ImageFiltered(
-                                  imageFilter: ImageFilter.blur(
-                                    sigmaX: 5,
-                                    sigmaY: 5,
-                                  ),
-                                  child: Lottie.network(
-                                    'https://assets9.lottiefiles.com/packages/lf20_pygixgsz.json',
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 167,
-                                    fit: BoxFit.cover,
-                                    animate: true,
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 55, 0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 0, 0),
-                                          child: Text(
-                                            'Bienvenue,',
-                                            style: FlutterFlowTheme.of(context)
-                                                .title1
-                                                .override(
-                                                  fontFamily: 'San fransisco',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .theFourth,
-                                                  fontSize: 24,
-                                                  fontWeight: FontWeight.w600,
-                                                  useGoogleFonts: false,
-                                                ),
-                                          ).animated([
-                                            animationsMap[
-                                                'textOnPageLoadAnimation1']!
-                                          ]),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
+                          SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 44, 0, 0),
+                                  child: Row(
                                     mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 3, 0, 0),
-                                        child: AuthUserStreamWidget(
-                                          child: Text(
-                                            currentUserDisplayName,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title2
-                                                .override(
-                                                  fontFamily: 'San fransisco',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .cinq,
-                                                  fontSize: 28,
-                                                  fontWeight: FontWeight.bold,
-                                                  useGoogleFonts: false,
-                                                ),
-                                          ).animated([
-                                            animationsMap[
-                                                'textOnPageLoadAnimation2']!
-                                          ]),
-                                        ),
+                                            8, 0, 0, 0),
+                                        child: Text(
+                                          'Bienvenue!',
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'San fransisco',
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'textOnPageLoadAnimation1']!),
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8, 0, 0, 0),
+                                      child: Text(
+                                        'Decouvrez ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'San fransisco',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .sixx,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation2']!),
+                                    ),
+                                    Text(
+                                      'notre large gamme',
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'San fransisco',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                            useGoogleFonts: false,
+                                          ),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'textOnPageLoadAnimation3']!),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          3, 0, 0, 0),
+                                      child: Text(
+                                        'de véhicules afin de ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'San fransisco',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .sixx,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal,
+                                              useGoogleFonts: false,
+                                            ),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation4']!),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 0),
+                                        child: Text(
+                                          'répondre à vos besoins personnels ou professionnels.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'San fransisco',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .sixx,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.normal,
+                                                useGoogleFonts: false,
+                                              ),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'textOnPageLoadAnimation5']!),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           SingleChildScrollView(
                             child: Column(
@@ -717,15 +888,13 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               .subtitle2
                                               .override(
                                                 fontFamily: 'San fransisco',
-                                                color: Color(0xFF273754),
+                                                color: Colors.black,
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 useGoogleFonts: false,
                                               ),
-                                        ).animated([
-                                          animationsMap[
-                                              'textOnPageLoadAnimation3']!
-                                        ]),
+                                        ).animateOnPageLoad(animationsMap[
+                                            'textOnPageLoadAnimation6']!),
                                       ),
                                     ],
                                   ),
@@ -744,13 +913,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               fontFamily: 'Lexend Deca',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .cinq,
-                                              fontSize: 12,
+                                                      .sixx,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w300,
                                             ),
-                                      ).animated([
-                                        animationsMap[
-                                            'textOnPageLoadAnimation4']!
-                                      ]),
+                                      ).animateOnPageLoad(animationsMap[
+                                          'textOnPageLoadAnimation7']!),
                                     ),
                                   ],
                                 ),
@@ -768,13 +936,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 8, 0, 8),
+                                        12, 8, 12, 8),
                                     child: InkWell(
                                       onTap: () async {
                                         logFirebaseEvent(
-                                            'HOME_PAGE_Container_ii9ddib8_ON_TAP');
+                                            'HOME_PAGE_Container_ish8bfp4_ON_TAP');
                                         logFirebaseEvent(
-                                            'Container_Navigate-To');
+                                            'Container_navigate_to');
+
                                         context.pushNamed('Berline');
                                       },
                                       child: Material(
@@ -795,12 +964,16 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               0.44,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4,
+                                                color: Color(0x33000000),
+                                                offset: Offset(0, 2),
+                                                spreadRadius: 1,
+                                              )
+                                            ],
                                             borderRadius:
                                                 BorderRadius.circular(16),
-                                            border: Border.all(
-                                              color: Colors.white,
-                                              width: 3,
-                                            ),
                                           ),
                                           alignment:
                                               AlignmentDirectional(-0.9, 0),
@@ -810,7 +983,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 borderRadius:
                                                     BorderRadius.circular(16),
                                                 child: Image.asset(
-                                                  'assets/images/New_Project-9.jpg',
+                                                  'assets/images/berline.png',
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
@@ -846,7 +1019,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                 fontFamily:
                                                                     'San fransisco',
                                                                 color: Colors
-                                                                    .white,
+                                                                    .black,
                                                                 fontSize: 34,
                                                                 fontWeight:
                                                                     FontWeight
@@ -864,7 +1037,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                             Icons.arrow_forward,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .cinq,
+                                                                .primaryColor,
                                                             size: 24,
                                                           ),
                                                         ),
@@ -877,20 +1050,19 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                    ).animated([
-                                      animationsMap[
-                                          'containerOnPageLoadAnimation1']!
-                                    ]),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'containerOnPageLoadAnimation1']!),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        8, 8, 0, 8),
+                                        8, 8, 12, 8),
                                     child: InkWell(
                                       onTap: () async {
                                         logFirebaseEvent(
-                                            'HOME_PAGE_Container_i4m9vwau_ON_TAP');
+                                            'HOME_PAGE_Container_kasnuon5_ON_TAP');
                                         logFirebaseEvent(
-                                            'Container_Navigate-To');
+                                            'Container_navigate_to');
+
                                         context.pushNamed('Suv');
                                       },
                                       child: Material(
@@ -911,6 +1083,14 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                               0.44,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4,
+                                                color: Color(0x33000000),
+                                                offset: Offset(0, 2),
+                                                spreadRadius: 1,
+                                              )
+                                            ],
                                             borderRadius:
                                                 BorderRadius.circular(16),
                                             border: Border.all(
@@ -926,7 +1106,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 borderRadius:
                                                     BorderRadius.circular(16),
                                                 child: Image.asset(
-                                                  'assets/images/New_Project-10.jpg',
+                                                  'assets/images/suv.png',
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
@@ -966,7 +1146,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                   fontFamily:
                                                                       'San fransisco',
                                                                   color: Colors
-                                                                      .white,
+                                                                      .black,
                                                                   fontSize: 34,
                                                                   fontWeight:
                                                                       FontWeight
@@ -988,7 +1168,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                   .arrow_forward,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .cinq,
+                                                                  .primaryColor,
                                                               size: 24,
                                                             ),
                                                           ),
@@ -1002,10 +1182,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                    ).animated([
-                                      animationsMap[
-                                          'containerOnPageLoadAnimation2']!
-                                    ]),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'containerOnPageLoadAnimation2']!),
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -1013,9 +1191,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     child: InkWell(
                                       onTap: () async {
                                         logFirebaseEvent(
-                                            'HOME_PAGE_Container_meph0srf_ON_TAP');
+                                            'HOME_PAGE_Container_ir10acy2_ON_TAP');
                                         logFirebaseEvent(
-                                            'Container_Navigate-To');
+                                            'Container_navigate_to');
+
                                         context.pushNamed('Van');
                                       },
                                       child: Material(
@@ -1051,7 +1230,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 borderRadius:
                                                     BorderRadius.circular(16),
                                                 child: Image.asset(
-                                                  'assets/images/New_Project-2.png',
+                                                  'assets/images/van.png',
                                                   width: MediaQuery.of(context)
                                                       .size
                                                       .width,
@@ -1087,7 +1266,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                                 fontFamily:
                                                                     'San fransisco',
                                                                 color: Colors
-                                                                    .white,
+                                                                    .black,
                                                                 fontSize: 34,
                                                                 fontWeight:
                                                                     FontWeight
@@ -1105,7 +1284,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                             Icons.arrow_forward,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .cinq,
+                                                                .primaryColor,
                                                             size: 24,
                                                           ),
                                                         ),
@@ -1118,10 +1297,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
-                                    ).animated([
-                                      animationsMap[
-                                          'containerOnPageLoadAnimation3']!
-                                    ]),
+                                    ).animateOnPageLoad(animationsMap[
+                                        'containerOnPageLoadAnimation3']!),
                                   ),
                                 ],
                               ),
@@ -1147,7 +1324,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             .subtitle2
                                             .override(
                                               fontFamily: 'San fransisco',
-                                              color: Color(0xFF273754),
+                                              color: Colors.black,
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                               useGoogleFonts: false,
@@ -1170,8 +1347,9 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                           .override(
                                             fontFamily: 'Lexend Deca',
                                             color: FlutterFlowTheme.of(context)
-                                                .cinq,
-                                            fontSize: 12,
+                                                .sixx,
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w300,
                                           ),
                                     ),
                                   ),
@@ -1189,7 +1367,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                     children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
+                                            8, 0, 0, 12),
                                         child: Material(
                                           color: Colors.transparent,
                                           elevation: 2,
@@ -1222,8 +1400,8 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(16),
-                                                  child: Image.asset(
-                                                    'assets/images/astuces1.jpg',
+                                                  child: Image.network(
+                                                    '',
                                                     width:
                                                         MediaQuery.of(context)
                                                             .size
@@ -1239,9 +1417,10 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                 InkWell(
                                                   onTap: () async {
                                                     logFirebaseEvent(
-                                                        'HOME_PAGE_Column_60n93hzs_ON_TAP');
+                                                        'HOME_PAGE_Column_vkb18f7a_ON_TAP');
                                                     logFirebaseEvent(
-                                                        'Column_Navigate-To');
+                                                        'Column_navigate_to');
+
                                                     context.pushNamed('pneus');
                                                   },
                                                   child: Column(
@@ -1253,376 +1432,269 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
-                                                      Container(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0x3605163B),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    16),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    16),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0),
+                                                      Stack(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/Nouveau_projet_(1).png',
+                                                            width: 144,
+                                                            height: 55,
+                                                            fit: BoxFit.contain,
                                                           ),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Changer son pneu',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .title2
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'San fransisco',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            false,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          elevation: 2,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.38,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.18,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 3,
-                                              ),
-                                            ),
-                                            alignment:
-                                                AlignmentDirectional(-0.9, 0),
-                                            child: Stack(
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  child: Image.asset(
-                                                    'assets/images/astuces2.png',
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            1,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'HOME_PAGE_Column_9i79k16j_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'Column_Navigate-To');
-                                                    context.pushNamed(
-                                                        'potechappement');
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Container(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0x3605163B),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    16),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    16),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0),
-                                                          ),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'pot dechappement',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .title2
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'San fransisco',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            12,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            false,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8, 0, 0, 0),
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          elevation: 2,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(16),
-                                          ),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.38,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.18,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 3,
-                                              ),
-                                            ),
-                                            alignment:
-                                                AlignmentDirectional(-0.9, 0),
-                                            child: Stack(
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  child: Image.asset(
-                                                    'assets/images/astuces3.png',
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            1,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                InkWell(
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'HOME_PAGE_Column_rxajd2wn_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'Column_Navigate-To');
-                                                    context
-                                                        .pushNamed('astuces');
-                                                  },
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Container(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.05,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0x3505163B),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            bottomLeft:
-                                                                Radius.circular(
-                                                                    16),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    16),
-                                                            topLeft:
-                                                                Radius.circular(
-                                                                    0),
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    0),
-                                                          ),
-                                                        ),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5,
-                                                                          0,
-                                                                          0,
-                                                                          0),
-                                                                  child: Text(
-                                                                    '5 habitudes a éviter',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .title2
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'San fransisco',
-                                                                          color:
-                                                                              Colors.white,
-                                                                          fontSize:
-                                                                              12,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                          useGoogleFonts:
-                                                                              false,
-                                                                        ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        8,
+                                                                        28,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              'Changer son pneu',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .title2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'San fransisco',
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    useGoogleFonts:
+                                                                        false,
                                                                   ),
-                                                                ),
-                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 12),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.38,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.18,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 3,
+                                              ),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(-0.9, 0),
+                                            child: Stack(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.network(
+                                                    '',
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            1,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Column_utjqxx15_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Column_navigate_to');
+
+                                                    context.pushNamed('pneus');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Stack(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/Nouveau_projet_(1).png',
+                                                            width: 144,
+                                                            height: 55,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        8,
+                                                                        28,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              'Changer son pneu',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .title2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'San fransisco',
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    useGoogleFonts:
+                                                                        false,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8, 0, 0, 12),
+                                        child: Material(
+                                          color: Colors.transparent,
+                                          elevation: 2,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.38,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.18,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              border: Border.all(
+                                                color: Colors.white,
+                                                width: 3,
+                                              ),
+                                            ),
+                                            alignment:
+                                                AlignmentDirectional(-0.9, 0),
+                                            child: Stack(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
+                                                  child: Image.network(
+                                                    '',
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            1,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Column_h2ltoorr_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Column_navigate_to');
+
+                                                    context.pushNamed('pneus');
+                                                  },
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Stack(
+                                                        children: [
+                                                          Image.asset(
+                                                            'assets/images/Nouveau_projet_(1).png',
+                                                            width: 144,
+                                                            height: 55,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        8,
+                                                                        28,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              'Changer son pneu',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .title2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'San fransisco',
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize:
+                                                                        10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    useGoogleFonts:
+                                                                        false,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),

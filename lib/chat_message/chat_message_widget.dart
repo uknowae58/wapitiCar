@@ -6,6 +6,8 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,6 +27,20 @@ class ChatMessageWidget extends StatefulWidget {
 
 class _ChatMessageWidgetState extends State<ChatMessageWidget>
     with TickerProviderStateMixin {
+  final animationsMap = {
+    'chatPageOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+  };
   FFChatInfo? _chatInfo;
   bool isGroupChat() {
     if (widget.chatUser == null) {
@@ -37,31 +53,14 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final animationsMap = {
-    'chatPageOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      hideBeforeAnimating: false,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
-    ),
-  };
 
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
 
@@ -98,7 +97,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
           ),
           onPressed: () async {
             logFirebaseEvent('CHAT_MESSAGE_arrow_back_rounded_ICN_ON_T');
-            logFirebaseEvent('IconButton_Navigate-Back');
+            logFirebaseEvent('IconButton_navigate_back');
             context.pop();
           },
         ),
@@ -198,7 +197,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                       ),
                     ),
                   ),
-          ).animated([animationsMap['chatPageOnPageLoadAnimation']!]),
+          ).animateOnPageLoad(animationsMap['chatPageOnPageLoadAnimation']!),
         ),
       ),
     );

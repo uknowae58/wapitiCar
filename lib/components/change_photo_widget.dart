@@ -16,6 +16,7 @@ class ChangePhotoWidget extends StatefulWidget {
 }
 
 class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
+  bool isMediaUploading = false;
   String uploadedFileUrl = '';
 
   @override
@@ -166,7 +167,7 @@ class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'CHANGE_PHOTO_UPLOAD_IMAGE_BTN_ON_TAP');
-                                logFirebaseEvent('Button_Upload-Photo-Video');
+                                logFirebaseEvent('Button_upload_photo_video');
                                 final selectedMedia =
                                     await selectMediaWithSourceBottomSheet(
                                   context: context,
@@ -176,33 +177,37 @@ class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
                                     selectedMedia.every((m) =>
                                         validateFileFormat(
                                             m.storagePath, context))) {
-                                  showUploadMessage(
-                                    context,
-                                    'Uploading file...',
-                                    showLoading: true,
-                                  );
-                                  final downloadUrls = (await Future.wait(
-                                          selectedMedia.map((m) async =>
-                                              await uploadData(
-                                                  m.storagePath, m.bytes))))
-                                      .where((u) => u != null)
-                                      .map((u) => u!)
-                                      .toList();
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
+                                  setState(() => isMediaUploading = true);
+                                  var downloadUrls = <String>[];
+                                  try {
+                                    showUploadMessage(
+                                      context,
+                                      'Uploading file...',
+                                      showLoading: true,
+                                    );
+                                    downloadUrls = (await Future.wait(
+                                      selectedMedia.map(
+                                        (m) async => await uploadData(
+                                            m.storagePath, m.bytes),
+                                      ),
+                                    ))
+                                        .where((u) => u != null)
+                                        .map((u) => u!)
+                                        .toList();
+                                  } finally {
+                                    ScaffoldMessenger.of(context)
+                                        .hideCurrentSnackBar();
+                                    isMediaUploading = false;
+                                  }
                                   if (downloadUrls.length ==
                                       selectedMedia.length) {
                                     setState(() =>
                                         uploadedFileUrl = downloadUrls.first);
-                                    showUploadMessage(
-                                      context,
-                                      'Success!',
-                                    );
+                                    showUploadMessage(context, 'Success!');
                                   } else {
+                                    setState(() {});
                                     showUploadMessage(
-                                      context,
-                                      'Failed to upload media',
-                                    );
+                                        context, 'Failed to upload media');
                                     return;
                                   }
                                 }
@@ -232,7 +237,7 @@ class _ChangePhotoWidgetState extends State<ChangePhotoWidget> {
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'CHANGE_PHOTO_SAVE_CHANGES_BTN_ON_TAP');
-                                logFirebaseEvent('Button_Navigate-Back');
+                                logFirebaseEvent('Button_navigate_back');
                                 context.pop();
                               },
                               text: 'Save Changes',

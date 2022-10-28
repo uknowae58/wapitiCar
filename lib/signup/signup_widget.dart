@@ -1,11 +1,14 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,75 +21,70 @@ class SignupWidget extends StatefulWidget {
 
 class _SignupWidgetState extends State<SignupWidget>
     with TickerProviderStateMixin {
+  final animationsMap = {
+    'imageOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1050.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 1050.ms,
+          duration: 600.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 770.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+    'columnOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        VisibilityEffect(duration: 1.ms),
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 770.ms,
+          begin: 0,
+          end: 1,
+        ),
+      ],
+    ),
+  };
+  ApiCallResponse? uidGenerator;
   TextEditingController? confirmPasswordSignupController;
+
   late bool confirmPasswordSignupVisibility;
   TextEditingController? emailAddressSignupController;
   TextEditingController? fullnameSignupController;
   TextEditingController? passwordSignupController;
+
   late bool passwordSignupVisibility;
   TextEditingController? emailAddressController;
   TextEditingController? passwordController;
+
   late bool passwordVisibility;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final animationsMap = {
-    'imageOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 1050,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
-    ),
-    'columnOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 770,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
-    ),
-    'columnOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 770,
-      hideBeforeAnimating: true,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        scale: 1,
-        opacity: 1,
-      ),
-    ),
-  };
 
   @override
   void initState() {
     super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
       this,
     );
 
@@ -100,6 +98,17 @@ class _SignupWidgetState extends State<SignupWidget>
     passwordController = TextEditingController();
     passwordVisibility = false;
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Signup'});
+  }
+
+  @override
+  void dispose() {
+    confirmPasswordSignupController?.dispose();
+    emailAddressSignupController?.dispose();
+    fullnameSignupController?.dispose();
+    passwordSignupController?.dispose();
+    emailAddressController?.dispose();
+    passwordController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -132,7 +141,8 @@ class _SignupWidgetState extends State<SignupWidget>
                     Image.asset(
                       'assets/images/WAPITI_LogoWhite_sansTitre.png',
                       fit: BoxFit.fill,
-                    ).animated([animationsMap['imageOnPageLoadAnimation']!]),
+                    ).animateOnPageLoad(
+                        animationsMap['imageOnPageLoadAnimation']!),
                   ],
                 ),
               ),
@@ -231,6 +241,23 @@ class _SignupWidgetState extends State<SignupWidget>
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                           ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                           filled: true,
                                           fillColor: Color(0xFF0915E3),
                                           contentPadding:
@@ -296,6 +323,23 @@ class _SignupWidgetState extends State<SignupWidget>
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                           ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          focusedErrorBorder:
+                                              OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Color(0x00000000),
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                           filled: true,
                                           fillColor: Color(0xFF0915E3),
                                           contentPadding:
@@ -336,7 +380,7 @@ class _SignupWidgetState extends State<SignupWidget>
                                         onPressed: () async {
                                           logFirebaseEvent(
                                               'SIGNUP_PAGE_Button-Login_ON_TAP');
-                                          logFirebaseEvent('Button-Login_Auth');
+                                          logFirebaseEvent('Button-Login_auth');
                                           GoRouter.of(context)
                                               .prepareAuthEvent();
 
@@ -350,7 +394,8 @@ class _SignupWidgetState extends State<SignupWidget>
                                           }
 
                                           logFirebaseEvent(
-                                              'Button-Login_Navigate-To');
+                                              'Button-Login_navigate_to');
+
                                           context.pushNamedAuth(
                                             'OnBoarding',
                                             mounted,
@@ -396,7 +441,8 @@ class _SignupWidgetState extends State<SignupWidget>
                                           logFirebaseEvent(
                                               'SIGNUP_PAGE_Button-ForgotPassword_ON_TAP');
                                           logFirebaseEvent(
-                                              'Button-ForgotPassword_Navigate-To');
+                                              'Button-ForgotPassword_navigate_to');
+
                                           context.pushNamed(
                                             'PasswordForgotten',
                                             extra: <String, dynamic>{
@@ -435,9 +481,8 @@ class _SignupWidgetState extends State<SignupWidget>
                                       ),
                                     ),
                                   ],
-                                ).animated([
-                                  animationsMap['columnOnPageLoadAnimation1']!
-                                ]),
+                                ).animateOnPageLoad(animationsMap[
+                                    'columnOnPageLoadAnimation1']!),
                                 Form(
                                   key: formKey,
                                   autovalidateMode: AutovalidateMode.disabled,
@@ -499,6 +544,26 @@ class _SignupWidgetState extends State<SignupWidget>
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                       color: Color(0xFFDBE2E7),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -591,6 +656,26 @@ class _SignupWidgetState extends State<SignupWidget>
                                                         BorderRadius.circular(
                                                             8),
                                                   ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
                                                   filled: true,
                                                   fillColor: Colors.white,
                                                   contentPadding:
@@ -674,6 +759,26 @@ class _SignupWidgetState extends State<SignupWidget>
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
                                                       color: Color(0xFFDBE2E7),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
                                                       width: 2,
                                                     ),
                                                     borderRadius:
@@ -785,6 +890,26 @@ class _SignupWidgetState extends State<SignupWidget>
                                                         BorderRadius.circular(
                                                             8),
                                                   ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 2,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
                                                   filled: true,
                                                   fillColor: Colors.white,
                                                   contentPadding:
@@ -840,9 +965,14 @@ class _SignupWidgetState extends State<SignupWidget>
                                                 logFirebaseEvent(
                                                     'SIGNUP_PAGE_CREER_UN_COMPTE_BTN_ON_TAP');
                                                 logFirebaseEvent(
-                                                    'Button_Haptic-Feedback');
+                                                    'Button_haptic_feedback');
                                                 HapticFeedback.heavyImpact();
-                                                logFirebaseEvent('Button_Auth');
+                                                logFirebaseEvent(
+                                                    'Button_backend_call');
+                                                uidGenerator =
+                                                    await WapiticarUIDGeneratorCall
+                                                        .call();
+                                                logFirebaseEvent('Button_auth');
                                                 GoRouter.of(context)
                                                     .prepareAuthEvent();
                                                 if (passwordSignupController
@@ -879,15 +1009,23 @@ class _SignupWidgetState extends State<SignupWidget>
                                                           .text,
                                                   photoUrl:
                                                       FFAppState().ppUsera,
+                                                  uid: getJsonField(
+                                                    (uidGenerator?.jsonBody ??
+                                                        ''),
+                                                    r'''$.uid''',
+                                                  ).toString(),
                                                 );
                                                 await UsersRecord.collection
                                                     .doc(user.uid)
                                                     .update(usersCreateData);
 
                                                 logFirebaseEvent(
-                                                    'Button_Navigate-To');
+                                                    'Button_navigate_to');
+
                                                 context.pushNamedAuth(
                                                     'OnBoarding', mounted);
+
+                                                setState(() {});
                                               },
                                               text: 'Creer un compte',
                                               options: FFButtonOptions(
@@ -919,9 +1057,8 @@ class _SignupWidgetState extends State<SignupWidget>
                                         ),
                                       ),
                                     ],
-                                  ).animated([
-                                    animationsMap['columnOnPageLoadAnimation2']!
-                                  ]),
+                                  ).animateOnPageLoad(animationsMap[
+                                      'columnOnPageLoadAnimation2']!),
                                 ),
                               ],
                             ),

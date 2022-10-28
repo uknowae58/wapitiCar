@@ -1,10 +1,11 @@
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart'
+    as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AstucesWidget extends StatefulWidget {
   const AstucesWidget({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class _AstucesWidgetState extends State<AstucesWidget> {
                     ),
                     onPressed: () async {
                       logFirebaseEvent('ASTUCES_PAGE_house_ICN_ON_TAP');
-                      logFirebaseEvent('IconButton_Navigate-Back');
+                      logFirebaseEvent('IconButton_navigate_back');
                       context.pop();
                     },
                   ),
@@ -329,7 +330,7 @@ class _AstucesWidgetState extends State<AstucesWidget> {
                         alignment: AlignmentDirectional(0, 1),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                          child: SmoothPageIndicator(
+                          child: smooth_page_indicator.SmoothPageIndicator(
                             controller: pageViewController ??=
                                 PageController(initialPage: 0),
                             count: 5,
@@ -341,7 +342,7 @@ class _AstucesWidgetState extends State<AstucesWidget> {
                                 curve: Curves.ease,
                               );
                             },
-                            effect: ExpandingDotsEffect(
+                            effect: smooth_page_indicator.ExpandingDotsEffect(
                               expansionFactor: 2,
                               spacing: 8,
                               radius: 16,

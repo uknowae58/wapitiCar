@@ -10,6 +10,8 @@ import '../../auth/firebase_user_provider.dart';
 
 import '../../index.dart';
 import '../../main.dart';
+import '../lat_lng.dart';
+import '../place.dart';
 import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -81,21 +83,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => SignupWidget(),
             ),
             FFRoute(
-              name: 'OnBoarding',
-              path: 'onBoarding',
-              builder: (context, params) => OnBoardingWidget(),
-            ),
-            FFRoute(
               name: 'PasswordForgotten',
               path: 'passwordForgotten',
               builder: (context, params) => PasswordForgottenWidget(),
             ),
             FFRoute(
-              name: 'Home',
-              path: 'home',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Home')
-                  : HomeWidget(),
+              name: 'OnBoarding',
+              path: 'onBoarding',
+              builder: (context, params) => OnBoardingWidget(),
             ),
             FFRoute(
               name: 'Profile',
@@ -105,74 +100,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : ProfileWidget(),
             ),
             FFRoute(
-              name: 'Location',
-              path: 'location',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Location')
-                  : LocationWidget(
-                      temoin: params.getParam('temoin', ParamType.bool),
-                      gerant: params.getParam(
-                          'gerant', ParamType.DocumentReference, 'Users'),
-                    ),
-            ),
-            FFRoute(
-              name: 'Vente',
-              path: 'vente',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'Vente')
-                  : VenteWidget(
-                      temoin: params.getParam('temoin', ParamType.bool),
-                    ),
-            ),
-            FFRoute(
-              name: 'LocationDetailsOfcar',
-              path: 'locationDetailsOfcar',
-              builder: (context, params) => LocationDetailsOfcarWidget(
-                marque: params.getParam('marque', ParamType.String),
-                annee: params.getParam('annee', ParamType.int),
-                nbSiege: params.getParam('nbSiege', ParamType.int),
-                prix: params.getParam('prix', ParamType.int),
-                carburant: params.getParam('carburant', ParamType.String),
-                transmission: params.getParam('transmission', ParamType.String),
-                leclient: params.getParam(
-                    'leclient', ParamType.DocumentReference, 'Users'),
-                vehicule: params.getParam(
-                    'vehicule', ParamType.DocumentReference, 'Location'),
-                gerant: params.getParam(
-                    'gerant', ParamType.DocumentReference, 'Users'),
-              ),
-            ),
-            FFRoute(
-              name: 'VenteDetailsOfcar',
-              path: 'venteDetailsOfcar',
-              builder: (context, params) => VenteDetailsOfcarWidget(
-                marque: params.getParam('marque', ParamType.String),
-                transmission: params.getParam('transmission', ParamType.String),
-                nbSiege: params.getParam('nbSiege', ParamType.int),
-                annee: params.getParam('annee', ParamType.int),
-                carburant: params.getParam('carburant', ParamType.String),
-                kilometrage: params.getParam('kilometrage', ParamType.int),
-                prix: params.getParam('prix', ParamType.int),
-                car: params.getParam(
-                    'car', ParamType.DocumentReference, 'Vente'),
-                gerant: params.getParam(
-                    'gerant', ParamType.DocumentReference, 'Users'),
-                camera: params.getParam('camera', ParamType.String),
-                bluetooth: params.getParam('bluetooth', ParamType.String),
-                cle: params.getParam('cle', ParamType.String),
-                capteurs: params.getParam('capteurs', ParamType.String),
-              ),
-            ),
-            FFRoute(
               name: 'RendezVousVente',
               path: 'rendezVousVente',
               builder: (context, params) => RendezVousVenteWidget(
                 leclient: params.getParam(
-                    'leclient', ParamType.DocumentReference, 'Users'),
+                    'leclient', ParamType.DocumentReference, false, 'Users'),
                 carvente: params.getParam(
-                    'carvente', ParamType.DocumentReference, 'Vente'),
+                    'carvente', ParamType.DocumentReference, false, 'Vente'),
                 gerant: params.getParam(
-                    'gerant', ParamType.DocumentReference, 'Users'),
+                    'gerant', ParamType.DocumentReference, false, 'Users'),
               ),
             ),
             FFRoute(
@@ -184,20 +120,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ChatMessageWidget(
                 chatUser: params.getParam('chatUser', ParamType.Document),
                 chatRef: params.getParam(
-                    'chatRef', ParamType.DocumentReference, 'chats'),
-              ),
-            ),
-            FFRoute(
-              name: 'LocationO',
-              path: 'locationO',
-              builder: (context, params) => LocationOWidget(
-                marque: params.getParam('marque', ParamType.String),
-                transmission: params.getParam('transmission', ParamType.String),
-                prix: params.getParam('prix', ParamType.int),
-                gerant: params.getParam(
-                    'gerant', ParamType.DocumentReference, 'Users'),
-                vehicule: params.getParam(
-                    'vehicule', ParamType.DocumentReference, 'Location'),
+                    'chatRef', ParamType.DocumentReference, false, 'chats'),
               ),
             ),
             FFRoute(
@@ -216,14 +139,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => RendezVousWidget(),
             ),
             FFRoute(
-              name: 'Commandes',
-              path: 'commandes',
-              builder: (context, params) => CommandesWidget(),
-            ),
-            FFRoute(
               name: 'pneus',
               path: 'pneus',
               builder: (context, params) => PneusWidget(),
+            ),
+            FFRoute(
+              name: 'Commandes',
+              path: 'commandes',
+              builder: (context, params) => CommandesWidget(),
             ),
             FFRoute(
               name: 'astuces',
@@ -234,21 +157,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'potechappement',
               path: 'potechappement',
               builder: (context, params) => PotechappementWidget(),
-            ),
-            FFRoute(
-              name: 'nodispo',
-              path: 'nodispo',
-              builder: (context, params) => NodispoWidget(),
-            ),
-            FFRoute(
-              name: 'AllChatPage',
-              path: 'allChatPage',
-              builder: (context, params) => AllChatPageWidget(),
-            ),
-            FFRoute(
-              name: 'Services',
-              path: 'services',
-              builder: (context, params) => ServicesWidget(),
             ),
             FFRoute(
               name: 'changeProfil',
@@ -281,11 +189,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => SuvWidget(),
             ),
             FFRoute(
-              name: 'Travaux',
-              path: 'travaux',
-              builder: (context, params) => TravauxWidget(),
-            ),
-            FFRoute(
               name: 'Midas',
               path: 'midas',
               builder: (context, params) => MidasWidget(),
@@ -296,9 +199,130 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => AProposWidget(),
             ),
             FFRoute(
-              name: 'paymentPage',
-              path: 'paymentPage',
-              builder: (context, params) => PaymentPageWidget(),
+              name: 'Louer',
+              path: 'louer',
+              builder: (context, params) => LouerWidget(
+                marque: params.getParam('marque', ParamType.String),
+                transmission: params.getParam('transmission', ParamType.String),
+                prix: params.getParam('prix', ParamType.int),
+                gerant: params.getParam(
+                    'gerant', ParamType.DocumentReference, false, 'Users'),
+                vehicule: params.getParam(
+                    'vehicule', ParamType.DocumentReference, false, 'Location'),
+              ),
+            ),
+            FFRoute(
+              name: 'generalAuto',
+              path: 'generalAuto',
+              builder: (context, params) => GeneralAutoWidget(),
+            ),
+            FFRoute(
+              name: 'AjouterOptions_Location',
+              path: 'ajouterOptionsLocation',
+              builder: (context, params) => AjouterOptionsLocationWidget(
+                marque: params.getParam('marque', ParamType.String),
+                transmission: params.getParam('transmission', ParamType.String),
+                prix: params.getParam('prix', ParamType.int),
+                gerant: params.getParam(
+                    'gerant', ParamType.DocumentReference, false, 'Users'),
+                vehicule: params.getParam(
+                    'vehicule', ParamType.DocumentReference, false, 'Location'),
+                prixTotal: params.getParam('prixTotal', ParamType.int),
+                dateDebut: params.getParam('dateDebut', ParamType.DateTime),
+                nbJour: params.getParam('nbJour', ParamType.int),
+              ),
+            ),
+            FFRoute(
+              name: 'PaymentCheckout_Location',
+              path: 'paymentCheckoutLocation',
+              builder: (context, params) => PaymentCheckoutLocationWidget(
+                dateDebut: params.getParam('dateDebut', ParamType.DateTime),
+                vehicule: params.getParam(
+                    'vehicule', ParamType.DocumentReference, false, 'Location'),
+                prixTotal: params.getParam('prixTotal', ParamType.int),
+                nbJour: params.getParam('nbJour', ParamType.int),
+                carburant: params.getParam('carburant', ParamType.String),
+                chauffeur: params.getParam('chauffeur', ParamType.bool),
+                prix: params.getParam('prix', ParamType.int),
+              ),
+            ),
+            FFRoute(
+              name: 'LocationDetailsOfcar',
+              path: 'locationDetailsOfcar',
+              builder: (context, params) => LocationDetailsOfcarWidget(
+                marque: params.getParam('marque', ParamType.String),
+                annee: params.getParam('annee', ParamType.int),
+                nbSiege: params.getParam('nbSiege', ParamType.int),
+                prix: params.getParam('prix', ParamType.int),
+                carburant: params.getParam('carburant', ParamType.String),
+                transmission: params.getParam('transmission', ParamType.String),
+                leclient: params.getParam(
+                    'leclient', ParamType.DocumentReference, false, 'Users'),
+                vehicule: params.getParam(
+                    'vehicule', ParamType.DocumentReference, false, 'Location'),
+                gerant: params.getParam(
+                    'gerant', ParamType.DocumentReference, false, 'Users'),
+              ),
+            ),
+            FFRoute(
+              name: 'AllChatPage',
+              path: 'allChatPage',
+              builder: (context, params) => AllChatPageWidget(),
+            ),
+            FFRoute(
+              name: 'Home',
+              path: 'home',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Home')
+                  : HomeWidget(),
+            ),
+            FFRoute(
+              name: 'Location',
+              path: 'location',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Location')
+                  : LocationWidget(
+                      temoin: params.getParam('temoin', ParamType.bool),
+                      gerant: params.getParam('gerant',
+                          ParamType.DocumentReference, false, 'Users'),
+                    ),
+            ),
+            FFRoute(
+              name: 'Vente',
+              path: 'vente',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Vente')
+                  : VenteWidget(
+                      temoin: params.getParam('temoin', ParamType.bool),
+                    ),
+            ),
+            FFRoute(
+              name: 'Services',
+              path: 'services',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'Services')
+                  : ServicesWidget(),
+            ),
+            FFRoute(
+              name: 'VenteDetailsOfcar',
+              path: 'venteDetailsOfcar',
+              builder: (context, params) => VenteDetailsOfcarWidget(
+                marque: params.getParam('marque', ParamType.String),
+                transmission: params.getParam('transmission', ParamType.String),
+                nbSiege: params.getParam('nbSiege', ParamType.int),
+                annee: params.getParam('annee', ParamType.int),
+                carburant: params.getParam('carburant', ParamType.String),
+                kilometrage: params.getParam('kilometrage', ParamType.int),
+                prix: params.getParam('prix', ParamType.int),
+                car: params.getParam(
+                    'car', ParamType.DocumentReference, false, 'Vente'),
+                gerant: params.getParam(
+                    'gerant', ParamType.DocumentReference, false, 'Users'),
+                camera: params.getParam('camera', ParamType.String),
+                bluetooth: params.getParam('bluetooth', ParamType.String),
+                cle: params.getParam('cle', ParamType.String),
+                capteurs: params.getParam('capteurs', ParamType.String),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -384,7 +408,12 @@ class FFParameters {
 
   Map<String, dynamic> futureParamValues = {};
 
-  bool get isEmpty => state.allParams.isEmpty;
+  // Parameters are empty if the params map is empty or if the only parameter
+  // present is the special extra parameter reserved for the transition info.
+  bool get isEmpty =>
+      state.allParams.isEmpty ||
+      (state.extraMap.length == 1 &&
+          state.extraMap.containsKey(kTransitionInfoKey));
   bool isAsyncParam(MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
   bool get hasFutures => state.allParams.entries.any(isAsyncParam);
@@ -402,9 +431,10 @@ class FFParameters {
         ),
       ).onError((_, __) => [false]).then((v) => v.every((e) => e));
 
-  dynamic getParam(
+  dynamic getParam<T>(
     String paramName,
     ParamType type, [
+    bool isList = false,
     String? collectionName,
   ]) {
     if (futureParamValues.containsKey(paramName)) {
@@ -419,7 +449,7 @@ class FFParameters {
       return param;
     }
     // Return serialized value.
-    return deserializeParam(param, type, collectionName);
+    return deserializeParam<T>(param, type, isList, collectionName);
   }
 }
 
@@ -467,11 +497,9 @@ class FFRoute {
           final child = appStateNotifier.loading
               ? Container(
                   color: FlutterFlowTheme.of(context).theFourth,
-                  child: Builder(
-                    builder: (context) => Image.asset(
-                      'assets/images/wapiti_logo_png.png',
-                      fit: BoxFit.cover,
-                    ),
+                  child: Image.asset(
+                    'assets/images/wapiti_logo_png.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

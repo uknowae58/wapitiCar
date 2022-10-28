@@ -1,7 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_expanded_image_view.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -34,38 +33,6 @@ class _BerlineWidgetState extends State<BerlineWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).theFourth,
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.chevron_left,
-            color: FlutterFlowTheme.of(context).primaryText,
-            size: 30,
-          ),
-          onPressed: () async {
-            logFirebaseEvent('BERLINE_PAGE_chevron_left_ICN_ON_TAP');
-            logFirebaseEvent('IconButton_Navigate-Back');
-            context.pop();
-          },
-        ),
-        title: Text(
-          'Berline',
-          style: FlutterFlowTheme.of(context).bodyText1.override(
-                fontFamily: 'San fransisco',
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                useGoogleFonts: false,
-              ),
-        ),
-        actions: [],
-        centerTitle: false,
-        elevation: 0,
-      ),
       backgroundColor: FlutterFlowTheme.of(context).theFourth,
       body: SafeArea(
         child: GestureDetector(
@@ -74,86 +41,58 @@ class _BerlineWidgetState extends State<BerlineWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(20, 21, 20, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        logFirebaseEvent('BERLINE_PAGE_Card_rv6qum0q_ON_TAP');
+                        logFirebaseEvent('Card_navigate_back');
+                        context.pop();
+                      },
+                      child: Card(
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        color: Color(0xFF3A44E9),
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Icon(
+                          Icons.chevron_left,
+                          color: FlutterFlowTheme.of(context).theFourth,
+                          size: 28,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                      child: Text(
+                        'Berline',
+                        style: FlutterFlowTheme.of(context).title2.override(
+                              fontFamily: 'San fransisco',
+                              color: Color(0xFF090F13),
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              useGoogleFonts: false,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(12, 8, 0, 0),
                 child: Text(
-                  'Retrouvez tous nos véhicules de type de berline. Naviguez à travers les différents onglets en fonction de la categorie que vous recherchez.',
+                  'Retrouvez tous nos véhicules de type de berline. Naviguez à travers les différents onglets en fonction de votre besoin',
                   style: FlutterFlowTheme.of(context).bodyText2.override(
                         fontFamily: 'Lexend Deca',
                         color: Color(0xFF8B97A2),
-                        fontSize: 12,
+                        fontSize: 14,
                         fontWeight: FontWeight.normal,
                       ),
                 ),
-              ),
-              StreamBuilder<UsersRecord>(
-                stream: UsersRecord.getDocument(FFAppState().wapitiCar!),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: SpinKitPulse(
-                          color: Color(0xFF175EFB),
-                          size: 50,
-                        ),
-                      ),
-                    );
-                  }
-                  final rowUsersRecord = snapshot.data!;
-                  return Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                        child: Text(
-                          'En cas de soucis contactez',
-                          style:
-                              FlutterFlowTheme.of(context).bodyText2.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Color(0xFF8B97A2),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(3, 0, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            logFirebaseEvent(
-                                'BERLINE_PAGE_Text_nyysassz_ON_TAP');
-                            logFirebaseEvent('Text_Navigate-To');
-                            context.pushNamed(
-                              'ChatMessage',
-                              queryParams: {
-                                'chatUser': serializeParam(
-                                    rowUsersRecord, ParamType.Document),
-                              }.withoutNulls,
-                              extra: <String, dynamic>{
-                                'chatUser': rowUsersRecord,
-                              },
-                            );
-                          },
-                          child: Text(
-                            'wapiti car ',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyText2
-                                .override(
-                                  fontFamily: 'Lexend Deca',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
               ),
               Expanded(
                 child: Padding(
@@ -224,49 +163,55 @@ class _BerlineWidgetState extends State<BerlineWidget> {
                                               logFirebaseEvent(
                                                   'BERLINE_PAGE_Container_qu60coyx_ON_TAP');
                                               logFirebaseEvent(
-                                                  'Container_Navigate-To');
+                                                  'Container_navigate_to');
+
                                               context.pushNamed(
                                                 'LocationDetailsOfcar',
                                                 queryParams: {
                                                   'marque': serializeParam(
-                                                      listViewLocationRecord
-                                                          .marque,
-                                                      ParamType.String),
+                                                    listViewLocationRecord
+                                                        .marque,
+                                                    ParamType.String,
+                                                  ),
                                                   'annee': serializeParam(
-                                                      listViewLocationRecord
-                                                          .annee,
-                                                      ParamType.int),
+                                                    listViewLocationRecord
+                                                        .annee,
+                                                    ParamType.int,
+                                                  ),
                                                   'nbSiege': serializeParam(
-                                                      listViewLocationRecord
-                                                          .nbSiege,
-                                                      ParamType.int),
+                                                    listViewLocationRecord
+                                                        .nbSiege,
+                                                    ParamType.int,
+                                                  ),
                                                   'prix': serializeParam(
-                                                      listViewLocationRecord
-                                                          .prix,
-                                                      ParamType.int),
+                                                    listViewLocationRecord.prix,
+                                                    ParamType.int,
+                                                  ),
                                                   'carburant': serializeParam(
-                                                      listViewLocationRecord
-                                                          .carburant,
-                                                      ParamType.String),
+                                                    listViewLocationRecord
+                                                        .carburant,
+                                                    ParamType.String,
+                                                  ),
                                                   'transmission':
                                                       serializeParam(
-                                                          listViewLocationRecord
-                                                              .transmission,
-                                                          ParamType.String),
+                                                    listViewLocationRecord
+                                                        .transmission,
+                                                    ParamType.String,
+                                                  ),
                                                   'leclient': serializeParam(
-                                                      currentUserReference,
-                                                      ParamType
-                                                          .DocumentReference),
+                                                    currentUserReference,
+                                                    ParamType.DocumentReference,
+                                                  ),
                                                   'vehicule': serializeParam(
-                                                      listViewLocationRecord
-                                                          .reference,
-                                                      ParamType
-                                                          .DocumentReference),
+                                                    listViewLocationRecord
+                                                        .reference,
+                                                    ParamType.DocumentReference,
+                                                  ),
                                                   'gerant': serializeParam(
-                                                      listViewLocationRecord
-                                                          .gerant,
-                                                      ParamType
-                                                          .DocumentReference),
+                                                    listViewLocationRecord
+                                                        .gerant,
+                                                    ParamType.DocumentReference,
+                                                  ),
                                                 }.withoutNulls,
                                               );
                                             },
@@ -834,62 +779,71 @@ class _BerlineWidgetState extends State<BerlineWidget> {
                                               logFirebaseEvent(
                                                   'BERLINE_PAGE_Container_u6qye753_ON_TAP');
                                               logFirebaseEvent(
-                                                  'Container_Navigate-To');
+                                                  'Container_navigate_to');
+
                                               context.pushNamed(
                                                 'VenteDetailsOfcar',
                                                 queryParams: {
                                                   'marque': serializeParam(
-                                                      listViewVenteRecord
-                                                          .marque,
-                                                      ParamType.String),
+                                                    listViewVenteRecord.marque,
+                                                    ParamType.String,
+                                                  ),
                                                   'transmission':
                                                       serializeParam(
-                                                          listViewVenteRecord
-                                                              .transmission,
-                                                          ParamType.String),
+                                                    listViewVenteRecord
+                                                        .transmission,
+                                                    ParamType.String,
+                                                  ),
                                                   'nbSiege': serializeParam(
-                                                      listViewVenteRecord
-                                                          .nbSiege,
-                                                      ParamType.int),
+                                                    listViewVenteRecord.nbSiege,
+                                                    ParamType.int,
+                                                  ),
                                                   'annee': serializeParam(
-                                                      listViewVenteRecord.annee,
-                                                      ParamType.int),
+                                                    listViewVenteRecord.annee,
+                                                    ParamType.int,
+                                                  ),
                                                   'carburant': serializeParam(
-                                                      listViewVenteRecord
-                                                          .carburant,
-                                                      ParamType.String),
+                                                    listViewVenteRecord
+                                                        .carburant,
+                                                    ParamType.String,
+                                                  ),
                                                   'kilometrage': serializeParam(
-                                                      listViewVenteRecord
-                                                          .kilometrage,
-                                                      ParamType.int),
+                                                    listViewVenteRecord
+                                                        .kilometrage,
+                                                    ParamType.int,
+                                                  ),
                                                   'prix': serializeParam(
-                                                      listViewVenteRecord.prix,
-                                                      ParamType.int),
+                                                    listViewVenteRecord.prix,
+                                                    ParamType.int,
+                                                  ),
                                                   'car': serializeParam(
-                                                      listViewVenteRecord
-                                                          .reference,
-                                                      ParamType
-                                                          .DocumentReference),
+                                                    listViewVenteRecord
+                                                        .reference,
+                                                    ParamType.DocumentReference,
+                                                  ),
                                                   'gerant': serializeParam(
-                                                      listViewVenteRecord
-                                                          .gerant,
-                                                      ParamType
-                                                          .DocumentReference),
+                                                    listViewVenteRecord.gerant,
+                                                    ParamType.DocumentReference,
+                                                  ),
                                                   'camera': serializeParam(
-                                                      listViewVenteRecord
-                                                          .cameraArriere,
-                                                      ParamType.String),
+                                                    listViewVenteRecord
+                                                        .cameraArriere,
+                                                    ParamType.String,
+                                                  ),
                                                   'bluetooth': serializeParam(
-                                                      listViewVenteRecord
-                                                          .bluetooth,
-                                                      ParamType.String),
+                                                    listViewVenteRecord
+                                                        .bluetooth,
+                                                    ParamType.String,
+                                                  ),
                                                   'cle': serializeParam(
-                                                      listViewVenteRecord.cle,
-                                                      ParamType.String),
+                                                    listViewVenteRecord.cle,
+                                                    ParamType.String,
+                                                  ),
                                                   'capteurs': serializeParam(
-                                                      listViewVenteRecord
-                                                          .capteurs,
-                                                      ParamType.String),
+                                                    listViewVenteRecord
+                                                        .capteurs,
+                                                    ParamType.String,
+                                                  ),
                                                 }.withoutNulls,
                                                 extra: <String, dynamic>{
                                                   kTransitionInfoKey:
@@ -1190,7 +1144,7 @@ class _BerlineWidgetState extends State<BerlineWidget> {
                                                                         logFirebaseEvent(
                                                                             'BERLINE_PAGE_Image_ukevgyik_ON_TAP');
                                                                         logFirebaseEvent(
-                                                                            'Image_Expand-Image');
+                                                                            'Image_expand_image');
                                                                         await Navigator
                                                                             .push(
                                                                           context,
